@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 export default function Profile() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
+  console.log(storedUser);
+
+
 
 
   return (

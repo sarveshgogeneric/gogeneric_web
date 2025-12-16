@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(3px);
-  z-index: 9999;
+  z-index: 999;
 }
 
 /* Modal Box */
@@ -119,4 +119,20 @@
 .close-icon:hover {
   color: #000;
   transform: scale(1.1);
+}
+.password-wrapper {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.eye-icon:hover {
+  color: #000;
 }

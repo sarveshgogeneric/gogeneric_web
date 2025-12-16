@@ -3,17 +3,25 @@ import "./LoginModal.css";
 import api from "../../api/axiosInstance";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginModal({ onClose }) {
   const [isSignup, setIsSignup] = useState(false);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [identifier, setIdentifier] = useState("");
 
-  const { login } = useAuth(); // ✅ ONLY THIS
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // 👁️ Password visibility states
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { login } = useAuth();
 
   /* ================= SIGNUP ================= */
   const handleSignup = async () => {
@@ -32,6 +40,17 @@ export default function LoginModal({ onClose }) {
       return;
     }
 
+    const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+if (!passwordRegex.test(password)) {
+  toast.error(
+    "Password must be at least 8 characters and include uppercase, lowercase, number & special character"
+  );
+  return;
+}
+
+
     try {
       const res = await api.post("/api/v1/auth/sign-up", {
         name,
@@ -49,9 +68,7 @@ export default function LoginModal({ onClose }) {
         phone: apiUser?.phone || phone,
       };
 
-      // ⚠️ Signup API does NOT return token usually
       login(normalizedUser, null);
-
       toast.success("Signup successful!");
       onClose();
     } catch (err) {
@@ -91,8 +108,7 @@ export default function LoginModal({ onClose }) {
         phone: apiUser?.phone,
       };
 
-      login(normalizedUser, res.data.token); // ✅ SINGLE LINE FIX
-
+      login(normalizedUser, res.data.token);
       toast.success(`Welcome ${normalizedUser.name}`);
       onClose();
     } catch (err) {
@@ -134,21 +150,53 @@ export default function LoginModal({ onClose }) {
               onChange={(e) => setPhone(e.target.value)}
             />
 
-            <input
-              className="input"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            {/* Signup Password */}
+            <div className="password-wrapper">
+              <input
+                className="input"
+                type={showSignupPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span
+                className="eye-icon"
+                onClick={() =>
+                  setShowSignupPassword(!showSignupPassword)
+                }
+              >
+                {showSignupPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
+              </span>
+            </div>
 
-            <input
-              className="input"
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+            {/* Confirm Password */}
+            <div className="password-wrapper">
+              <input
+                className="input"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) =>
+                  setConfirmPassword(e.target.value)
+                }
+              />
+              <span
+                className="eye-icon"
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
+              >
+                {showConfirmPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
+              </span>
+            </div>
 
             <button className="submit-btn" onClick={handleSignup}>
               Signup
@@ -167,16 +215,34 @@ export default function LoginModal({ onClose }) {
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
             />
-            <input
-              className="input"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+
+            {/* Login Password */}
+            <div className="password-wrapper">
+              <input
+                className="input"
+                type={showLoginPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span
+                className="eye-icon"
+                onClick={() =>
+                  setShowLoginPassword(!showLoginPassword)
+                }
+              >
+                {showLoginPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
+              </span>
+            </div>
+
             <button className="submit-btn" onClick={handleLogin}>
               Login
             </button>
+
             <p className="switch-text">
               Don’t have an account?
               <span onClick={() => setIsSignup(true)}> Signup</span>

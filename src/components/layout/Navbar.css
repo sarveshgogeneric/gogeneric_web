@@ -255,3 +255,31 @@ body.dark-mode .dark-toggle {
   padding: 2px 8px;
   border-radius: 12px;
 }
+/* ================= SIDEBAR SCROLLBAR ================= */
+.side-menu {
+  overflow-y: auto; /* enable vertical scroll */
+}
+
+/* Chrome, Edge, Safari */
+.side-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.side-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.side-menu::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #72b5e5, #499ad4);
+  border-radius: 10px;
+}
+
+.side-menu::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #499ad4, #2f7fc1);
+}
+
+/* Firefox */
+.side-menu {
+  scrollbar-width: thin;
+  scrollbar-color: #499ad4 transparent;
+}

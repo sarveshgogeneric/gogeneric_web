@@ -23,12 +23,17 @@ import ContactUs from "./components/pages/ContactUs.jsx";
 function App() {
   return (
     <>
-      <Toaster position="top-right" reverseOrder={false} />
+    <AuthProvider>
+      <Toaster position="top-right"  toastOptions={{
+          style: {
+            zIndex: 99999,
+          },
+        }} />
       <TopHeader />
       <Navbar />
       <Searchbar />
       <Social />
-      <AuthProvider>
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -41,8 +46,6 @@ function App() {
         <Route path="/category/:id" element={<CategoryItems />} />
         <Route path="/store/:id" element={<FeaturedStoreDetails />} />
         <Route path="/wishlist" element={<Wishlist />} />
-
-
       </Routes>
       </AuthProvider>
     </>

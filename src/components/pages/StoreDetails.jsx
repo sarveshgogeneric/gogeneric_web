@@ -4,6 +4,7 @@ import api from "../../api/axiosInstance";
 import { cleanImageUrl } from "../../utils";
 import { addToCart } from "../../utils/cartHelper";
 import WishlistButton from "../WishlistButton";
+import toast from "react-hot-toast";
 
 import {
   MapPin,
@@ -43,6 +44,39 @@ export default function StoreDetails() {
   useEffect(() => {
     if (store?.id) fetchProducts();
   }, [store]);
+
+
+    const getDialablePhone = (phone) => {
+  if (!phone) return null;
+  return phone.replace(/\D/g, "");
+};
+
+const handleShare = async () => {
+  const shareData = {
+    title: store.name,
+    text: `Check out ${store.name}\n${store.address}`,
+    url: window.location.href,
+  };
+
+  try {
+    if (navigator.share) {
+      // Mobile / supported browsers
+      await navigator.share(shareData);
+    } else {
+      // Desktop fallback
+      await navigator.clipboard.writeText(
+        `${shareData.text}\n${shareData.url}`
+      );
+     toast.success("Store link copied!");
+
+    }
+  } catch (err) {
+    toast.success("Share failed");
+
+    console.error("Share failed", err);
+  }
+};
+
 
   const fetchStoreDetails = async () => {
     try {
@@ -146,8 +180,23 @@ export default function StoreDetails() {
       {/* ===== Actions ===== */}
       <div className="action-row">
         <button><Navigation size={16} /> Direction</button>
-        <button><Share2 size={16} /> Share</button>
-        <button><Phone size={16} /> Call</button>
+        <button onClick={handleShare}>
+  <Share2 size={16} /> Share
+</button>
+
+        <button
+  onClick={() => {
+    const phone = getDialablePhone(store.phone);
+    if (!phone) {
+      alert("Phone number not available");
+      return;
+    }
+    window.location.href = `tel:${phone}`;
+  }}
+>
+  <Phone size={16} /> Call
+</button>
+
       </div>
 
       {/* ===== Image ===== */}
