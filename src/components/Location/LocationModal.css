@@ -1,0 +1,127 @@
+.loc-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loc-modal {
+  width: 550px;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.loc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.close-btn {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.address {
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.map-box {
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.pick-btn {
+  width: 100%;
+  background: #02a95c;
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.suggest-box {
+  max-height: 180px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.suggest-item {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.suggest-item:hover {
+  background: #f1f1f1;
+}
+.search-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.suggestions {
+  position: absolute;
+  background: #fff;
+  width: 100%;
+  max-height: 160px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  z-index: 1000;
+}
+
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
+  list-style: none;
+  border-bottom: 1px solid #eee;
+}
+
+.suggestions li:hover {
+  background: #f2f2f2;
+}
+

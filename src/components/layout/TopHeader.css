@@ -1,0 +1,191 @@
+.topheader {
+  background-color: #bad9ef;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Selected Language Box */
+.lang-selected {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  width: 140px;
+  cursor: pointer;
+  border-radius: 6px;
+  background: #fff;
+  transition: all 0.25s ease;
+}
+
+.lang-selected:hover {
+  background-color: #f1f5f9;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+
+/* Dropdown Menu */
+.lang-dropdown {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 6px;
+  width: 150px;
+  background: white;
+  border-radius: 8px;
+  padding: 6px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+/* Language Options */
+.lang-option {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.lang-option:hover {
+  background: #e9f3ff;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+
+/* Flag Icon */
+.flag-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+/* Arrow Icon */
+.arrow {
+  margin-left: auto;
+  font-size: 18px;
+}
+
+/* DARK MODE MAIN BACKGROUND */
+body.dark-mode {
+  background-color: #0d1117;
+  color: #e6e6e6;
+  transition: 0.3s ease;
+}
+
+/* HEADER DARK MODE */
+.dark-header {
+  background-color: #1a2332 !important;
+}
+
+/* WHITE BOXES → DARK */
+.dark-box {
+  background: #2d3748 !important;
+}
+
+/* TEXT DARK MODE */
+.dark-text {
+  color: #e6e6e6 !important;
+}
+
+.dark-text-bold {
+  color: #fff !important;
+}
+
+/* LANGUAGE DROPDOWN DARK */
+.dark-dropdown {
+  background: #2d3748 !important;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.dark-dropdown .lang-option:hover {
+  background: #3b475a !important;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(255,255,255,0.08);
+}
+
+
+/* TOGGLE BUTTON */
+.theme-btn {
+  background: white;
+  border-radius: 20px;
+  padding: 6px 12px;
+}
+
+body.dark-mode .theme-btn {
+  background: #2d3748;
+  color: white;
+}
+
+/* LIGHT MODE LOCATION TEXT (FORCE BLACK) */
+body:not(.dark-mode) .dark-text {
+  color: #1a1a1a !important;
+}
+
+body:not(.dark-mode) .dark-text-bold {
+  color: #000 !important;
+}
+/* PROFILE DROPDOWN */
+.profile-dropdown {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 230px;
+  background: #fff;
+  padding: 14px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: all 0.25s ease;
+}
+
+
+.profile-dropdown .welcome-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-dropdown .sub-text {
+  font-size: 13px;
+  margin-top: 2px;
+  color: #666;
+}
+
+.profile-dropdown .login-btn {
+  margin-top: 10px;
+  width: 100%;
+  background: blue;
+  color: white;
+  padding: 8px 0;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.profile-dropdown .login-btn:hover {
+  background: #739ce3;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+/* Make ALL text bright in dark mode */
+body.dark-mode .topheader * {
+  color: #ffffff !important;
+}
+
+/* But keep icons with their original color if needed */
+body.dark-mode .topheader svg {
+  color: #ffffff !important;
+}
+
+/* Boxes background dark */
+body.dark-mode .lang-selected,
+body.dark-mode .profile-dropdown,
+body.dark-mode .lang-dropdown {
+  background: #2d3748 !important;
+}

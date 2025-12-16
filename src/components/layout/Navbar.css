@@ -1,0 +1,248 @@
+/* ================= NAVBAR MAIN ================= */
+.navbar {
+  background: #72b5e5;
+  padding: 2px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-family: "Poppins", sans-serif;
+}
+.nav-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* LOGO */
+.nav-logo img {
+  height: 50px;
+  width: auto;
+}
+
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  list-style: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #324252;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #07223f;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* ALWAYS SHOW HAMBURGER */
+.hamburger {
+  font-size: 35px;
+  cursor: pointer;
+  color: #031c38;
+  padding: 6px;
+  border-radius: 50%;
+  transition: 0.25s ease;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ================== OVERLAY ================== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: brightness(45%);
+  background: rgba(0,0,0,0.4);
+  z-index: 90;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background: white;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: -3px 0 10px rgba(0,0,0,0.15);
+  transition: 0.35s ease-in-out;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.close-btn {
+  font-size: 26px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: #499ad4;
+  transform: rotate(90deg);
+}
+
+/* Sidebar Links */
+.side-links {
+  list-style: none;
+  padding: 0;
+}
+
+.side-links li {
+  margin: 12px 0;
+}
+
+.side-links li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #00315b;
+  background: #eef7ff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 17px;
+  transition: 0.3s ease;
+}
+
+/* HOVER EFFECT — PREMIUM */
+.side-links li a:hover {
+  background: #dff0ff;
+  transform: translateX(6px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ICON STYLE */
+.side-links li a svg {
+  font-size: 20px;
+  color: #005b96;
+}
+/* DARK MODE TOGGLE BUTTON */
+.dark-toggle {
+  font-size: 20px;
+  background: white;
+  border: none;
+  outline: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: #00315b;
+}
+
+.dark-toggle:hover {
+  background: #eaf5ff;
+  transform: scale(1.1);
+}
+
+/* DARK MODE */
+body.dark-mode {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* Navbar dark */
+body.dark-mode .navbar {
+  background: #1e293b !important;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.06);
+}
+
+body.dark-mode .nav-links li a {
+  color: #cfe0f5 !important;
+}
+
+body.dark-mode .nav-links li a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Hamburger dark */
+body.dark-mode .hamburger {
+  color: #ffffff !important;
+}
+
+/* Sidebar dark */
+body.dark-mode .side-menu {
+  background: #111827 !important;
+  color: #e2e8f0;
+}
+
+body.dark-mode .side-links li a {
+  background: #1f2937 !important;
+  border: 1px solid #2d3b4f !important;
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode .side-links li a:hover {
+  background: #2d3b50 !important;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.08);
+}
+
+/* Dark mode icon color */
+body.dark-mode .dark-toggle {
+  background: #334155;
+  color: #fff;
+}
+.cart-icon {
+  font-size: 22px;
+  cursor: pointer;
+  color: #031c38;
+  padding: 6px;
+  border-radius: 50%;
+  transition: 0.25s ease;
+  position: relative;
+}
+
+.cart-icon:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.3);
+}
+
+/* Cart count badge (future ready) */
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

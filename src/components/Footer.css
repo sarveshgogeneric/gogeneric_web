@@ -1,0 +1,161 @@
+.ak-footer-section {
+  background: linear-gradient(135deg, #003366, #002244);
+  color: #fff;
+  padding: 60px 20px 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.ak-footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.ak-footer-logo img {
+  max-width: 260px;
+  margin-bottom: 20px;
+}
+
+.ak-footer-text {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+.ak-footer-social-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ak-footer-social-icon span {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.ak-footer-social-icon a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  color: #fff;
+}
+
+.ak-footer-social-icon a:hover {
+  transform: scale(1.15);
+}
+
+.ak-facebook-bg {
+  background: #3b5998;
+}
+.ak-twitter-bg {
+  background: #55acee;
+}
+.ak-google-bg {
+  background: #e4405f;
+}
+.ak-youtube-bg {
+  background: #ff0000;
+}
+
+.ak-footer-widget-heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.ak-footer-widget-heading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 50px;
+  background: #ff5e14;
+}
+
+.ak-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ak-footer-links li {
+  margin-bottom: 10px;
+}
+
+.ak-footer-links li a {
+  color: #ddd;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.ak-footer-links li a:hover {
+  color: #ff5e14;
+  padding-left: 5px;
+}
+
+.ak-subscribe-form {
+  display: flex;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 10px;
+  color:#001a33
+}
+
+.ak-subscribe-form input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+}
+
+.ak-subscribe-form button {
+  background: #ff5e14;
+  border: none;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ak-subscribe-form button:hover {
+  background: #e14b0d;
+}
+
+.ak-subscribe-form button i {
+  color: #fff;
+  font-size: 16px;
+}
+
+.ak-copyright-area {
+  text-align: center;
+  background: #001a33;
+  padding: 15px 0;
+}
+
+.ak-copyright-text {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.ak-copyright-text a {
+  color: #ff5e14;
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .ak-footer-logo img {
+    max-width: 50px;
+    display: none;
+    margin-bottom: 20px;
+  }
+}

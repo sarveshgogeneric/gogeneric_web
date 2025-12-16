@@ -1,0 +1,218 @@
+:root {
+  --grad-1: linear-gradient(145deg, #d9f5e5, #e8fff3);
+  --grad-2: linear-gradient(145deg, #d9ecff, #edf6ff);
+  --grad-3: linear-gradient(145deg, #eee3ff, #f8f2ff);
+  --grad-4: linear-gradient(145deg, #e5ffe8, #f1fff3);
+  --grad-5: linear-gradient(145deg, #ffeede, #fff6ef);
+  --grad-6: linear-gradient(145deg, #dff5ff, #e9faff);
+  --grad-7: linear-gradient(145deg, #ffffe7, #fffff2);
+  --grad-8: linear-gradient(145deg, #ffe9ee, #fff1f4);
+}
+.store-section {
+  position: relative;
+  padding: 24px 0;
+}
+
+.store-section .store-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px; 
+}
+
+.store-section .featured-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0e3153;
+}
+
+.store-section .see-all-btn {
+  font-size: 14px;
+  color: #2563eb;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.store-section .store-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 900px;
+  padding: 12px 0;
+}
+
+.store-section .store-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.store-section .store-scroll {
+  display: inline-flex;
+  gap: 28px;
+}
+
+.store-section .store-card {
+  position: relative;
+  width: 480px;
+  min-height: 280px;
+  flex-shrink: 0;
+  padding: 26px 24px;
+  text-align: center;
+  border-radius: 22px;
+  cursor: pointer;
+
+  border: 1px solid rgba(14,49,83,0.08);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+  transition: all 0.35s ease;
+  background-size: 140% 140%;
+}
+
+.store-section .store-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+}
+
+.store-section .store-card:nth-child(4n + 1) {
+  background: var(--grad-1);
+}
+
+.store-section .store-card:nth-child(4n + 2) {
+  background: var(--grad-2);
+}
+
+.store-section .store-card:nth-child(4n + 3) {
+  background: var(--grad-3);
+}
+
+.store-section .store-card:nth-child(4n + 4) {
+  background: var(--grad-4);
+}
+
+
+.store-section .store-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 0 auto 14px;
+  padding: 12px;
+  border-radius: 16px;
+
+  background: linear-gradient(145deg, #ffffff, #f3f7ff);
+  border: 1px solid rgba(14,49,83,0.08);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+
+  transition: 0.3s ease;
+}
+
+.store-section .store-card:hover img {
+  transform: scale(1.08);
+}
+
+.store-section .store-name {
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0e3153;
+}
+
+.store-section .store-address {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 92%;
+  margin-inline: auto;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.store-section .store-meta {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.store-section .distance {
+  font-size: 13px;
+  color: #374151;
+}
+
+.store-section .status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.status.open {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status.closed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.store-section .scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.store-section .scroll-btn.left { left: -6px; }
+.store-section .scroll-btn.right { right: -6px; }
+
+
+@media (max-width: 768px) {
+  .store-section .store-card {
+    width: 260px;
+    min-height: 220px;
+    padding: 18px;
+  }
+
+  .store-section .store-card img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .store-section .store-name {
+    font-size: 15px;
+  }
+
+  .store-section .store-address {
+    -webkit-line-clamp: 1;
+    font-size: 13px;
+  }
+}
+
+body.dark-mode .store-section .featured-title {
+  color: #e9f1ff;
+}
+
+body.dark-mode .store-section .store-card:nth-child(4n + 1) {
+  background: linear-gradient(160deg, #1f2a37, #263241);
+}
+body.dark-mode .store-section .store-card:nth-child(4n + 2) {
+  background: linear-gradient(160deg, #1f2a37, #1f3a2e);
+}
+body.dark-mode .store-section .store-card:nth-child(4n + 3) {
+  background: linear-gradient(160deg, #1f2a37, #3a2f1f);
+}
+body.dark-mode .store-section .store-card:nth-child(4n + 4) {
+  background: linear-gradient(160deg, #1f2a37, #32263a);
+}
+
+body.dark-mode .store-section .store-name { color: #fff; }
+body.dark-mode .store-section .store-address { color: #cbd5e1; }
