@@ -65,15 +65,6 @@ export default function CategoryCards() {
                 alt={cat.name}
               />
               <p>{cat.name}</p>
-              {/* <button
-                className="view-btn"
-                onClick={(e) => {
-                  e.stopPropagation(); // prevent card click
-                  handleCardClick(cat);
-                }}
-              >
-                View
-              </button> */}
             </div>
           ))}
         </div>

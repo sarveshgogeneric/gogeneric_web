@@ -1,49 +1,184 @@
+/* ================= ULTRA-MODERN LUXURY PROFILE DASHBOARD ================= */
 
-
-.profile-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-gap: 20px;
+:root {
+  --primary-gradient: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+  --surface-white: #ffffff;
+  --bg-slate: #f8fafc;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --premium-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.04), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
 }
 
-
-.profile-field label {
-display: block;
-font-size: 12px;
-color: #6b7280;
-margin-bottom: 4px;
+body {
+  background-color: var(--bg-slate);
+  font-family: 'Inter', sans-serif;
 }
 
-
-.profile-field p {
-font-size: 14px;
-font-weight: 500;
-color: #111827;
+/* 1. Profile Hero Section (Top Header) */
+.bg-teal-50 {
+  background: var(--surface-white) !important;
+  border-radius: 30px !important;
+  padding: 40px !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  box-shadow: var(--premium-shadow) !important;
+  position: relative;
+  overflow: hidden;
 }
 
-
-.edit-btn {
-margin-top: 24px;
-padding: 10px 28px;
-background: #e11d48;
-color: #ffffff;
-border: none;
-border-radius: 999px;
-font-size: 14px;
-font-weight: 600;
-cursor: pointer;
+/* Decorative background element for hero */
+.bg-teal-50::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
 }
 
-
-.edit-btn:hover {
-background: #be123c;
+.bg-teal-200 {
+  background: var(--primary-gradient) !important;
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 22px !important; /* Squircle shape */
+  font-size: 28px !important;
+  box-shadow: 0 15px 30px rgba(13, 148, 136, 0.25) !important;
+  transform: rotate(-3deg);
+  transition: 0.3s ease;
 }
 
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-.myprofile-container {
-grid-template-columns: 1fr;
-}
+.bg-teal-50:hover .bg-teal-200 {
+  transform: rotate(0deg) scale(1.05);
 }
 
+/* 2. Modern Stat Cards (Glass Look) */
+.grid.grid-cols-1.sm\:grid-cols-3 > div {
+  background: var(--surface-white) !important;
+  border-radius: 24px !important;
+  padding: 24px !important;
+  border: 1px solid #f1f5f9 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.grid.grid-cols-1.sm\:grid-cols-3 > div:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08) !important;
+  border-color: #2dd4bf !important;
+}
+
+.grid.grid-cols-1.sm\:grid-cols-3 > div p:first-child {
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 11px;
+}
+
+.grid.grid-cols-1.sm\:grid-cols-3 > div p:last-child {
+  color: var(--text-main);
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+/* 3. Details & Settings Sections */
+.bg-white.rounded-2xl.shadow.p-6, 
+.bg-white.rounded-2xl.shadow.divide-y {
+  background: var(--surface-white) !important;
+  border-radius: 28px !important;
+  border: 1px solid #f1f5f9 !important;
+  box-shadow: var(--premium-shadow) !important;
+  padding: 30px !important;
+}
+
+.divide-y > div {
+  border-bottom: 1px solid #f8fafc !important;
+  padding: 20px 10px !important;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.divide-y > div:hover {
+  background: #f8fafc;
+  transform: translateX(5px);
+}
+
+/* 4. Modern Inputs */
+input {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  height: 50px;
+  padding: 0 20px !important;
+  border-radius: 14px !important;
+  color: var(--text-main) !important;
+  font-weight: 500;
+}
+
+input:focus {
+  background: #ffffff !important;
+  border-color: #14b8a6 !important;
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1) !important;
+}
+
+/* 5. Custom Toggle Switch (Premium Styling) */
+.bg-teal-500 {
+  background: #14b8a6 !important;
+  height: 28px !important;
+  width: 52px !important;
+}
+
+.bg-teal-500 div {
+  width: 22px !important;
+  height: 22px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 6. Action Buttons */
+button.bg-teal-600 {
+  background: var(--primary-gradient) !important;
+  border-radius: 16px !important;
+  height: 50px;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+}
+
+button.bg-teal-600:hover {
+  box-shadow: 0 12px 20px -5px rgba(20, 184, 166, 0.4) !important;
+  transform: scale(1.02);
+}
+
+/* 7. Glassmorphism Password Modal */
+.fixed.inset-0.bg-black\/40 {
+  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.5) !important;
+}
+
+.fixed.inset-0 .bg-white {
+  border-radius: 35px !important;
+  padding: 40px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 8. Danger Styling (Logout/Delete) */
+.text-red-500 {
+  color: #f43f5e !important;
+  font-weight: 700 !important;
+}
+
+.text-red-500:hover {
+  background: #fff1f2 !important;
+  color: #e11d48 !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .bg-teal-50 {
+    padding: 30px 20px !important;
+  }
+  
+  .grid.grid-cols-1.sm\:grid-cols-3 {
+    gap: 15px;
+  }
+}

@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import api from "../../api/axiosInstance";
 import { Pencil } from "lucide-react";
 import { Eye, EyeOff } from "lucide-react";
+// import "./Profile.css";  
 
 
 export default function Profile() {

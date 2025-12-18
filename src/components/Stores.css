@@ -1,317 +1,229 @@
+/* ================= PREMIUM STORES SECTION (FULL UPDATE) ================= */
+
 :root {
-  --grad-1: linear-gradient(145deg, #d9f5e5, #e8fff3);
-  --grad-2: linear-gradient(145deg, #d9ecff, #edf6ff);
-  --grad-3: linear-gradient(145deg, #eee3ff, #f8f2ff);
-  --grad-4: linear-gradient(145deg, #e5ffe8, #f1fff3);
-  --grad-5: linear-gradient(145deg, #ffeede, #fff6ef);
-  --grad-6: linear-gradient(145deg, #dff5ff, #e9faff);
-  --grad-7: linear-gradient(145deg, #ffffe7, #fffff2);
-  --grad-8: linear-gradient(145deg, #ffe9ee, #fff1f4);
-}
-.stores-page {
-  padding: 20px 0;
+  /* 8-Color Palette for Card Rotation */
+  --s-bg-1: #f0f9ff; /* Light Blue */
+  --s-bg-2: #f0fdf4; /* Light Green */
+  --s-bg-3: #faf5ff; /* Light Purple */
+  --s-bg-4: #fff7ed; /* Light Orange */
+  --s-bg-5: #fef2f2; /* Light Red */
+  --s-bg-6: #ecfeff; /* Light Cyan */
+  --s-bg-7: #f5f3ff; /* Light Indigo */
+  --s-bg-8: #f8fafc; /* Light Slate */
 }
 
-/* Heading */
+.stores-page {
+  padding: 40px 0;
+}
+
+/* 🔹 HEADING STYLE */
 .stores-heading {
-  font-size: 28px;
-  font-weight: 600;
-  color: #0e3153;
-  margin-bottom: 6px;
+  font-size: 30px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 4px;
 }
 
 .stores-sub {
-  color: #666;
-  margin-bottom: 20px;
+  font-size: 15px;
+  color: #64748b;
+  margin-bottom: 25px;
 }
 
-/* ============================
-   GRID (3 CARDS PER ROW)
-============================ */
-.stores-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 20px;
-}
-
-/* ============================
-   STORE CARD
-============================ */
-.store-card-6am {
-  position: relative;
-  border-radius: 16px;
-  padding: 14px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: 0.3s ease;
-  cursor: pointer;
-}
-
-.store-card-6am:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-/* ============================
-   IMAGE
-============================ */
-.store-image-wrapper {
-  width: 100%;
-  height: 200px;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.store-image-wrapper img {
-  width: 100%;
-  height: 110%;
-  object-fit: contain;
-  display: block;
-}
-
-/* ============================
-   STORE CONTENT (NAME / ADDRESS)
-============================ */
-.store-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: #0d2b45;
-  margin-top: 10px;
-}
-
-.store-address {
-  font-size: 13px;
-  color: #6b7280;
-  margin-top: 2px;
-}
-
-/* ============================
-   DISTANCE & RATING ROW
-============================ */
-.store-bottom-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.store-distance,
-.store-rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 13px;
-  color: #333;
-}
-
-/* Rating badge look */
-.store-rating svg {
-  margin-top: -2px;
-}
-
-/* ============================
-   OFFER BADGE
-============================ */
-.store-offer-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #ff3b3b;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-/* ============================
-   FILTER BUTTONS
-============================ */
-.store-filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.filter-btn {
-  padding: 8px 18px;
-  background: #f2f2f2;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
-}
-
-.filter-btn:hover {
-  background: #e8e8e8;
-}
-
-.filter-btn.active {
-  background: #0d6efd;
-  color: white;
-}
-
-/* ============================
-   SKELETON
-============================ */
-.skeleton-card {
-  height: 220px;
-  background: linear-gradient(90deg, #ececec, #f7f7f7, #ececec);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 16px;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* ============================
-   VIEW MORE BUTTON
-============================ */
-.view-more-top {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-}
-
-.view-more-btn {
-  background: #0e3153;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
-}
-
-.view-more-btn:hover {
-  background: #0e3153;
-}
-
-/* ============================
-          DARK MODE
-============================ */
-body.dark-mode .stores-heading {
-  color: #e8f0ff;
-}
-
-body.dark-mode .stores-sub {
-  color: #c4d0e3;
-}
-
-body.dark-mode .store-card-6am {
-  background: #1f2937;
-  color: #e6e6e6;
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.08);
-}
-
-body.dark-mode .store-name {
-  color: #dce6f6;
-}
-
-body.dark-mode .store-address {
-  color: #9fb2c7;
-}
-
-body.dark-mode .store-distance,
-body.dark-mode .store-rating {
-  color: #dce6f6;
-}
-
-body.dark-mode .filter-btn {
-  background: #2b3543;
-  color: #dce6f6;
-}
-
-body.dark-mode .filter-btn.active {
-  background: #0e3153;
-  color: #0d1420;
-}
-
-body.dark-mode .skeleton-card {
-  background: linear-gradient(90deg, #2a3342, #3a4658, #2a3342);
-}
-/* FILTER ROW */
+/* 🔹 FILTER ROW & BUTTONS */
 .filter-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-}
-/* ============================
-   CARD GRADIENT ROTATION
-============================ */
-/* ============================
-   CARD GRADIENT ROTATION
-============================ */
-.stores-grid > .store-card-6am:nth-of-type(8n + 1) {
-  background: var(--grad-1);
+  margin-bottom: 25px;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-.stores-grid > .store-card-6am:nth-of-type(8n + 2) {
-  background: var(--grad-2);
+.store-filters {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 5px 0;
 }
 
-.stores-grid > .store-card-6am:nth-of-type(8n + 3) {
-  background: var(--grad-3);
+.store-filters::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  padding: 8px 22px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.stores-grid > .store-card-6am:nth-of-type(8n + 4) {
-  background: var(--grad-4);
+.filter-btn.active {
+  background: #f57c00;
+  color: #ffffff;
+  border-color: #f57c00;
+  box-shadow: 0 8px 15px rgba(245, 124, 0, 0.2);
 }
 
-.stores-grid > .store-card-6am:nth-of-type(8n + 5) {
-  background: var(--grad-5);
+.view-more-btn {
+  background: #1e293b;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.stores-grid > .store-card-6am:nth-of-type(8n + 6) {
-  background: var(--grad-6);
+/* 🔹 STORES GRID */
+.stores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 10px;
 }
 
-.stores-grid > .store-card-6am:nth-of-type(8n + 7) {
-  background: var(--grad-7);
-}
-
-.stores-grid > .store-card-6am:nth-of-type(8n + 8) {
-  background: var(--grad-8);
-}
-
+/* 🔹 PREMIUM STORE CARD (DYNAMIC COLORS) */
 .store-card-6am {
-  background-size: 140% 140%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.4s;
+  position: relative;
+  border-radius: 28px; 
+  padding: 18px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  flex-direction: column;
 }
+
+/* Color Rotation logic (8 colors) */
+.stores-grid > .store-card-6am:nth-child(8n+1) { background-color: var(--s-bg-1); }
+.stores-grid > .store-card-6am:nth-child(8n+2) { background-color: var(--s-bg-2); }
+.stores-grid > .store-card-6am:nth-child(8n+3) { background-color: var(--s-bg-3); }
+.stores-grid > .store-card-6am:nth-child(8n+4) { background-color: var(--s-bg-4); }
+.stores-grid > .store-card-6am:nth-child(8n+5) { background-color: var(--s-bg-5); }
+.stores-grid > .store-card-6am:nth-child(8n+6) { background-color: var(--s-bg-6); }
+.stores-grid > .store-card-6am:nth-child(8n+7) { background-color: var(--s-bg-7); }
+.stores-grid > .store-card-6am:nth-child(8n+8) { background-color: var(--s-bg-8); }
 
 .store-card-6am:hover {
-  background-position: right bottom;
-}
-body.dark-mode .stores-grid > .store-card-6am:nth-of-type(6n + 1) {
-  background: linear-gradient(145deg, #1f2937, #263241);
-}
-
-body.dark-mode .stores-grid > .store-card-6am:nth-of-type(6n + 2) {
-  background: linear-gradient(145deg, #1f2937, #1f3a2e);
+  transform: translateY(-8px);
+  background: #ffffff !important; /* Pure white on hover */
+  border-color: #f57c00;
+  box-shadow: 0 15px 30px rgba(245, 124, 0, 0.12);
 }
 
-body.dark-mode .stores-grid > .store-card-6am:nth-of-type(6n + 3) {
-  background: linear-gradient(145deg, #1f2937, #3a2f1f);
+/* 🔹 IMAGE WRAPPER (CENTERED & NO CUTTING) */
+.store-image-wrapper {
+  width: 100%;
+  height: 160px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border: 1px solid rgba(0,0,0,0.02);
 }
 
-body.dark-mode .stores-grid > .store-card-6am:nth-of-type(6n + 4) {
-  background: linear-gradient(145deg, #1f2937, #32263a);
+.store-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Isse images katengi nahi */
+  transition: transform 0.5s ease;
 }
 
-body.dark-mode .stores-grid > .store-card-6am:nth-of-type(6n + 5) {
-  background: linear-gradient(145deg, #1f2937, #3a3a1f);
+.store-card-6am:hover img {
+  transform: scale(1.06);
 }
 
-body.dark-mode .stores-grid > .store-card-6am:nth-of-type(6n + 6) {
-  background: linear-gradient(145deg, #1f2937, #1f3440);
+/* 🔹 CONTENT STYLING */
+.store-content-vertical {
+  padding-top: 15px;
+}
+
+.store-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  transition: color 0.3s;
+}
+
+.store-card-6am:hover .store-name {
+  color: #f57c00;
+}
+
+.store-address {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 🔹 BOTTOM ROW (DISTANCE & RATING) */
+.store-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(0,0,0,0.1);
+}
+
+.store-distance {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.store-rating {
+  color: #16a34a;
+  background: #f0fdf4;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+}
+
+/* 🔹 OFFER BADGE */
+.store-offer-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ef4444;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 1024px) {
+  .stores-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .stores-grid { grid-template-columns: 1fr; }
+  .store-card-6am { border-radius: 22px; padding: 15px; }
+  .filter-row { flex-direction: column; align-items: flex-start; }
+  .store-image-wrapper { height: 140px; }
 }

@@ -1,199 +1,193 @@
-/* ===== Cart Page Layout ===== */
+/* ================= PREMIUM SHOPPING CART (FIXED) ================= */
+
 .cart-page {
   max-width: 1200px;
   margin: 40px auto;
-  padding: 0 16px;
+  padding: 0 20px;
+  min-height: 70vh;
 }
 
 .cart-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #0e3153;
+  font-size: 32px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 30px;
+  letter-spacing: -1px;
 }
 
 .cart-layout {
   display: grid;
-  grid-template-columns: 2.2fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 30px;
+  align-items: start;
 }
 
-/* ===== Cart Items ===== */
+/* 🔹 CART ITEMS LIST */
 .cart-items {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .cart-item {
   display: grid;
-  grid-template-columns: 80px 1.5fr 1fr 1fr auto;
+  /* Columns fix: Image | Info | Qty | Total | Delete */
+  grid-template-columns: 100px 1.5fr 120px 100px 50px; 
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   background: #ffffff;
-  padding: 16px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 20px;
+  border-radius: 24px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  position: relative; /* Fixed for mobile absolute delete icon */
+  transition: all 0.3s ease;
 }
 
 .cart-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border-color: #f57c00;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
 }
 
-.cart-item img {
+/* 🖼️ ITEM IMAGE */
+.cart-img {
   width: 80px;
   height: 80px;
-  object-fit: cover;
-  border-radius: 12px;
-  background: #f9fafb;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #f8fafc;
+  padding: 8px;
 }
 
+/* 🏷️ ITEM INFO */
 .item-info h4 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #111827;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 4px;
 }
 
 .item-info p {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: 15px;
+  font-weight: 600;
+  color: #f57c00;
 }
 
-/* ===== Quantity Control ===== */
+/* 🔢 QUANTITY CONTROL */
 .qty-control {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 10px;
-  background: #f9fafb;
-  padding: 6px 10px;
-  border-radius: 12px;
+  justify-content: space-between;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 14px;
+  width: 110px;
 }
 
 .qty-control button {
   border: none;
-  background: #e5e7eb;
-  padding: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease;
-}
-
-.qty-control button:hover {
-  background: #d1d5db;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .qty-control span {
-  min-width: 22px;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* ===== Price & Delete ===== */
-.item-total {
-  font-weight: 600;
-  color: #111827;
-}
-
-.delete {
-  cursor: pointer;
-  color: #ef4444;
-  transition: transform 0.15s ease, color 0.15s ease;
-}
-
-.delete:hover {
-  color: #dc2626;
-  transform: scale(1.1);
-}
-
-/* ===== Summary Card ===== */
-.cart-summary {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 18px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-  height: fit-content;
-}
-
-.cart-summary h3 {
-  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 16px;
-  color: #0e3153;
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 12px;
   font-size: 14px;
 }
 
-.summary-row.total {
-  font-size: 18px;
-  font-weight: 700;
-  margin-top: 12px;
+/* 💰 PRICE */
+.item-total {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+  text-align: right;
+}
+
+/* 🗑️ DELETE BUTTON (FIXED VISIBILITY) */
+.delete {
+  color: #94a3b8;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex !important; /* Ensure it's visible */
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+  border: 1px solid #f1f5f9;
+  justify-self: center;
+}
+
+.delete:hover {
+  background: #fef2f2;
+  color: #ef4444;
+  border-color: #fee2e2;
+  transform: scale(1.1);
+}
+
+/* 🧾 SUMMARY CARD */
+.cart-summary {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 28px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 100px;
 }
 
 .checkout-btn {
   width: 100%;
-  margin-top: 20px;
-  padding: 14px;
-  background: linear-gradient(135deg, #0e3153, #174a7e);
-  color: #ffffff;
+  margin-top: 25px;
+  padding: 16px;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 16px;
+  font-weight: 700;
   border: none;
-  border-radius: 14px;
-  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: 0.3s;
 }
 
 .checkout-btn:hover {
+  background: #f57c00;
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(23, 74, 126, 0.35);
 }
 
-/* ===== Empty & Loading ===== */
-.empty-cart {
-  text-align: center;
-  color: #6b7280;
-  font-size: 16px;
-  margin-top: 60px;
-}
-
-.cart-loading {
-  text-align: center;
-  margin-top: 80px;
-  font-size: 16px;
-  color: #6b7280;
-}
-
-/* ===== Mobile Responsive ===== */
+/* 📱 MOBILE OPTIMIZATION (Trash button special fix) */
 @media (max-width: 768px) {
-  .cart-layout {
-    grid-template-columns: 1fr;
-  }
-
+  .cart-layout { grid-template-columns: 1fr; }
+  
   .cart-item {
-    grid-template-columns: 64px 1fr auto;
+    grid-template-columns: 80px 1fr;
     grid-template-rows: auto auto;
-    row-gap: 12px;
-  }
-
-  .item-total {
-    grid-column: 2 / 3;
-  }
-
-  .qty-control {
-    grid-column: 2 / 3;
+    padding-right: 50px; /* Space for trash icon */
   }
 
   .delete {
-    grid-row: 1 / 3;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
   }
+
+  .qty-control {
+    grid-row: 2;
+    margin-top: 10px;
+  }
+}
+
+/* Lucide Icon Size Force */
+svg.delete {
+  width: 20px !important;
+  height: 20px !important;
 }

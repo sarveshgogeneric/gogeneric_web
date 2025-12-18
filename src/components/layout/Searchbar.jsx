@@ -152,7 +152,7 @@ const handleSelect = (item) => {
 
 
   return (
-    <header className="header-main">
+    <header className="header-main max-w-7xl mx-auto px-4 py-3">
       <div className="header-container">
         <h2 className="logo">GOGENRIC Healthcare</h2>
 

@@ -1,154 +1,196 @@
-/* Overlay */
+/* ================= PREMIUM LOGIN MODAL ================= */
+
+/* Overlay with Deep Blur */
 .login-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.55);
+  background: rgba(15, 23, 42, 0.7); /* Deep Slate Overlay */
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(3px);
-  z-index: 999;
+  backdrop-filter: blur(8px); /* Premium Blur Effect */
+  z-index: 9999;
 }
 
-/* Modal Box */
+/* Glassmorphism Modal Box */
 .login-box {
-  background: #fff;
-  padding: 30px;
-  width: 340px;
-  border-radius: 14px;
-  box-shadow: 0px 8px 25px rgba(0,0,0,0.15);
-  animation: popup 0.25s ease-out;
-  transition: all 0.25s ease;
+  background: #ffffff;
+  padding: 40px;
+  width: 400px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   position: relative;
+  overflow: hidden;
+  animation: modalEnter 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Title */
+@keyframes modalEnter {
+  from { transform: translateY(30px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Premium Title with Gradient */
 .title {
   text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #111;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
 
-/* Pop Animation */
-@keyframes popup {
-  from { transform: scale(0.85); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+.login-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
 }
 
-/* Input Fields */
+/* Modern Input Fields */
 .input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  border: 2px solid #f1f5f9;
+  border-radius: 12px;
   font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
   outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.input::placeholder {
+  color: #94a3b8;
 }
 
 .input:focus {
   border-color: #2563eb;
-  box-shadow: 0px 0px 4px rgba(37,99,235,0.2);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-/* Password Wrapper */
+/* Password Eye Icon Adjustment */
 .password-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .eye-icon {
   position: absolute;
-  right: 12px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #666;
+  color: #64748b;
+  transition: color 0.2s;
 }
 
 .eye-icon:hover {
-  color: #000;
+  color: #2563eb;
 }
 
-/* Submit Button */
+/* Premium Gradient Button */
 .submit-btn {
   width: 100%;
-  padding: 12px;
-  background: #2563eb;
+  padding: 14px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
   color: #fff;
-  margin-top: 12px;
+  margin-top: 20px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
-  background: #1e4fd1;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+  filter: brightness(1.1);
 }
 
 .submit-btn:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
 }
 
-/* Forgot Password Text */
+/* Links & Text */
 .forgot-text {
-  margin-top: 10px;
+  margin-top: 12px;
   text-align: right;
-  font-size: 13px;
-  color: #2563eb;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
   cursor: pointer;
+  transition: color 0.2s;
 }
 
 .forgot-text:hover {
-  text-decoration: underline;
+  color: #2563eb;
 }
 
-/* Toggle Text */
 .switch-text {
-  margin-top: 14px;
-  font-size: 14px;
+  margin-top: 24px;
+  font-size: 15px;
   text-align: center;
-  color: #666;
+  color: #64748b;
 }
 
 .switch-text span {
   color: #2563eb;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  margin-left: 4px;
 }
 
 .switch-text span:hover {
   text-decoration: underline;
 }
 
-/* Close Icon */
+/* Close Icon Styling */
 .close-icon {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #64748b;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s;
 }
 
 .close-icon:hover {
-  color: #000;
-  transform: scale(1.1);
+  background: #fee2e2;
+  color: #ef4444;
+  transform: rotate(90deg);
 }
 
-/* Mobile Responsive */
-@media (max-width: 400px) {
+/* Mobile Adjustments */
+@media (max-width: 480px) {
   .login-box {
-    width: 90%;
-    padding: 22px;
+    width: 92%;
+    padding: 30px 20px;
+  }
+  
+  .title {
+    font-size: 24px;
   }
 }

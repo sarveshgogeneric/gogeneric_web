@@ -1,138 +1,152 @@
+/* ================= PREMIUM DOCTORS PAGE ================= */
+
 .doctors-page {
-  padding: 40px 20px;
-  background: #f7f9fb;
+  padding: 60px 20px;
+  background: #f8fafc;
+  min-height: 100vh;
 }
 
+/* 🔹 TITLE & SUBTITLE */
 .doctors-title {
   text-align: center;
-  font-size: 36px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  color: #0e3153;
+  gap: 15px;
+  color: #0f172a;
+  letter-spacing: -1px;
+}
+
+.st-icon {
+  color: #f57c00; /* Matching Brand Orange */
+  font-size: 40px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
 .doctors-subtitle {
   text-align: center;
-  font-size: 16px;
-  color: #0e3153;
-  margin-bottom: 40px;
+  font-size: 18px;
+  color: #64748b;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.6;
 }
 
+/* 🔹 DOCTORS GRID */
 .doctors-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  padding: 0 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 35px;
+  padding: 10px;
 }
 
+/* 🔹 PREMIUM DOCTOR CARD */
 .doctor-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 20px;
+  background: #ffffff;
+  border-radius: 35px; /* Premium Squircle */
+  padding: 25px;
   text-align: center;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-  transition: 0.3s ease;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
 }
+
+/* 🎨 SYNCED 8-COLOR PATTERN (Soft backgrounds) */
+.doctor-card:nth-child(8n + 1) { background: #f0fdf4; border-top: 5px solid #16a34a; }
+.doctor-card:nth-child(8n + 2) { background: #fff7ed; border-top: 5px solid #f57c00; }
+.doctor-card:nth-child(8n + 3) { background: #fef2f2; border-top: 5px solid #ef4444; }
+.doctor-card:nth-child(8n + 4) { background: #f0f9ff; border-top: 5px solid #0ea5e9; }
+.doctor-card:nth-child(8n + 5) { background: #faf5ff; border-top: 5px solid #a855f7; }
+.doctor-card:nth-child(8n + 6) { background: #f5f3ff; border-top: 5px solid #6366f1; }
+.doctor-card:nth-child(8n + 7) { background: #fff1f2; border-top: 5px solid #f43f5e; }
+.doctor-card:nth-child(8n + 8) { background: #f0fdfa; border-top: 5px solid #14b8a6; }
 
 .doctor-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transform: translateY(-15px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 }
 
+/* 🔹 DOCTOR IMAGE */
 .doctor-img {
-  width: 100%;
-  height: 220px;
+  width: 140px;
+  height: 140px;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 15px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  border: 5px solid #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.5s ease;
+}
+
+.doctor-card:hover .doctor-img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* 🔹 TEXT STYLING */
+.doctor-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 5px;
 }
 
 .specialization {
-  color: #002f5c;
-  font-weight: 600;
-  margin: 5px 0;
+  color: #f57c00;
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
 }
 
 .experience {
-  color: #444;
-  font-size: 14px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 15px;
 }
 
 .desc {
   font-size: 14px;
-  margin: 12px 0;
-  color: #666;
+  line-height: 1.6;
+  color: #64748b;
+  margin-bottom: 25px;
+  padding: 0 10px;
 }
 
+/* 🔹 BOOK APPOINTMENT BUTTON */
 .book-btn {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background: #002f5c;
+  width: 100%;
+  padding: 14px;
+  background: #1e293b;
   border: none;
   color: white;
-  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 18px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 15px rgba(30, 41, 59, 0.1);
 }
 
 .book-btn:hover {
-  background: #084bb5;
-}
-.st-icon {
-  color: #002f5c; 
-  font-size: 34px;
-}
-/* ---------------- DARK MODE FIXED ---------------- */
-
-/* Page background */
-body.dark .doctors-page {
-  background: #0b0f12 !important;
+  background: #f57c00;
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(245, 124, 0, 0.2);
 }
 
-/* Titles */
-body.dark .doctors-title,
-body.dark .doctors-subtitle,
-body.dark .doctor-name {
-  color: #e8eef5 !important;
-}
-
-/* Doctor Card */
-body.dark .doctor-card {
-  background: #1a1f24 !important;
-  color: #e8eef5 !important;
-  box-shadow: 0 3px 12px rgba(255, 255, 255, 0.05) !important;
-}
-
-/* Card hover */
-body.dark .doctor-card:hover {
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.08) !important;
-}
-
-/* Specialization, experience, desc */
-body.dark .specialization {
-  color: #89c4ff !important;
-}
-
-body.dark .experience,
-body.dark .desc {
-  color: #c7c7c7 !important;
-}
-
-/* Book button */
-body.dark .book-btn {
-  background: #0e6bff !important;
-  color: white !important;
-}
-
-body.dark .book-btn:hover {
-  background: #3c8eff !important;
-}
-
-/* Stethoscope icon */
-body.dark .st-icon {
-  color: #89c4ff !important;
+/* 📱 MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .doctors-title { font-size: 32px; }
+  .doctors-grid { grid-template-columns: 1fr; gap: 25px; }
+  .doctor-card { padding: 30px 20px; }
 }

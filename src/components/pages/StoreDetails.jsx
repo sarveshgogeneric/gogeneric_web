@@ -45,38 +45,32 @@ export default function StoreDetails() {
     if (store?.id) fetchProducts();
   }, [store]);
 
-
-    const getDialablePhone = (phone) => {
-  if (!phone) return null;
-  return phone.replace(/\D/g, "");
-};
-
-const handleShare = async () => {
-  const shareData = {
-    title: store.name,
-    text: `Check out ${store.name}\n${store.address}`,
-    url: window.location.href,
+  const getDialablePhone = (phone) => {
+    if (!phone) return null;
+    return phone.replace(/\D/g, "");
   };
 
-  try {
-    if (navigator.share) {
-      // Mobile / supported browsers
-      await navigator.share(shareData);
-    } else {
-      // Desktop fallback
-      await navigator.clipboard.writeText(
-        `${shareData.text}\n${shareData.url}`
-      );
-     toast.success("Store link copied!");
+  const handleShare = async () => {
+    const shareData = {
+      title: store.name,
+      text: `Check out ${store.name}\n${store.address}`,
+      url: window.location.href,
+    };
 
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(
+          `${shareData.text}\n${shareData.url}`
+        );
+        toast.success("Store link copied!");
+      }
+    } catch (err) {
+      toast.error("Share failed");
+      console.error("Share failed", err);
     }
-  } catch (err) {
-    toast.success("Share failed");
-
-    console.error("Share failed", err);
-  }
-};
-
+  };
 
   const fetchStoreDetails = async () => {
     try {
@@ -94,7 +88,6 @@ const handleShare = async () => {
     }
   };
 
-  /* ================= Products ================= */
   const fetchProducts = async () => {
     try {
       setProductsLoading(true);
@@ -110,7 +103,6 @@ const handleShare = async () => {
           moduleId: 2,
         },
       });
-
       setProducts(res.data.products || res.data.items || []);
     } catch (err) {
       console.error("Products error:", err.response?.data);
@@ -119,7 +111,6 @@ const handleShare = async () => {
     }
   };
 
-  /* ================= Reviews ================= */
   const fetchReviews = async () => {
     try {
       setReviewsLoading(true);
@@ -153,64 +144,64 @@ const handleShare = async () => {
   if (!store) return <div>Store not found</div>;
 
   return (
-    <div className="z-store-page">
-      <p className="breadcrumb">Home / Stores / {store.name}</p>
+    <div className="sd-main-container">
+      <p className="sd-breadcrumb">Home / Stores / {store.name}</p>
 
-      {/* ===== Header ===== */}
-      <div className="store-header">
+      {/* ===== HEADER SECTION ===== */}
+      <div className="sd-header-box">
         <div>
-          <h1 className="store-title">{store.name}</h1>
-          <p className="store-categories">
-            {store.category_details?.map((c) => c.name).join(", ")}
-          </p>
-          <p className="store-address">
-            <MapPin size={14} /> {store.address}
-          </p>
-        </div>
-
-        <div className="rating-box">
-          <div className="rating-value">
-            {store.avg_rating || "N/A"}
-            <Star size={14} fill="#fff" stroke="none" />
+          <h1 className="sd-store-title">{store.name}</h1>
+          <div className="sd-tags">
+            {store.category_details?.map((c) => (
+              <span key={c.id} className="sd-tag-item">{c.name}</span>
+            ))}
           </div>
-          <p>Store Rating</p>
+          <p className="sd-location">
+            <MapPin size={16} /> {store.address}
+          </p>
+        </div>
+
+        <div className="sd-rating-card">
+          <div className="sd-rating-num">
+            {store.avg_rating || "N/A"}
+            <Star size={18} fill="#fff" stroke="none" />
+          </div>
+          <span className="sd-rating-label">Store Rating</span>
         </div>
       </div>
 
-      {/* ===== Actions ===== */}
-      <div className="action-row">
-        <button><Navigation size={16} /> Direction</button>
-        <button onClick={handleShare}>
-  <Share2 size={16} /> Share
-</button>
-
+      {/* ===== ACTION BUTTONS ===== */}
+      <div className="sd-action-btns">
+        <button className="sd-btn"><Navigation size={18} /> Direction</button>
+        <button className="sd-btn" onClick={handleShare}><Share2 size={18} /> Share</button>
         <button
-  onClick={() => {
-    const phone = getDialablePhone(store.phone);
-    if (!phone) {
-      alert("Phone number not available");
-      return;
-    }
-    window.location.href = `tel:${phone}`;
-  }}
->
-  <Phone size={16} /> Call
-</button>
-
+          className="sd-btn"
+          onClick={() => {
+            const phone = getDialablePhone(store.phone);
+            if (!phone) { toast.error("Phone not available"); return; }
+            window.location.href = `tel:${phone}`;
+          }}
+        >
+          <Phone size={18} /> Call
+        </button>
       </div>
 
-      {/* ===== Image ===== */}
-      <div className="single-image">
-        <img src={cleanImageUrl(store.cover_photo_full_url)} alt={store.name} />
+      {/* ===== HERO IMAGE ===== */}
+      <div className="sd-hero-image-container">
+        <img 
+          className="sd-hero-img" 
+          src={cleanImageUrl(store.cover_photo_full_url)} 
+          alt={store.name} 
+        />
       </div>
 
-      {/* ===== Tabs + Search ===== */}
-      <div className="tabs-row">
-        <div className="tabs">
+      {/* ===== TABS & SEARCH ===== */}
+      <div className="sd-tabs-nav">
+        <div className="sd-tabs-list">
           {["products", "overview", "reviews"].map((tab) => (
             <span
               key={tab}
-              className={activeTab === tab ? "active" : ""}
+              className={`sd-tab-link ${activeTab === tab ? "sd-active" : ""}`}
               onClick={() => {
                 setActiveTab(tab);
                 setSearchTerm("");
@@ -224,94 +215,96 @@ const handleShare = async () => {
 
         {(activeTab === "products" || activeTab === "reviews") && (
           <input
-            className="tab-search"
-            placeholder={
-              activeTab === "products"
-                ? "Search products..."
-                : "Search reviews..."
-            }
+            className="sd-search-bar"
+            placeholder={`Search ${activeTab}...`}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         )}
       </div>
 
-      {/* ===== OVERVIEW ===== */}
-      {activeTab === "overview" && (
-        <>
-          <div className="overview-section">
-            <h3>Contact Information</h3>
-            <p><Phone size={14} /> {store.phone || "N/A"}</p>
-            <p><Mail size={14} /> {store.email || "N/A"}</p>
-          </div>
-
-          <div className="overview-section">
-            <h3>Available Categories</h3>
-            <p>{store.category_details?.map((c) => c.name).join(", ")}</p>
-          </div>
-        </>
-      )}
-
-      {/* ===== PRODUCTS ===== */}
+      {/* ===== TAB CONTENT ===== */}
+      
+      {/* PRODUCTS TAB */}
       {activeTab === "products" && (
-        <div className="products-section">
+        <div className="sd-products-grid">
           {productsLoading ? (
             <Loader text="Loading products..." />
           ) : filteredProducts.length === 0 ? (
             <p>No products found</p>
           ) : (
             filteredProducts.map((p) => (
-             <div
-  key={p.id}
-  className="product-card"
-  onClick={() => {
-    navigate(`/medicine/${p.id}`, {
-      state: {
-        price: p.price,
-        store_id: store.id,
-      },
-    });
-  }}
->
-                <WishlistButton item={p} />
+              <div
+                key={p.id}
+                className="sd-prod-card"
+                onClick={() => navigate(`/medicine/${p.id}`, {
+                  state: { price: p.price, store_id: store.id }
+                })}
+              >
+                <div className="sd-wishlist-pos">
+                  <WishlistButton item={p} />
+                </div>
 
                 <div
-                  className="add-cart-btn"
-                  onClick={(e) =>{
+                  className="sd-prod-add"
+                  onClick={(e) => {
                     e.stopPropagation();
-                    addToCart({ item: p, navigate, location })
+                    addToCart({ item: p, navigate, location });
                   }}
                 >
                   <Plus size={18} />
                 </div>
 
-                <img
-                  src={cleanImageUrl(p.image_full_url)}
-                  alt={p.name}
-                  onError={(e) => (e.currentTarget.src = "/no-image.jpg")}
-                />
-                <h4>{p.name}</h4>
-                <p>₹{p.price}</p>
+                <div className="sd-prod-img-box">
+                  <img
+                    src={cleanImageUrl(p.image_full_url)}
+                    alt={p.name}
+                    onError={(e) => (e.currentTarget.src = "/no-image.jpg")}
+                  />
+                </div>
+                <h4 className="sd-prod-name">{p.name}</h4>
+                <p className="sd-prod-price">₹{p.price}</p>
               </div>
             ))
           )}
         </div>
       )}
 
-      {/* ===== REVIEWS ===== */}
+      {/* OVERVIEW TAB */}
+      {activeTab === "overview" && (
+        <div className="sd-content-section">
+          <div className="sd-ov-section">
+            <h3>Contact Information</h3>
+            <p><Phone size={16} /> {store.phone || "N/A"}</p>
+            <p><Mail size={16} /> {store.email || "N/A"}</p>
+          </div>
+          <div className="sd-ov-section">
+            <h3>Available Categories</h3>
+            <div className="sd-tags">
+               {store.category_details?.map((c) => (
+                 <span key={c.id} className="sd-tag-item">{c.name}</span>
+               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* REVIEWS TAB */}
       {activeTab === "reviews" && (
-        <div className="reviews-section">
+        <div className="sd-reviews-list">
           {reviewsLoading ? (
             <Loader text="Loading reviews..." />
           ) : filteredReviews.length === 0 ? (
             <p>No reviews found</p>
           ) : (
             filteredReviews.map((r) => (
-              <div key={r.id} className="review-card">
-                <strong>{r.customer_name || "Anonymous"}</strong>
-                <span>
-                  <Star size={14} fill="#00c16e" stroke="none" /> {r.rating}
-                </span>
+              <div key={r.id} className="sd-rev-card">
+                <div className="sd-rev-header">
+                  <strong>{r.customer_name || "Anonymous"}</strong>
+                  <span className="sd-rev-stars">
+                    <Star size={14} fill="#16a34a" stroke="none" /> {r.rating}
+                  </span>
+                </div>
                 <p>{r.comment}</p>
               </div>
             ))

@@ -1,30 +1,79 @@
+/* ================= PREMIUM HOME BANNER DESIGN ================= */
+
+/* Container ko thoda breathing space do */
 .banner-container {
   width: 100%;
+  max-width: 1280px; /* Standard wide screen width */
+  margin: 20px auto;
   overflow: hidden;
-  border-radius: 12px;  
+  border-radius: 20px; /* Thoda zyada curved for modern look */
+  background: #f8fafc;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1); /* Soft initial shadow */
+  transition: all 0.4s ease;
+  position: relative;
 }
 
+/* Banner Image Styling */
 .banner-image {
   width: 100%;
-  height: 320px;              
-  object-fit: cover;
-  border-radius: 12px;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  height: 380px; /* Height thodi badhayi hai premium feel ke liye */
+  object-fit: cover; /* Image stretch nahi hogi */
+  border-radius: 20px;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  filter: brightness(0.95); /* Halka sa dark taaki text (agar ho) pop kare */
 }
 
+/* Hover Effect - Subtle Zoom & Glow */
+.banner-container:hover {
+  transform: translateY(-5px); /* Banner halka sa upar uthega */
+  box-shadow: 0 20px 40px -15px rgba(245, 124, 0, 0.2); /* Orange glow shadow */
+}
 
-.banner-image:hover {
-  transform: scale(1.03);         
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+.banner-container:hover .banner-image {
+  transform: scale(1.05); /* Smooth inner zoom */
+  filter: brightness(1); /* Hover par image bright hogi */
   cursor: pointer;
 }
 
-
+/* Premium Fade Animation for Sliders */
 .fade {
-  animation: fadeEffect 1s ease-in-out;
+  animation: premiumFade 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes fadeEffect {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@keyframes premiumFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Loader styling within banner */
+.loader {
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  border-radius: 20px;
+  color: #94a3b8;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .banner-image {
+    height: 200px; /* Mobile par height kam taaki scroll na badhe */
+    border-radius: 12px;
+  }
+  .banner-container {
+    margin: 10px auto;
+    border-radius: 12px;
+    padding: 0 10px; /* Side spacing for mobile */
+  }
 }

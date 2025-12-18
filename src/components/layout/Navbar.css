@@ -1,302 +1,320 @@
-/* ================= NAVBAR MAIN ================= */
+/* ================= PRECISE FIXED NAVBAR CSS ================= */
+:root {
+  --primary: #f57c00;
+  --text: #1e293b;
+  --glass: rgba(255, 255, 255, 0.95);
+}
+
 .navbar {
-  background: #72b5e5;
-  padding: 2px 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  background: var(--glass) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
-  z-index: 100;
-  font-family: "Poppins", sans-serif;
-}
-.nav-container{
+  z-index: 1000;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 0 !important;
+  height: 75px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
+.nav-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-/* LOGO */
+/* Logo - Fixed Size */
 .nav-logo img {
-  height: 50px;
+  height: 45px;
   width: auto;
+  cursor: pointer;
 }
 
-/* NAV LINKS */
+/* --- UPDATED PREMIUM NAVIGATION LINKS --- */
 .nav-links {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
   align-items: center;
-  gap: 25px;
+  /* Spacing badha di gayi hai */
+  gap: 35px; 
+  margin: 0 auto !important;
   list-style: none;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
 }
 
 .nav-links li a {
   text-decoration: none;
-  font-size: 18px;
-  color: #324252;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: 0.3s ease;
+  font-size: 16px; /* Thoda bada aur clear font */
+  font-weight: 500; /* Medium weight for premium look */
+  color: #475569; /* Soft dark slate color */
+  padding: 8px 4px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px; /* Clean spacing between letters */
+  display: inline-block;
 }
 
-.nav-links li a:hover {
-  color: #07223f;
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-  transform: translateY(-2px) scale(1.03);
-}
-
-/* ALWAYS SHOW HAMBURGER */
-.hamburger {
-  font-size: 35px;
-  cursor: pointer;
-  color: #031c38;
-  padding: 6px;
-  border-radius: 50%;
-  transition: 0.25s ease;
-}
-
-.hamburger:hover {
-  background: rgba(255, 255, 255, 0.5);
-  transform: scale(1.1);
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-}
-
-/* ================== OVERLAY ================== */
-.overlay {
-  position: fixed;
-  top: 0;
+/* Elegant Underline Animation */
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: brightness(45%);
-  background: rgba(0,0,0,0.4);
-  z-index: 90;
+  background-color: var(--primary);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
 }
 
+/* Hover State */
+.nav-links li a:hover {
+  color: var(--primary) !important;
+  transform: translateY(-1px); /* Halka sa upar uthega */
+}
+
+.nav-links li a:hover::after {
+  width: 100%; /* Line smooth expand hogi */
+}
+
+/* Logo aur Icons ke beech container spacing fix */
+.nav-container {
+  padding: 0 40px !important; /* Side margins badha di hain */
+}
+/* Action Icons Group - Right Side */
+.flex.items-center.gap-6 {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 15px !important;
+}
+
+/* Icon Buttons - Pointer and Size */
+.notification-icon,
+.cart-icon,
+.hamburger {
+  position: relative;
+  cursor: pointer !important; /* Clicks Fix */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f8fafc;
+  font-size: 20px;
+  transition: all 0.2s;
+  pointer-events: auto !important; /* Ensure click works */
+}
+
+.notification-icon:hover,
+.cart-icon:hover,
+.hamburger:hover {
+  background: #fff7ed;
+  color: var(--primary);
+}
+
+/* Badges */
+.notification-badge,
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+/* Drawer Fixes */
 .side-menu {
   position: fixed;
   top: 0;
-  right: -300px;
+  right: -320px;
   width: 300px;
   height: 100%;
   background: white;
-  padding: 20px;
-  z-index: 1000;
-  box-shadow: -3px 0 10px rgba(0,0,0,0.15);
-  transition: 0.35s ease-in-out;
+  z-index: 2000;
+  transition: 0.4s ease;
+  padding: 25px;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
 }
 
 .side-menu.open {
   right: 0;
 }
 
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 1500;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none !important; /* Hide links on tablet/mobile */
+  }
+}
+/* ================= PREMIUM SIDE MENU DESIGN ================= */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -340px; /* Hidden state */
+  width: 320px;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 2000;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0; /* Remove default padding to control layout */
+  box-shadow: -15px 0 40px rgba(15, 23, 42, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+/* Header inside the Drawer */
 .side-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 25px;
+  padding: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+  background: #f8fafc;
 }
 
 .close-btn {
-  font-size: 26px;
+  font-size: 22px;
   cursor: pointer;
+  color: #64748b;
   transition: 0.2s;
 }
 
 .close-btn:hover {
-  color: #499ad4;
+  color: #ef4444;
   transform: rotate(90deg);
 }
 
-/* Sidebar Links */
+/* The List Container */
 .side-links {
   list-style: none;
-  padding: 0;
+  padding: 16px;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .side-links li {
-  margin: 12px 0;
+  margin-bottom: 8px;
 }
 
+/* DESIGNING THE MENU TILES */
 .side-links li a {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-decoration: none;
-  color: #00315b;
-  background: #eef7ff;
-  padding: 12px 15px;
-  border-radius: 10px;
-  font-size: 17px;
-  transition: 0.3s ease;
+  color: #475569;
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
 }
 
-/* HOVER EFFECT — PREMIUM */
+/* Hover Effects for items */
 .side-links li a:hover {
-  background: #dff0ff;
-  transform: translateX(6px) scale(1.03);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #fff7ed; /* Light orange tint */
+  color: var(--primary);
+  border-color: #fed7aa;
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(245, 124, 0, 0.08);
 }
 
-/* ICON STYLE */
+/* Icon styling inside tiles */
 .side-links li a svg {
-  font-size: 20px;
-  color: #005b96;
-}
-/* DARK MODE TOGGLE BUTTON */
-.dark-toggle {
-  font-size: 20px;
-  background: white;
-  border: none;
-  outline: none;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.3s ease;
-  color: #00315b;
+  font-size: 18px;
+  color: #94a3b8; /* Muted icon color */
+  transition: 0.2s;
 }
 
-.dark-toggle:hover {
-  background: #eaf5ff;
+.side-links li a:hover svg {
+  color: var(--primary);
   transform: scale(1.1);
 }
 
-/* DARK MODE */
-body.dark-mode {
-  background: #0f172a;
-  color: #e2e8f0;
+/* Special styling for Logout */
+.side-links li:last-child a {
+  margin-top: 20px;
+  background: #fef2f2;
+  color: #ef4444;
+  border-color: #fee2e2;
 }
 
-/* Navbar dark */
-body.dark-mode .navbar {
-  background: #1e293b !important;
-  box-shadow: 0 2px 5px rgba(255,255,255,0.06);
+.side-links li:last-child a:hover {
+  background: #fee2e2;
+  border-color: #fecaca;
 }
 
-body.dark-mode .nav-links li a {
-  color: #cfe0f5 !important;
+.side-links li:last-child a svg {
+  color: #ef4444;
 }
 
-body.dark-mode .nav-links li a:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* Hamburger dark */
-body.dark-mode .hamburger {
-  color: #ffffff !important;
-}
-
-/* Sidebar dark */
-body.dark-mode .side-menu {
-  background: #111827 !important;
-  color: #e2e8f0;
-}
-
-body.dark-mode .side-links li a {
-  background: #1f2937 !important;
-  border: 1px solid #2d3b4f !important;
-  color: #e2e8f0 !important;
-}
-
-body.dark-mode .side-links li a:hover {
-  background: #2d3b50 !important;
-  box-shadow: 0 4px 12px rgba(255,255,255,0.08);
-}
-
-/* Dark mode icon color */
-body.dark-mode .dark-toggle {
-  background: #334155;
-  color: #fff;
-}
-.cart-icon {
-  font-size: 22px;
-  cursor: pointer;
-  color: #031c38;
-  padding: 6px;
-  border-radius: 50%;
-  transition: 0.25s ease;
-  position: relative;
-}
-
-.cart-icon:hover {
-  background: rgba(255, 255, 255, 0.5);
-  transform: scale(1.3);
-}
-
-/* Cart count badge (future ready) */
-.cart-badge {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  background: #ef4444;
-  color: white;
-  font-size: 11px;
-  font-weight: 600;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Wishlist Badge inside menu */
 .wishlist-badge {
   margin-left: auto;
-  background: #ef4444;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 12px;
-}
-/* ================= SIDEBAR SCROLLBAR ================= */
-.side-menu {
-  overflow-y: auto; /* enable vertical scroll */
-}
-
-/* Chrome, Edge, Safari */
-.side-menu::-webkit-scrollbar {
-  width: 6px;
-}
-
-.side-menu::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.side-menu::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #72b5e5, #499ad4);
-  border-radius: 10px;
-}
-
-.side-menu::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #499ad4, #2f7fc1);
-}
-
-/* Firefox */
-.side-menu {
-  scrollbar-width: thin;
-  scrollbar-color: #499ad4 transparent;
-}
-.notification-icon {
-  position: relative;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.notification-badge {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  background: red;
+  background: var(--primary);
   color: white;
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 50%;
-  font-weight: 600;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+/* Background Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1500;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Scrollbar styling for side menu */
+.side-menu::-webkit-scrollbar {
+  width: 5px;
+}
+.side-menu::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
 }

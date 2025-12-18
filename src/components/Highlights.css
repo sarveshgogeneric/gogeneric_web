@@ -1,22 +1,27 @@
+/* ================= PREMIUM HIGHLIGHTS BANNERS ================= */
+
 .highlight-section {
   position: relative;
-  padding: 10px 0;
+  margin-top: 50px;
+  padding: 20px 0;
 }
 
 .highlight-title {
-  font-size: 28px;
-  font-weight: 600;
-  color: #0e3153;
-  margin-bottom: 12px;
+  font-size: 30px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
 }
 
-/* WRAPPER */
+/* 🔹 WRAPPER (Horizontal Scroll) */
 .highlight-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
   white-space: nowrap;
-  padding: 10px 0;
+  padding: 15px 5px 35px 5px; /* Bottom space for shadow */
+  scrollbar-width: none;
 }
 
 .highlight-wrapper::-webkit-scrollbar {
@@ -25,116 +30,116 @@
 
 .highlight-scroll {
   display: inline-flex;
-  gap: 20px;
+  gap: 25px;
 }
 
-/* CARD */
+/* 🔹 LARGE BANNER CARD */
 .highlight-card {
-  width: 240px;
+  width: 380px; /* Bada size banners ke liye */
   flex-shrink: 0;
   cursor: pointer;
-  border-radius: 20px;
-  background: linear-gradient(to bottom, #fff, #e8f4ef);
-  padding: 14px;
-  text-align: center;
-  transition: 0.25s ease;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  border-radius: 24px; /* Soft premium corners */
+  background: #ffffff;
+  padding: 0; /* Image full touch hogi corners pe */
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .highlight-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 5px 14px rgba(0,0,0,0.18);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  border-color: #f57c00;
 }
 
+/* 🔹 IMAGE & VIDEO STYLING */
 .highlight-card img,
 .highlight-card iframe {
   width: 100%;
-  height: 150px;
-  border-radius: 12px;
+  height: 210px; /* Increase height for cinematic look */
   object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-/* Title inside card */
+.highlight-card:hover img {
+  transform: scale(1.05); /* Subtle zoom on hover */
+}
+
+/* 🔹 BANNER TITLE OVERLAY */
 .highlight-name {
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: 600;
+  padding: 16px 20px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  background: #fff;
+  white-space: normal;
+  line-height: 1.4;
+  transition: color 0.3s ease;
 }
 
-/* SCROLL BUTTONS (Same as Category) */
+.highlight-card:hover .highlight-name {
+  color: #f57c00; /* Matching brand orange */
+}
+
+/* 🔹 NAVIGATION BUTTONS */
 .scroll-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background: white;
   border: none;
-  padding: 8px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 50;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+  color: #1e293b;
 }
 
-.scroll-btn.left { left: -8px; }
-.scroll-btn.right { right: -8px; }
+.scroll-btn.left { left: -20px; }
+.scroll-btn.right { right: -20px; }
 
 .scroll-btn:hover {
+  background: #f57c00;
+  color: white;
   transform: translateY(-50%) scale(1.1);
 }
 
-/* QUOTE */
+/* 🔹 QUOTE BOX (MODERNIZED) */
 .health-quote {
-  margin-top: 18px;
-  padding: 12px;
-  background: #bad9ef;
-  border-left: 4px solid #72b5e5;
-  border-radius: 8px;
-  font-size: 15px;
+  margin-top: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #e0f2fe, #dcfce7);
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0369a1;
   font-style: italic;
   text-align: center;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
 }
 
-/* 🌙 DARK MODE — Highlight Section */
-body.dark-mode .highlight-title {
-  color: #e9f1ff !important;   /* bright soft white */
-}
-
-body.dark-mode .highlight-card {
-  background: #1f2a37 !important;
-  box-shadow: 0 3px 12px rgba(255,255,255,0.08) !important;
-  color: #e6e6e6 !important;
-}
-
-body.dark-mode .highlight-card:hover {
-  background: #263241 !important;
-  box-shadow: 0 4px 14px rgba(255,255,255,0.12) !important;
-}
-
-body.dark-mode .highlight-name {
-  color: #ffffff !important;
-}
-
-/* For both images + YouTube iframe */
-body.dark-mode .highlight-card img,
-body.dark-mode .highlight-card iframe {
-  border: 1px solid rgba(255,255,255,0.12) !important;
-}
-
-/* Scroll buttons */
-body.dark-mode .scroll-btn {
-  background: #2d3748 !important;
-  box-shadow: 0 3px 12px rgba(255,255,255,0.1) !important;
-}
-
-body.dark-mode .scroll-btn svg,
-body.dark-mode .scroll-btn {
-  color: #ffffff !important;
-}
-
-/* Quote box */
-body.dark-mode .health-quote {
-  background: #2d3b4c !important;
-  border-left: 4px solid #6ab7ff !important;
-  color: #e9f3ff !important;
+/* 📱 MOBILE OPTIMIZATION */
+@media (max-width: 768px) {
+  .highlight-card {
+    width: 280px;
+  }
+  .highlight-card img,
+  .highlight-card iframe {
+    height: 160px;
+  }
+  .highlight-title {
+    font-size: 24px;
+  }
+  .scroll-btn { display: none; } 
 }
 

@@ -6,28 +6,31 @@ import { cleanImageUrl } from "../../utils";
 import { addToCart } from "../../utils/cartHelper";
 import { toast } from "react-hot-toast";
 import WishlistButton from "../WishlistButton";
+import Loader from "../Loader";
+
 export default function MedicineDetails() {
   const { id } = useParams();
   const location = useLocation();
+
   const [medicine, setMedicine] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const passedPrice = location.state?.price || null;
-  const passedStoreId = location.state?.store_id || null;
 
   useEffect(() => {
     fetchMedicineDetails();
   }, [id]);
 
   const fetchMedicineDetails = async () => {
+    setLoading(true);
     try {
       const res = await api.get(`/api/v1/items/details/${id}`, {
         headers: {
-          zoneId: "[3]",
+          zoneId: JSON.stringify([3]),
           moduleId: 2,
         },
       });
 
-      console.log("Medicine API Response:", res.data);
       setMedicine(res.data);
     } catch (err) {
       console.error("Medicine fetch error:", err);
@@ -37,8 +40,17 @@ export default function MedicineDetails() {
     }
   };
 
-  if (loading) return <div className="medicine-loader">Loading...</div>;
-  if (!medicine) return <p>Medicine not found</p>;
+  /* ================= LOADER ================= */
+  if (loading) {
+    return (
+      <div className="medicine-loader">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!medicine) return <p className="text-center">Medicine not found</p>;
+
   const price =
     passedPrice ||
     medicine.price ||
@@ -47,11 +59,6 @@ export default function MedicineDetails() {
     null;
 
   const handleAddToCart = () => {
-    if (!medicine) return;
-
-    const price =
-      medicine.price || medicine.unit_price || medicine?.variations?.[0]?.price;
-
     if (!price) {
       toast.error("Price not available");
       return;
@@ -61,8 +68,11 @@ export default function MedicineDetails() {
       item: {
         id: medicine.id,
         name: medicine.name,
-        price: price,
-        image: medicine.image_full_url || medicine.image,
+        price,
+        image:
+          medicine.image_full_url ||
+          medicine.image ||
+          "/no-image.jpg",
       },
     });
   };
@@ -70,30 +80,40 @@ export default function MedicineDetails() {
   return (
     <div className="medicine-page">
       <div className="medicine-card">
+        {/* ===== IMAGE ===== */}
         <div className="medicine-image">
           <div className="medicine-wishlist">
             <WishlistButton item={medicine} />
           </div>
+
           <img
-            src={cleanImageUrl(medicine.image_full_url || medicine.image)}
+            src={cleanImageUrl(
+              medicine.image_full_url || medicine.image
+            )}
             alt={medicine.name}
+            onError={(e) => {
+              e.currentTarget.src = "/no-image.jpg";
+            }}
           />
         </div>
 
+        {/* ===== INFO ===== */}
         <div className="medicine-info">
-          <div>
-            <h1>{medicine.name}</h1>
+          <h1>{medicine.name}</h1>
 
-            {price ? (
-              <p className="medicine-price">₹{price}</p>
-            ) : (
-              <p className="medicine-price unavailable">Price unavailable</p>
-            )}
+          {price ? (
+            <p className="medicine-price">₹{price}</p>
+          ) : (
+            <p className="medicine-price unavailable">
+              Price unavailable
+            </p>
+          )}
 
-            {medicine.description && (
-              <p className="medicine-desc">{medicine.description}</p>
-            )}
-          </div>
+          {medicine.description && (
+            <p className="medicine-desc">
+              {medicine.description}
+            </p>
+          )}
 
           <div className="medicine-actions">
             <button

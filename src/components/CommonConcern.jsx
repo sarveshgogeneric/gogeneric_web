@@ -100,10 +100,13 @@ export default function CommonConcern() {
       setMedicineLoading(false);
     }
   }
+
+  //  Fetch concerns first time
   useEffect(() => {
     fetchConcerns();
   }, []);
 
+  //  Fetch medicines when active filter changes
   useEffect(() => {
     if (activeFilter?.id) {
       fetchMedicines(activeFilter.id);

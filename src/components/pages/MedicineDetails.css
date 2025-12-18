@@ -1,136 +1,201 @@
+/* ================= PREMIUM MEDICINE DETAILS PAGE ================= */
+
 .medicine-page {
-  padding: 24px 12px;
-  background: #f6f8fb;
+  padding: 40px 20px;
+  background: #f8fafc; /* Ultra light slate background */
   display: flex;
-  min-height: 300px;
+  min-height: 80vh;
   justify-content: center;
+  align-items: flex-start;
 }
 
-/* Card Layout */
+/* 🔹 THE PREMIUM CARD */
 .medicine-card {
   display: flex;
-  gap: 20px;
-  border-radius: 14px;
-  padding: 20px;
-  max-width: 820px;   /* 🔥 compact */
+  gap: 40px;
+  background: #ffffff;
+  border-radius: 32px; /* Smooth Squircle corners */
+  padding: 35px;
+  max-width: 900px;
   width: 100%;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease;
 }
 
-/* Image */
+/* 🔹 IMAGE SECTION */
 .medicine-image {
   flex-shrink: 0;
   position: relative;
+  background: #f1f5f9;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 350px;
+  height: 350px;
+  overflow: hidden;
 }
-.medicine-wishlist {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  z-index: 10;
-}
-.medicine-wishlist button {
-  background: #ffffff;
-  border-radius: 50%;
-  padding: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
 
 .medicine-image img {
-  width: 300px;       /* 🔥 smaller */
-  max-width: 100%;
-  border-radius: 10px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  background: #fafafa;
-  padding: 8px;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Info */
+.medicine-card:hover .medicine-image img {
+  transform: scale(1.1);
+}
+
+/* 🔹 WISHLIST BUTTON POSITIONING */
+.medicine-wishlist {
+  position: absolute;
+  top: 15px;
+  right: 15px; /* Moved to right for better thumb reach */
+  z-index: 10;
+}
+
+.medicine-wishlist button {
+  background: #ffffff !important;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  cursor: pointer;
+}
+
+/* 🔹 INFO SECTION */
 .medicine-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   flex: 1;
 }
 
-/* Title */
 .medicine-info h1 {
-  font-size: 22px;    /* 🔥 smaller */
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 8px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
-/* Price */
+/* Price Styling */
 .medicine-price {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1a8f3c;
-  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #16a34a; /* Premium Green */
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.medicine-price::before {
+  content: "Price: ";
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 600;
+  margin-right: 8px;
+  text-transform: uppercase;
 }
 
 .medicine-price.unavailable {
-  color: #999;
+  color: #94a3b8;
+  font-size: 18px;
 }
 
-/* Description */
+/* Description Styling */
 .medicine-desc {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #555;
-  max-width: 95%;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #475569;
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 16px;
+  border-left: 4px solid #f57c00;
+  margin-bottom: 20px;
 }
 
-/* Actions */
+/* 🔹 ACTION BUTTONS */
 .medicine-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 15px;
+  margin-top: 10px;
 }
 
-/* Add to Cart */
 .add-cart-btn1 {
-  background-color: #28a745;
+  background: linear-gradient(135deg, #f57c00, #ff9800);
   color: #ffffff;
   border: none;
-  padding: 10px 18px; /* 🔥 compact */
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 8px;
+  padding: 16px 35px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  width: 100%;
+  box-shadow: 0 10px 20px rgba(245, 124, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .add-cart-btn1:hover {
-  background-color: #218838;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(245, 124, 0, 0.3);
+  background: linear-gradient(135deg, #e67600, #f57c00);
 }
 
 .add-cart-btn1:disabled {
-  background-color: #b6d7bd;
+  background: #e2e8f0;
+  color: #94a3b8;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
-/* Loader */
-.medicine-loader {
-  text-align: center;
-  padding: 60px;
-  font-size: 16px;
-  color: #555;
+/* 🔹 RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+  .medicine-card {
+    gap: 30px;
+    padding: 25px;
+  }
+  .medicine-image {
+    width: 300px;
+    height: 300px;
+  }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
+  .medicine-page { padding: 15px; }
+  
   .medicine-card {
     flex-direction: column;
-    padding: 16px;
+    align-items: center;
+    border-radius: 24px;
+    gap: 20px;
   }
 
-  .medicine-image img {
+  .medicine-image {
     width: 100%;
-    max-height: 220px;
+    height: 280px;
   }
 
-  .medicine-actions {
-    flex-direction: column;
+  .medicine-info h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .medicine-price {
+    justify-content: center;
+  }
+
+  .medicine-desc {
+    text-align: center;
+    border-left: none;
+    border-top: 3px solid #f57c00;
   }
 }

@@ -1,10 +1,8 @@
 .loc-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,40 +10,67 @@
 }
 
 .loc-modal {
-  width: 550px;
   background: white;
-  border-radius: 10px;
-  padding: 20px;
+  width: 90%;
+  max-width: 550px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .loc-header {
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #f1f5f9;
 }
 
-.title {
-  font-weight: 600;
+.loc-header .title {
   font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
 }
 
 .close-btn {
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
+  color: #64748b;
+  transition: 0.2s;
 }
 
-.address {
-  background: #f0f0f0;
-  padding: 10px;
-  border-radius: 6px;
-  margin: 10px 0;
+.search-container {
+  padding: 15px 20px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #f1f5f9;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  background: #f8fafc;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
 .map-box {
-  height: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 15px;
+  height: 350px;
+  width: 100%;
+  position: relative;
 }
 
 .map {
@@ -53,75 +78,46 @@
   width: 100%;
 }
 
+.footer-actions {
+  padding: 20px;
+  background: white;
+}
+
 .pick-btn {
   width: 100%;
-  background: #02a95c;
+  padding: 16px;
+  background: #2563eb;
   color: white;
-  padding: 12px;
-  font-size: 18px;
-  border-radius: 6px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
-}
-.search-input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  font-size: 14px;
+  transition: all 0.3s;
 }
 
-.suggest-box {
-  max-height: 180px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 10px;
+.pick-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
 }
 
-.suggest-item {
-  padding: 10px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.suggest-item:hover {
-  background: #f1f1f1;
-}
-.search-container {
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.suggestions {
-  position: absolute;
-  background: #fff;
-  width: 100%;
-  max-height: 160px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* Google Suggestions Dropdown Styling */
+.pac-container {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   margin-top: 5px;
-  z-index: 1000;
+  font-family: inherit;
+  padding: 8px 0;
 }
 
-.suggestions li {
-  padding: 10px;
+.pac-item {
+  padding: 10px 15px;
   cursor: pointer;
-  list-style: none;
-  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
 }
 
-.suggestions li:hover {
-  background: #f2f2f2;
+.pac-item:hover {
+  background-color: #f8fafc;
 }
-

@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import "./HomeBanner.css";
 import api from "../api/axiosInstance";
 import { cleanImageUrl } from "../utils";
-import Loader from "./Loader";
 
-const DUMMY_BANNER = "/orange.png"; 
+const DUMMY_BANNER = "/orange.png";
 
 export default function HomeBanner() {
   const [banners, setBanners] = useState([]);
   const [index, setIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
 
   const getBannerUrl = (banner) => {
     if (!banner) return DUMMY_BANNER;
@@ -32,8 +30,6 @@ export default function HomeBanner() {
   };
 
   useEffect(() => {
-    setLoading(true);
-
     api
       .get("/api/v1/banners", {
         headers: {
@@ -47,10 +43,7 @@ export default function HomeBanner() {
       })
       .catch((err) => {
         console.error("Banner fetch error:", err);
-        setBanners([]); 
-      })
-      .finally(() => {
-        setLoading(false);
+        setBanners([]);
       });
   }, []);
 
@@ -66,22 +59,18 @@ export default function HomeBanner() {
 
   return (
     <div className="banner-container max-w-7xl mx-auto px-4 py-2">
-      {loading ? (
-        <Loader text="Loading banners..." />
-      ) : (
-        <img
-          src={
-            banners.length > 0
-              ? getBannerUrl(banners[index])
-              : DUMMY_BANNER
-          }
-          alt="banner"
-          className="banner-image fade"
-          onError={(e) => {
-            e.currentTarget.src = DUMMY_BANNER;
-          }}
-        />
-      )}
+      <img
+        src={
+          banners.length > 0
+            ? getBannerUrl(banners[index])
+            : DUMMY_BANNER
+        }
+        alt="banner"
+        className="banner-image fade"
+        onError={(e) => {
+          e.currentTarget.src = DUMMY_BANNER;
+        }}
+      />
     </div>
   );
 }

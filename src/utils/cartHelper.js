@@ -1,42 +1,82 @@
 import api from "../api/axiosInstance";
 import toast from "react-hot-toast";
 
-export const addToCart = async ({ item }) => {
+export const addToCart = async ({ item, navigate, location }) => {
   const token = localStorage.getItem("token");
 
   let guestId = localStorage.getItem("guest_id");
-
-  if (!token) {
-    if (!guestId || isNaN(Number(guestId))) {
-      guestId = Date.now(); 
-      localStorage.setItem("guest_id", guestId);
-    }
+  if (!token && !guestId) {
+    guestId = crypto.randomUUID();
+    localStorage.setItem("guest_id", guestId);
   }
+
   try {
-    const payload = {
-      item_id: item.id,
-      quantity: 1,
-      price: item.price,
-      model: "Item",
-      ...(token ? {} : { guest_id: Number(guestId) }),
-    };
-    await api.post("/api/v1/customer/cart/add", payload, {
+    // 🔹 STEP 1: GET CART
+    const cartRes = await api.get("/api/v1/customer/cart/list", {
       headers: {
-        moduleId: 2,
         zoneId: JSON.stringify([3]),
+        moduleId: "2",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
+      params: !token ? { guest_id: guestId } : {},
     });
 
-    toast.success("Added to cart");
-    console.log(item);
+    const cartItems = cartRes.data || [];
+
+    // 🔹 STEP 2: CHECK IF ITEM EXISTS
+    const existingItem = cartItems.find(
+      (c) => c.item_id === item.id
+    );
+
+    // 🔹 STEP 3: IF EXISTS → UPDATE QTY
+    if (existingItem) {
+      await api.post(
+        "/api/v1/customer/cart/update",
+        {
+          cart_id: existingItem.id,
+          quantity: existingItem.quantity + 1,
+          price: existingItem.price,
+          ...(token ? {} : { guest_id: guestId }),
+        },
+        {
+          headers: {
+            zoneId: JSON.stringify([3]),
+            moduleId: "2",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        }
+      );
+
+      toast.success("Quantity updated");
+    } 
+    // 🔹 STEP 4: ELSE → ADD NEW ITEM
+    else {
+      await api.post(
+        "/api/v1/customer/cart/add",
+        {
+          item_id: item.id,
+          quantity: 1,
+          price: item.price,
+          model: "Item",
+          ...(token ? {} : { guest_id: guestId }),
+        },
+        {
+          headers: {
+            zoneId: JSON.stringify([3]),
+            moduleId: "2",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        }
+      );
+
+      toast.success("Added to cart");
+    }
+
     window.dispatchEvent(new Event("cart-updated"));
   } catch (err) {
     console.error("Add to cart error:", err?.response?.data);
     toast.error(
-      err?.response?.data?.errors?.[0]?.message ||
-        err?.response?.data?.message ||
-        "Add to cart failed"
+      err?.response?.data?.errors?.[0]?.message || "Failed to add item"
     );
   }
 };

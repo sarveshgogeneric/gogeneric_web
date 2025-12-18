@@ -16,6 +16,7 @@ export default function NearbyStores() {
   const scrollRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     setLoading(true);
     api
@@ -46,7 +47,7 @@ export default function NearbyStores() {
         console.log("API ERROR:", err);
       })
       .finally(() => {
-        setLoading(false); 
+        setLoading(false);
       });
   }, []);
 
@@ -70,12 +71,11 @@ export default function NearbyStores() {
         Browse essential medicines available near you
       </p>
 
-      {/* 🔄 LOADER */}
       {loading ? (
         <Loader text="Loading medicines..." />
       ) : (
         <>
-          {/* Filters */}
+          {/* FILTERS */}
           <div className="nearby-filters">
             <button
               className={`nearby-filter-btn ${
@@ -109,18 +109,27 @@ export default function NearbyStores() {
                 <p className="empty-text">No medicines found</p>
               ) : (
                 filteredStores.map((store) => (
-                  <div className="store-card" key={store.id}>
-                    <WishlistButton item={store} />
-                    {/* ➕ ADD TO CART */}
+                  <div
+                    className="store-card"
+                    key={store.id}
+                    onClick={() => navigate(`/medicine/${store.id}`)}
+                  >
+                    {/* ❤️ Wishlist */}
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <WishlistButton item={store} />
+                    </div>
+
+                    {/* ➕ Add to Cart */}
                     <div
                       className="add-cart-btn"
-                      onClick={() =>
+                      onClick={(e) => {
+                        e.stopPropagation();
                         addToCart({
                           item: store,
                           navigate,
                           location,
-                        })
-                      }
+                        });
+                      }}
                     >
                       <Plus size={18} />
                     </div>
@@ -139,6 +148,9 @@ export default function NearbyStores() {
                     />
 
                     <h4>{store.name}</h4>
+                    <p className="price">
+                      ₹{store.price || store.unit_price || 0}
+                    </p>
                   </div>
                 ))
               )}
