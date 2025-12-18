@@ -8,60 +8,86 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch wishlist
+  const token = localStorage.getItem("token");
+
+  let guestId = localStorage.getItem("guest_id");
+  if (!token && (!guestId || isNaN(Number(guestId)))) {
+    guestId = Date.now();
+    localStorage.setItem("guest_id", guestId);
+  }
+
+  /* ================= FETCH ================= */
   const fetchWishlist = async () => {
     try {
       const res = await api.get("/api/v1/customer/wish-list", {
         headers: {
           zoneId: JSON.stringify([3]),
           moduleId: 2,
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
+        params: token ? {} : { guest_id: Number(guestId) },
       });
 
       setWishlist(res.data?.item || []);
     } catch (err) {
-      console.error("Wishlist fetch failed:", err);
+      console.error("Wishlist fetch failed:", err?.response?.data);
     }
   };
 
   useEffect(() => {
     fetchWishlist();
-  }, []);
+  }, [token]);
 
-  // Add
+  /* ================= ADD ================= */
   const addToWishlist = async (itemId) => {
     try {
       setLoading(true);
+
       await api.post(
         "/api/v1/customer/wish-list/add",
-        { item_id: itemId },
+        {
+          item_id: itemId,
+          ...(token ? {} : { guest_id: Number(guestId) }),
+        },
         {
           headers: {
             zoneId: JSON.stringify([3]),
             moduleId: 2,
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
           },
         }
       );
+
       toast.success("Added to wishlist ❤️");
       fetchWishlist();
     } catch (err) {
-      toast.error("Failed to add");
+      toast.error(
+        err?.response?.data?.message ||
+          err?.response?.data?.errors?.[0]?.message ||
+          "Failed to add"
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  // Remove
+  /* ================= REMOVE ================= */
   const removeFromWishlist = async (itemId) => {
     try {
       setLoading(true);
+
       await api.delete("/api/v1/customer/wish-list/remove", {
-        data: { item_id: itemId },
+        data: {
+          item_id: itemId,
+          ...(token ? {} : { guest_id: Number(guestId) }),
+        },
         headers: {
           zoneId: JSON.stringify([3]),
           moduleId: 2,
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       });
+
       toast.success("Removed from wishlist 💔");
       fetchWishlist();
     } catch (err) {
@@ -71,11 +97,10 @@ export const WishlistProvider = ({ children }) => {
     }
   };
 
-  // Check
+  /* ================= HELPERS ================= */
   const isWishlisted = (itemId) =>
     wishlist.some((item) => item.id === itemId);
 
-  // ✅ TOGGLE (INSIDE PROVIDER)
   const toggleWishlist = async (item) => {
     if (isWishlisted(item.id)) {
       await removeFromWishlist(item.id);

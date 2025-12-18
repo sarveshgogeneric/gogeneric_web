@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import api from "../../api/axiosInstance";
 import { cleanImageUrl } from "../../utils";
 import Loader from "../Loader";
-// import "./FeaturedStoreDetails.css";
+import "./FeaturedStoreDetails.css";
 
 export default function FeaturedStoreDetails() {
   const { id } = useParams();

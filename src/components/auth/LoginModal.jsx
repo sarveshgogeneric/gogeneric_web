@@ -7,6 +7,9 @@ import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginModal({ onClose }) {
   const [isSignup, setIsSignup] = useState(false);
+  const [isForgot, setIsForgot] = useState(false);
+
+  const [forgotValue, setForgotValue] = useState("");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,12 +19,16 @@ export default function LoginModal({ onClose }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // 👁️ Password visibility states
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { login } = useAuth();
+
+  const resetFields = () => {
+    setPassword("");
+    setConfirmPassword("");
+  };
 
   /* ================= SIGNUP ================= */
   const handleSignup = async () => {
@@ -41,15 +48,14 @@ export default function LoginModal({ onClose }) {
     }
 
     const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-if (!passwordRegex.test(password)) {
-  toast.error(
-    "Password must be at least 8 characters and include uppercase, lowercase, number & special character"
-  );
-  return;
-}
-
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must be at least 8 characters and include uppercase, lowercase, number & special character"
+      );
+      return;
+    }
 
     try {
       const res = await api.post("/api/v1/auth/sign-up", {
@@ -63,18 +69,18 @@ if (!passwordRegex.test(password)) {
 
       const normalizedUser = {
         id: apiUser?.id,
-        name: apiUser?.name || email.split("@")[0],
-        email: apiUser?.email || email,
-        phone: apiUser?.phone || phone,
+        name: apiUser?.name,
+        email: apiUser?.email,
+        phone: apiUser?.phone, // ✅ always saved
       };
 
-      login(normalizedUser, null);
+      login(normalizedUser, res.data?.token || null);
       toast.success("Signup successful!");
       onClose();
     } catch (err) {
       toast.error(
-        err.response?.data?.message ||
-          err.response?.data?.errors?.[0]?.message ||
+        err?.response?.data?.message ||
+          err?.response?.data?.errors?.[0]?.message ||
           "Signup failed"
       );
     }
@@ -87,48 +93,90 @@ if (!passwordRegex.test(password)) {
       return;
     }
 
+    const guestId = localStorage.getItem("guest_id");
+
     try {
       const res = await api.post("/api/v1/auth/login", {
         login_type: "manual",
         email_or_phone: identifier,
         password,
         field_type: identifier.includes("@") ? "email" : "phone",
+        guest_id: guestId,
       });
+      console.log("FULL LOGIN RESPONSEEEE:", res.data);
 
-      const apiUser = res.data.user || res.data;
+      const apiUser = res.data?.user || res.data;
 
       const normalizedUser = {
         id: apiUser?.id,
-        name:
-          apiUser?.name ||
-          apiUser?.f_name ||
-          apiUser?.full_name ||
-          apiUser?.email?.split("@")[0],
+        name: apiUser?.name || apiUser?.email?.split("@")[0],
         email: apiUser?.email,
-        phone: apiUser?.phone,
+        phone: apiUser?.phone || null, // ✅ FIXED
       };
 
-      login(normalizedUser, res.data.token);
+      login(normalizedUser, res.data?.token);
+
       toast.success(`Welcome ${normalizedUser.name}`);
       onClose();
     } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
+      toast.error(err?.response?.data?.message || "Login failed");
+    }
+  };
+
+  /* ================= FORGOT PASSWORD ================= */
+  const handleForgotPassword = async () => {
+    if (!forgotValue) {
+      toast.error("Email or phone is required");
+      return;
+    }
+
+    try {
+      await api.post("/api/v1/auth/forgot-password", {
+        email_or_phone: forgotValue,
+        field_type: forgotValue.includes("@") ? "email" : "phone",
+      });
+
+      toast.success("Reset link / OTP sent successfully 📩");
+      setForgotValue("");
+      setIsForgot(false);
+    } catch (err) {
+      toast.error(
+        err?.response?.data?.message ||
+          err?.response?.data?.errors?.[0]?.message ||
+          "Failed to send reset link"
+      );
     }
   };
 
   return (
     <div className="login-overlay">
       <div className="login-box">
-        <span className="close-icon" onClick={onClose}>
-          ×
-        </span>
+        <span className="close-icon" onClick={onClose}>×</span>
 
-        <h2 className="title">
-          {isSignup ? "Create an Account" : "Welcome Back"}
-        </h2>
-
-        {isSignup ? (
+        {isForgot ? (
           <>
+            <h2 className="title">Reset Password</h2>
+
+            <input
+              className="input"
+              placeholder="Enter email or phone"
+              value={forgotValue}
+              onChange={(e) => setForgotValue(e.target.value)}
+            />
+
+            <button className="submit-btn" onClick={handleForgotPassword}>
+              Send Reset Link
+            </button>
+
+            <p className="switch-text">
+              Remember password?
+              <span onClick={() => setIsForgot(false)}> Login</span>
+            </p>
+          </>
+        ) : isSignup ? (
+          <>
+            <h2 className="title">Create an Account</h2>
+
             <input
               className="input"
               placeholder="Full Name"
@@ -150,7 +198,6 @@ if (!passwordRegex.test(password)) {
               onChange={(e) => setPhone(e.target.value)}
             />
 
-            {/* Signup Password */}
             <div className="password-wrapper">
               <input
                 className="input"
@@ -161,28 +208,19 @@ if (!passwordRegex.test(password)) {
               />
               <span
                 className="eye-icon"
-                onClick={() =>
-                  setShowSignupPassword(!showSignupPassword)
-                }
+                onClick={() => setShowSignupPassword(!showSignupPassword)}
               >
-                {showSignupPassword ? (
-                  <EyeOff size={18} />
-                ) : (
-                  <Eye size={18} />
-                )}
+                {showSignupPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </span>
             </div>
 
-            {/* Confirm Password */}
             <div className="password-wrapper">
               <input
                 className="input"
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Password"
                 value={confirmPassword}
-                onChange={(e) =>
-                  setConfirmPassword(e.target.value)
-                }
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <span
                 className="eye-icon"
@@ -190,11 +228,7 @@ if (!passwordRegex.test(password)) {
                   setShowConfirmPassword(!showConfirmPassword)
                 }
               >
-                {showConfirmPassword ? (
-                  <EyeOff size={18} />
-                ) : (
-                  <Eye size={18} />
-                )}
+                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </span>
             </div>
 
@@ -204,11 +238,15 @@ if (!passwordRegex.test(password)) {
 
             <p className="switch-text">
               Already have an account?
-              <span onClick={() => setIsSignup(false)}> Login</span>
+              <span onClick={() => { setIsSignup(false); resetFields(); }}>
+                {" "}Login
+              </span>
             </p>
           </>
         ) : (
           <>
+            <h2 className="title">Welcome Back</h2>
+
             <input
               className="input"
               placeholder="Email or Phone"
@@ -216,7 +254,6 @@ if (!passwordRegex.test(password)) {
               onChange={(e) => setIdentifier(e.target.value)}
             />
 
-            {/* Login Password */}
             <div className="password-wrapper">
               <input
                 className="input"
@@ -231,11 +268,7 @@ if (!passwordRegex.test(password)) {
                   setShowLoginPassword(!showLoginPassword)
                 }
               >
-                {showLoginPassword ? (
-                  <EyeOff size={18} />
-                ) : (
-                  <Eye size={18} />
-                )}
+                {showLoginPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </span>
             </div>
 
@@ -243,9 +276,15 @@ if (!passwordRegex.test(password)) {
               Login
             </button>
 
+            <p className="forgot-text" onClick={() => setIsForgot(true)}>
+              Forgot Password?
+            </p>
+
             <p className="switch-text">
               Don’t have an account?
-              <span onClick={() => setIsSignup(true)}> Signup</span>
+              <span onClick={() => { setIsSignup(true); resetFields(); }}>
+                {" "}Signup
+              </span>
             </p>
           </>
         )}

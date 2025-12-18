@@ -261,14 +261,26 @@ const handleShare = async () => {
             <p>No products found</p>
           ) : (
             filteredProducts.map((p) => (
-              <div key={p.id} className="product-card">
+             <div
+  key={p.id}
+  className="product-card"
+  onClick={() => {
+    navigate(`/medicine/${p.id}`, {
+      state: {
+        price: p.price,
+        store_id: store.id,
+      },
+    });
+  }}
+>
                 <WishlistButton item={p} />
 
                 <div
                   className="add-cart-btn"
-                  onClick={() =>
+                  onClick={(e) =>{
+                    e.stopPropagation();
                     addToCart({ item: p, navigate, location })
-                  }
+                  }}
                 >
                   <Plus size={18} />
                 </div>

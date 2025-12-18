@@ -3,6 +3,7 @@ import { Search, X } from "lucide-react";
 import api from "../../api/axiosInstance";
 import "./Searchbar.css";
 import { cleanImageUrl } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 export default function Searchbar() {
   const [query, setQuery] = useState("");
@@ -12,7 +13,7 @@ export default function Searchbar() {
   const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
+  const navigate = useNavigate();
   const wrapperRef = useRef(null);
   const abortRef = useRef(null);
   const cacheRef = useRef({});
@@ -133,12 +134,22 @@ export default function Searchbar() {
   };
 
   // ✅ Select item
-  const handleSelect = (item) => {
-    console.log("SELECTED:", item);
-    setShowDropdown(false);
-    setIsMobileOpen(false);
-    setActiveIndex(-1);
-  };
+const handleSelect = (item) => {
+  setShowDropdown(false);
+  setIsMobileOpen(false);
+  setActiveIndex(-1);
+
+  if (item.type === "medicine") {
+    const id = item.id.replace("item-", "");
+    navigate(`/medicine/${id}`);
+  }
+
+  if (item.type === "store") {
+    const id = item.id.replace("store-", "");
+    navigate(`/view-stores/${id}`);
+  }
+};
+
 
   return (
     <header className="header-main">

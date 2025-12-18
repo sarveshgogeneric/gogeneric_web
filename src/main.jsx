@@ -11,11 +11,12 @@ import { WishlistProvider } from './context/WishlistContext.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-    <AuthProvider>
-      <WishlistProvider>
-      <App />
-      </WishlistProvider>
+      <AuthProvider>
+        <WishlistProvider>
+          <App />
+        </WishlistProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>
 );
+

@@ -1,0 +1,136 @@
+.medicine-page {
+  padding: 24px 12px;
+  background: #f6f8fb;
+  display: flex;
+  min-height: 300px;
+  justify-content: center;
+}
+
+/* Card Layout */
+.medicine-card {
+  display: flex;
+  gap: 20px;
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 820px;   /* 🔥 compact */
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* Image */
+.medicine-image {
+  flex-shrink: 0;
+  position: relative;
+}
+.medicine-wishlist {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 10;
+}
+.medicine-wishlist button {
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+
+.medicine-image img {
+  width: 300px;       /* 🔥 smaller */
+  max-width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #fafafa;
+  padding: 8px;
+}
+
+/* Info */
+.medicine-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+/* Title */
+.medicine-info h1 {
+  font-size: 22px;    /* 🔥 smaller */
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+/* Price */
+.medicine-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a8f3c;
+  margin-bottom: 10px;
+}
+
+.medicine-price.unavailable {
+  color: #999;
+}
+
+/* Description */
+.medicine-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+  max-width: 95%;
+}
+
+/* Actions */
+.medicine-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* Add to Cart */
+.add-cart-btn1 {
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px; /* 🔥 compact */
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-cart-btn1:hover {
+  background-color: #218838;
+}
+
+.add-cart-btn1:disabled {
+  background-color: #b6d7bd;
+  cursor: not-allowed;
+}
+
+/* Loader */
+.medicine-loader {
+  text-align: center;
+  padding: 60px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .medicine-card {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .medicine-image img {
+    width: 100%;
+    max-height: 220px;
+  }
+
+  .medicine-actions {
+    flex-direction: column;
+  }
+}

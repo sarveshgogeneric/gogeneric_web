@@ -1,7 +1,7 @@
 /* Overlay */
 .login-overlay {
   position: fixed;
-  top: 0; 
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -25,6 +25,15 @@
   position: relative;
 }
 
+/* Title */
+.title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #111;
+}
+
 /* Pop Animation */
 @keyframes popup {
   from { transform: scale(0.85); opacity: 0; }
@@ -40,12 +49,30 @@
   border-radius: 8px;
   font-size: 15px;
   outline: none;
-  transition: border 0.2s ease;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input:focus {
   border-color: #2563eb;
   box-shadow: 0px 0px 4px rgba(37,99,235,0.2);
+}
+
+/* Password Wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.eye-icon:hover {
+  color: #000;
 }
 
 /* Submit Button */
@@ -59,51 +86,48 @@
   color: #fff;
   margin-top: 12px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .submit-btn:hover {
   background: #1e4fd1;
 }
 
-/* Close Button */
-.close-btn {
-  margin-top: 14px;
-  text-align: center;
-  color: #777;
-  cursor: pointer;
-  font-size: 14px;
+.submit-btn:active {
+  transform: scale(0.98);
 }
 
-.close-btn:hover {
+/* Forgot Password Text */
+.forgot-text {
+  margin-top: 10px;
+  text-align: right;
+  font-size: 13px;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.forgot-text:hover {
   text-decoration: underline;
 }
 
 /* Toggle Text */
 .switch-text {
-  margin-top: 12px;
+  margin-top: 14px;
   font-size: 14px;
   text-align: center;
   color: #666;
 }
 
-.switch-link {
+.switch-text span {
   color: #2563eb;
   font-weight: 600;
   cursor: pointer;
 }
 
-.switch-link:hover {
+.switch-text span:hover {
   text-decoration: underline;
 }
 
-/* Mobile Responsive */
-@media (max-width: 400px) {
-  .login-box {
-    width: 90%;
-    padding: 22px;
-  }
-}
 /* Close Icon */
 .close-icon {
   position: absolute;
@@ -120,19 +144,11 @@
   color: #000;
   transform: scale(1.1);
 }
-.password-wrapper {
-  position: relative;
-}
 
-.eye-icon {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #666;
-}
-
-.eye-icon:hover {
-  color: #000;
+/* Mobile Responsive */
+@media (max-width: 400px) {
+  .login-box {
+    width: 90%;
+    padding: 22px;
+  }
 }

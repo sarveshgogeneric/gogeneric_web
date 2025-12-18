@@ -1,111 +1,71 @@
 import React from "react";
-import "./Footer.css"
+import "./Footer.css";
 import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
   FaYoutube,
-  FaPaperPlane,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 
 const Footer = () => {
   return (
     <footer className="ak-footer-section">
       <div className="ak-container">
         <div className="ak-footer-content">
+
+          {/* LEFT : About */}
           <div className="ak-footer-col">
-            <div className="ak-footer-logo">
-              <img src="/gogenlogo.png" alt="Logo" />
-            </div>
+            <img src="/gogenlogo.png" alt="Go Generic" className="ak-footer-logo-img" />
+
             <p className="ak-footer-text">
-              Go Generic is an informational platform dedicated to spreading
+              Go Generic is an informational platform focused on spreading
               awareness about generic medicines and healthcare. We do not sell
-              medicines — we only share knowledge.
+              medicines.
             </p>
+
             <div className="ak-footer-social-icon">
-              <span>Follow us</span>
-              <a
-                href="https://www.facebook.com/profile.php?id=61575015842306&mibextid=ZbWKwL"
-                className="ak-facebook-bg"
-                target="_blank"
-              >
-                <FaFacebookF />
-              </a>
-              <a
-                href="https://x.com/GoGenericPharma"
-                target="_blank"
-                className="ak-twitter-bg"
-              >
-                <FaTwitter />
-              </a>
-              <a
-                href="https://www.instagram.com/gogenericpharma?igsh=Z3RmbmVjaHlubHg2"
-                target="_blank"
-                className="ak-google-bg"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="https://youtube.com/@go_generic?si=VHoumOyIDEtEWDMI"
-                target="_blank"
-                className="ak-youtube-bg"
-              >
-                <FaYoutube />
-              </a>
+              <a href="https://www.facebook.com/profile.php?id=61575015842306&mibextid=ZbWKwL" target="_blank"><FaFacebookF /></a>
+              <a href="https://x.com/GoGenericPharma" target="_blank"><FaTwitter /></a>
+              <a href="https://www.instagram.com/gogenericpharma/?igsh=Z3RmbmVjaHlubHg2#" target="_blank"><FaInstagram /></a>
+              <a href="https://www.youtube.com/@go_generic" target="_blank"><FaYoutube /></a>
             </div>
           </div>
 
+          {/* MIDDLE : Links */}
           <div className="ak-footer-col">
-            <h3 className="ak-footer-widget-heading">Useful Links</h3>
+            <h3 className="ak-footer-widget-heading">Company</h3>
             <ul className="ak-footer-links">
-  <li>
-    <Link to="/" style={{ textDecoration: "none", color: "white" }}>Home</Link>
-  </li>
-
-  <li>
-    <Link to="/about" style={{ textDecoration: "none", color: "white" }}>About</Link>
-  </li>
-
-  <li>
-    <Link to="/doctors" style={{ textDecoration: "none", color: "white" }}>Doctors</Link>
-  </li>
-
-  <li>
-    <Link to="/labs" style={{ textDecoration: "none", color: "white" }}>Labs</Link>
-  </li>
-
-  <li>
-    <Link to="/blog" style={{ textDecoration: "none", color: "white" }}>Blog</Link>
-  </li>
-
-  <li>
-    <Link to="/support" style={{ textDecoration: "none", color: "white" }}>Support</Link>
-  </li>
-</ul>
-
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/labs">Labs</Link></li>
+              <li><Link to="/doctors">Doctors</Link></li>
+              <li><Link to="/blog">Blog</Link></li>
+              <li><Link to="/contactus">Support</Link></li>
+            </ul>
           </div>
 
+          {/* RIGHT : App Download */}
           <div className="ak-footer-col">
-            <h3 className="ak-footer-widget-heading">Subscribe</h3>
+            <h3 className="ak-footer-widget-heading">Download Our App</h3>
             <p className="ak-footer-text">
-              Stay updated with the latest news and health awareness tips.
+              Get medicine awareness, doctors & labs at your fingertips.
             </p>
-            <form className="ak-subscribe-form">
-              <input type="email" placeholder="Enter your email" />
-              <button type="submit">
-                <FaPaperPlane />
-              </button>
-            </form>
+
+           <div className="app-buttons">
+  <a href="https://play.google.com/store/apps/details?id=com.gogeneric.user" target="_blank" rel="noreferrer">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+      alt="Get it on Google Play"
+    />
+  </a>
+</div>
           </div>
         </div>
       </div>
 
       <div className="ak-copyright-area">
-        <p className="ak-copyright-text">
-          © {new Date().getFullYear()} Go Generic | All Rights Reserved.
-        </p>
+        © {new Date().getFullYear()} Go Generic. All Rights Reserved.
       </div>
     </footer>
   );

@@ -96,17 +96,26 @@ export default function CategoryItems() {
             <div
               key={item.id}
               className={`item-card grad-${(index % 8) + 1}`}
+              onClick={()=>{
+                navigate(`/medicine/${item.id}`,{
+                  state:{
+                    price :item.price,
+                    store_id:item.store_id,
+                  },
+                })
+              }}
             >
               <WishlistButton item={item} />
-
               <div
                 className="add-cart-btn"
-                onClick={() =>
+                onClick={(e) =>{
+                  e.stopPropagation();
                   addToCart({
                     item,
                     navigate,
                     location,
                   })
+                }
                 }
               >
                 <Plus size={18} />
