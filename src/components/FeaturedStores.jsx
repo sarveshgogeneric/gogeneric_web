@@ -99,9 +99,22 @@ export default function FeaturedStores() {
           >
             <div className="fs-scroll-content">
               {stores.map((store) => {
-                const image = cleanImageUrl(
-                  store.logo || store.image_full_url
-                );
+                const rawImage =
+                  store.logo ||
+                  store.cover_photo ||
+                  store.image ||
+                  store.image_full_url;
+
+                const imagePath =
+                  rawImage && !rawImage.includes("/")
+                    ? `/storage/store/${rawImage}`
+                    : rawImage;
+
+                const image = cleanImageUrl(imagePath);
+
+                console.log("FINAL FEATURED IMAGE:", image);
+
+                console.log("Store Image URL:", image);
                 const isOpen = store.open === 1 || store.is_open === 1;
                 const distance = store.distance
                   ? `${store.distance.toFixed(1)} km`
@@ -118,6 +131,10 @@ export default function FeaturedStores() {
                         src={image || "/no-image.jpg"}
                         alt={store.name}
                         loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = "/no-image.jpg";
+                        }}
                       />
                     </div>
 

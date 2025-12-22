@@ -7,9 +7,12 @@ import LocationModal from "../Location/LocationModal";
 import LoginModal from "../auth/LoginModal";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 
 export default function TopHeader() {
-  const [language, setLanguage] = useState("English");
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [openLocationModal, setOpenLocationModal] = useState(false);
   const [location, setLocation] = useState("");
@@ -17,8 +20,18 @@ export default function TopHeader() {
 
   const { user } = useAuth();
   const navigate = useNavigate();
-
   const langRef = useRef(null);
+
+  const languages = [
+    { name: "English", code: "en", flag: "https://flagcdn.com/w20/us.png" },
+    { name: "हिन्दी", code: "hi", flag: "https://flagcdn.com/w20/in.png" }
+  ];
+
+  // ✅ Default language from localStorage or English
+  const [language, setLanguage] = useState(() => {
+    const savedLang = localStorage.getItem("lang") || "en";
+    return languages.find(l => l.code === savedLang) || languages[0];
+  });
 
   useEffect(() => {
     const handler = (e) => {
@@ -32,10 +45,18 @@ export default function TopHeader() {
 
   const handleProfileClick = () => {
     if (user) {
-      navigate("/profile"); // ✅ logged in → profile page
+      navigate("/profile");
     } else {
-      setOpenLoginModal(true); // ❌ not logged in → login modal
+      setOpenLoginModal(true);
     }
+  };
+
+  // ✅ Change language globally
+  const handleLanguageChange = (lang) => {
+    setLanguage(lang);
+    i18n.changeLanguage(lang.code);
+    localStorage.setItem("lang", lang.code);
+    setOpen(false);
   };
 
   return (
@@ -50,9 +71,11 @@ export default function TopHeader() {
           >
             <MdLocationOn size={20} className="text-orange-500" />
             <div className="ml-2">
-              <span className="text-xs text-gray-400">Your Location</span>
+              <span className="text-xs text-gray-400">
+                {t("location")}
+              </span>
               <div className="text-sm font-semibold">
-                {location || "Select Location"}
+                {location || t("selectLocation")}
               </div>
             </div>
             <IoMdArrowDropdown />
@@ -65,9 +88,10 @@ export default function TopHeader() {
             <a
               href="https://play.google.com/store/apps"
               target="_blank"
+              rel="noreferrer"
               className="download-pill"
             >
-              Download App
+              {t("downloadApp")}
             </a>
 
             {/* LANGUAGE */}
@@ -76,18 +100,35 @@ export default function TopHeader() {
                 className="lang-selector-premium"
                 onClick={() => setOpen(!open)}
               >
-                <span>{language}</span>
-                <IoMdArrowDropdown />
+                <img
+                  src={language.flag}
+                  alt="flag"
+                  className="w-5 h-3.5 object-cover rounded-sm"
+                />
+                <span className="text-sm font-medium">
+                  {language.name}
+                </span>
+                <IoMdArrowDropdown
+                  className={`transition-transform ${open ? "rotate-180" : ""}`}
+                />
               </div>
 
               {open && (
-                <div className="dropdown-animate absolute right-0 mt-2 bg-white shadow rounded">
-                  <div onClick={() => { setLanguage("English"); setOpen(false); }}>
-                    English
-                  </div>
-                  <div onClick={() => { setLanguage("हिन्दी"); setOpen(false); }}>
-                    हिन्दी
-                  </div>
+                <div className="dropdown-animate shadow-premium absolute right-0 mt-3 bg-white border border-gray-100 rounded-xl overflow-hidden min-w-[140px] z-50">
+                  {languages.map((lang) => (
+                    <div
+                      key={lang.code}
+                      className="lang-item"
+                      onClick={() => handleLanguageChange(lang)}
+                    >
+                      <img
+                        src={lang.flag}
+                        alt={lang.name}
+                        className="w-5 h-3.5 object-cover rounded-sm"
+                      />
+                      <span>{lang.name}</span>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
@@ -99,7 +140,7 @@ export default function TopHeader() {
             >
               <CgProfile size={20} />
               <span className="font-semibold">
-                {user ? user.name?.split(" ")[0] : "Login"}
+                {user ? user.name?.split(" ")[0] : t("login")}
               </span>
             </div>
           </div>

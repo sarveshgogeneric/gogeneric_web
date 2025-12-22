@@ -23,6 +23,8 @@ import LoginModal from "./components/auth/LoginModal.jsx";
 import Notifications from "./components/pages/Notifications.jsx";
 import DoctorDetails from "./components/pages/DoctorDetails.jsx";
 import DoctorPlans from "./components/pages/PlansPage.jsx";
+import RefundPolicy from "./components/pages/RefundPolicy.jsx";
+import PrivacyPolicy from "./components/pages/PrivacyPolicy.jsx";
 function AppLayout() {
   const { showLoginModal, setShowLoginModal } = useAuth();
 
@@ -57,6 +59,9 @@ function AppLayout() {
         <Route path="/medicine/:id" element={<MedicineDetails />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/refund" element={<RefundPolicy />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+
 
       </Routes>
       {/* ✅ GLOBAL LOGIN MODAL */}

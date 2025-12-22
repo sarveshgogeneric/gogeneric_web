@@ -28,6 +28,7 @@ export default function FeaturedStoreDetails() {
         },
       });
       // console.log("Recommended API full response:", res.data);
+      
       console.log("Store ID from URL:", id);
 
 
@@ -55,6 +56,7 @@ export default function FeaturedStoreDetails() {
 ) : (
         <div className="items-grid">
           {items.map((item) => (
+            
             <div key={item.id} className="item-card">
               <img
                 src={cleanImageUrl(item.image_full_url)}

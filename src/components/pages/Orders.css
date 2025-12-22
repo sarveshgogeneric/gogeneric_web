@@ -1,0 +1,34 @@
+.orders-page {
+  padding: 16px;
+}
+
+.orders-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.orders-tabs button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #f2f2f2;
+}
+
+.orders-tabs button.active {
+  background: #000;
+  color: #fff;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty-text {
+  text-align: center;
+  margin-top: 40px;
+  color: #777;
+}
