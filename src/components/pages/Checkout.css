@@ -1,0 +1,136 @@
+.checkout-page {
+  padding: 12px;
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 90px; /* footer overlap fix */
+}
+
+/* HEADER */
+.checkout-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.checkout-header button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* FOOTER BAR */
+.checkout-footer {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* PAY USING */
+.pay-using-btn {
+  flex: 1;
+  border: 1.5px solid #ff7a00;
+  background: #fff;
+  color: #ff7a00;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 14px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pay-using-btn:hover {
+  background: #fff5ec;
+}
+
+/* PLACE ORDER */
+.place-order-btn {
+  flex: 1;
+  background: #ff7a00;
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 700;
+  padding: 14px 12px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.place-order-btn:hover {
+  background: #e66d00;
+}
+
+.place-order-btn:disabled {
+  background: #d9d9d9;
+  cursor: not-allowed;
+}
+/* FOOTER BAR */
+.checkout-footer {
+  position: sticky;
+  bottom: 0;
+  background: #ffffff;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  z-index: 10;
+}
+
+/* PAY USING BUTTON */
+.pay-using-btn {
+  flex: 1;
+  border: 1.5px solid #ff7a00;
+  background: #fff;
+  color: #ff7a00;
+  border-radius: 14px;
+  font-weight: 600;
+  padding: 14px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-using-btn:hover {
+  background: #fff4ea;
+}
+
+/* PLACE ORDER BUTTON */
+.place-order-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #ff7a00, #ff9a3c);
+  color: #fff;
+  border-radius: 14px;
+  font-weight: 700;
+  padding: 14px 10px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.place-order-btn:hover {
+  background: linear-gradient(135deg, #e66d00, #ff8a1f);
+  transform: translateY(-1px);
+}
+
+/* DISABLED STATE */
+.place-order-btn:disabled {
+  background: #d9d9d9;
+  color: #777;
+  cursor: not-allowed;
+  transform: none;
+}

@@ -15,6 +15,7 @@ import {
   FaHeadset,
   FaComments,
   FaUndo,
+  FaWallet,
   FaTimesCircle,
   FaHeart,
 } from "react-icons/fa";
@@ -191,6 +192,18 @@ export default function Navbar() {
               </Link>
             </li>
           )}
+
+          {user && (
+  <li>
+    <Link
+      to="/wallet"
+      onClick={closeMenu}
+    >
+      <FaWallet /> My Wallet
+    </Link>
+  </li>
+)}
+
 
           <li><Link to="/address" onClick={closeMenu}><FaMapMarkedAlt /> My Address</Link></li>
           <li><Link to="/language" onClick={closeMenu}><FaLanguage /> Language</Link></li>

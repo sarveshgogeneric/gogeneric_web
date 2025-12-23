@@ -21,20 +21,45 @@ const [confirmPassword, setConfirmPassword] = useState("");
 const [showNewPass, setShowNewPass] = useState(false);
 const [showConfirmPass, setShowConfirmPass] = useState(false);
 const [loading, setLoading] = useState(false);
-
+const [totalOrders, setTotalOrders] = useState(0);
+const [checkingAuth, setCheckingAuth] = useState(true);
 
   /* ================= FETCH USER ================= */
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+ useEffect(() => {
+  const storedUser = localStorage.getItem("user");
 
-    if (!storedUser) {
-      toast.error("Please login first");
-      navigate("/login");
-      return;
-    }
-
+  if (storedUser) {
     setUser(JSON.parse(storedUser));
-  }, [navigate]);
+  }
+
+  setCheckingAuth(false);
+}, []);
+
+
+  const fetchTotalOrders = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const res = await api.get(
+      "/api/v1/customer/order/list",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          zoneId: JSON.stringify([3]),
+          moduleId: 2,
+        },
+        params: {
+          limit: 1,  
+          offset: 0,
+        },
+      }
+    );
+    setTotalOrders(res.data?.total_size || 0);
+  } catch (err) {
+    console.error("❌ Orders count error:", err);
+  }
+};
 
 
 const handleProfileUpdate = async () => {
@@ -172,6 +197,7 @@ const handleChangePassword = async () => {
 
   useEffect(() => {
     fetchWalletBalance();
+    fetchTotalOrders();
   }, []);
 
   if (!user) return null;
@@ -203,7 +229,7 @@ const handleChangePassword = async () => {
       {/* ===== STATS ===== */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <StatCard title="Loyalty Points" value="0" />
-        <StatCard title="Total Orders" value="0" />
+        <StatCard title="Total Orders" value={totalOrders} />
         <StatCard title="Wallet Balance" value={`₹${walletBalance}`} />
       </div>
 
@@ -414,3 +440,4 @@ function SettingItem({ label, onClick, danger }) {
     </div>
   );
 }
+  

@@ -1,0 +1,113 @@
+/* ================= BACKDROP ================= */
+
+.cancel-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* ================= MODAL ================= */
+
+.cancel-modal {
+  background: #fff;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  animation: scaleIn 0.2s ease;
+}
+
+/* ================= HEADER ================= */
+
+.cancel-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ❗ cross right side */
+  margin-bottom: 12px;
+}
+
+.cancel-modal-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Close button (X) */
+.close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* ================= TEXTAREA ================= */
+
+.cancel-modal textarea {
+  width: 100%;
+  min-height: 90px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+}
+
+.cancel-modal textarea:focus {
+  border-color: #dc3545;
+}
+
+/* ================= FOOTER ================= */
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+/* 🔴 Cancel Button */
+.modal-actions .danger {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.modal-actions .danger:hover {
+  background: #c82333;
+}
+
+.modal-actions .danger:active {
+  transform: scale(0.97);
+}
+
+.modal-actions .danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

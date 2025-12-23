@@ -42,6 +42,13 @@ export default function TopHeader() {
     document.addEventListener("click", handler);
     return () => document.removeEventListener("click", handler);
   }, []);
+  useEffect(() => {
+  const savedLocation = localStorage.getItem("userLocation");
+  if (savedLocation) {
+    setLocation(savedLocation);
+  }
+}, []);
+
 
   const handleProfileClick = () => {
     if (user) {
@@ -155,9 +162,13 @@ export default function TopHeader() {
       {/* LOCATION MODAL */}
       {openLocationModal && (
         <LocationModal
-          onClose={() => setOpenLocationModal(false)}
-          setLocation={setLocation}
-        />
+  onClose={() => setOpenLocationModal(false)}
+  onPickLocation={(loc) => {
+    setLocation(loc.address); 
+    localStorage.setItem("userLocation", loc.address); 
+  }}
+/>
+
       )}
     </>
   );

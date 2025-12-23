@@ -1,34 +1,81 @@
 .orders-page {
   padding: 16px;
+  max-width: 900px;
+  margin: auto;
 }
+
+.orders-page h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ================= TABS ================= */
 
 .orders-tabs {
   display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .orders-tabs button {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
-  border: none;
-  background: #f2f2f2;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.orders-tabs button:hover {
+  background: #f7f7f7;
 }
 
 .orders-tabs button.active {
-  background: #000;
+  background: #0d6efd;
   color: #fff;
+  border-color: #0d6efd;
 }
+
+/* ================= LIST ================= */
 
 .orders-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
+
+/* ================= EMPTY ================= */
 
 .empty-text {
   text-align: center;
-  margin-top: 40px;
   color: #777;
+  font-size: 15px;
+  margin-top: 40px;
+}
+
+/* ================= LOADER ================= */
+
+.orders-page .loader {
+  margin-top: 40px;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+  .orders-page {
+    padding: 12px;
+  }
+
+  .orders-page h2 {
+    font-size: 20px;
+  }
+
+  .orders-tabs button {
+    font-size: 13px;
+    padding: 10px;
+  }
 }

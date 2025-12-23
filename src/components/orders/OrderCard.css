@@ -1,0 +1,202 @@
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ================= HEADER ================= */
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-id {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ================= STATUS ================= */
+
+.status-badge {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+/* STATUS COLORS */
+.status-badge.pending {
+  background: #fff4cc;
+  color: #b38f00;
+}
+
+.status-badge.confirmed {
+  background: #e6f0ff;
+  color: #0047b3;
+}
+
+.status-badge.processing {
+  background: #e7f7ff;
+  color: #0077a8;
+}
+
+.status-badge.out_for_delivery {
+  background: #eaf7ee;
+  color: #1e7e34;
+}
+
+.status-badge.delivered {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.status-badge.canceled {
+  background: #fdecea;
+  color: #b02a37;
+}
+
+/* ================= BODY ================= */
+
+.order-body {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.store-name {
+  font-weight: 500;
+  flex: 1;
+}
+
+.items-count {
+  color: #666;
+}
+
+.order-price {
+  font-weight: 600;
+}
+
+/* ================= FOOTER ================= */
+
+.order-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #777;
+}
+
+.track-order {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+.view-details {
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+  .order-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .order-price {
+    align-self: flex-end;
+  }
+}
+/* ================= ACTION BUTTONS ================= */
+
+.order-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ---------- TRACK BUTTON ---------- */
+
+.track-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 20px;
+  background: #e7f1ff;
+  color: #0d6efd;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.track-btn:hover {
+  background: #d0e2ff;
+  transform: translateY(-1px);
+}
+
+/* ---------- CANCEL BUTTON ---------- */
+
+.cancel-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 20px;
+  background: #fdecea;
+  color: #b02a37;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #f8d7da;
+  transform: translateY(-1px);
+}
+
+/* ---------- DISABLED STATE ---------- */
+
+.cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================= MOBILE ACTIONS ================= */
+
+@media (max-width: 600px) {
+  .order-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+
+  .track-btn,
+  .cancel-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}

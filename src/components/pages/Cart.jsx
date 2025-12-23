@@ -4,15 +4,21 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import "./Cart.css";
 import { cleanImageUrl } from "../../utils";
 import LoginModal from "../auth/LoginModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-  const handleCheckout = () =>{
-    if(!token) {
+  const handleAddMoreItems = () => {
+    navigate("/"); // or "/categories"
+  };
+
+  const handleCheckout = () => {
+    if (!token) {
       setShowLogin(true);
     } else {
       window.location.href = "/checkout";
@@ -90,7 +96,7 @@ export default function Cart() {
       window.dispatchEvent(new Event("cart-updated"));
     } catch (err) {
       console.error("Remove error:", err?.response?.data || err.message);
-      fetchCart(); 
+      fetchCart();
     }
   };
 
@@ -108,39 +114,36 @@ export default function Cart() {
         <div className="cart-layout">
           <div className="cart-items">
             {cart.map((c) => (
-  <div key={c.id} className="cart-item">
-    <img
-     src={cleanImageUrl(c.item?.image_full_url || c.item?.image)}
-      alt={c.item?.name}
-      className="cart-img"
-      onError={(e) => {
-        e.currentTarget.src = "/no-image.png";
-      }}
-    />
+              <div key={c.id} className="cart-item">
+                <img
+                  src={cleanImageUrl(c.item?.image_full_url || c.item?.image)}
+                  alt={c.item?.name}
+                  className="cart-img"
+                  onError={(e) => {
+                    e.currentTarget.src = "/no-image.png";
+                  }}
+                />
 
-    <div className="item-info">
-      <h4>{c.item?.name}</h4>
-      <p>₹{c.price}</p>
-    </div>
+                <div className="item-info">
+                  <h4>{c.item?.name}</h4>
+                  <p>₹{c.price}</p>
+                </div>
 
-    <div className="qty-control">
-      <button onClick={() => updateQty(c, c.quantity - 1)}>
-        <Minus size={16} />
-      </button>
-      <span>{c.quantity}</span>
-      <button onClick={() => updateQty(c, c.quantity + 1)}>
-        <Plus size={16} />
-      </button>
-    </div>
+                <div className="qty-control">
+                  <button onClick={() => updateQty(c, c.quantity - 1)}>
+                    <Minus size={16} />
+                  </button>
+                  <span>{c.quantity}</span>
+                  <button onClick={() => updateQty(c, c.quantity + 1)}>
+                    <Plus size={16} />
+                  </button>
+                </div>
 
-    <div className="item-total">
-      ₹{c.price * c.quantity}
-    </div>
+                <div className="item-total">₹{c.price * c.quantity}</div>
 
-    <Trash2 className="delete" onClick={() => removeItem(c)} />
-  </div>
-))}
-
+                <Trash2 className="delete" onClick={() => removeItem(c)} />
+              </div>
+            ))}
           </div>
 
           <div className="cart-summary">
@@ -153,18 +156,18 @@ export default function Cart() {
               <span>Total</span>
               <span>₹{total}</span>
             </div>
-            <button className="checkout-btn" onClick={handleCheckout}>Proceed to Checkout</button>
+            <button className="checkout-btn" onClick={handleCheckout}>
+              Confirm Delivery Details
+            </button>
           </div>
           {showLogin && (
-  <LoginModal
-  onClose={() => {
-    setShowLogin(false);
-    fetchCart(); // 🔥 refresh cart after login
-  }}
-/>
-
-)}
-
+            <LoginModal
+              onClose={() => {
+                setShowLogin(false);
+                fetchCart();
+              }}
+            />
+          )}
         </div>
       )}
     </div>

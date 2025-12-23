@@ -12,21 +12,45 @@ const TABS = {
 
 export default function Orders() {
   const [activeTab, setActiveTab] = useState(TABS.RUNNING);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
+  const [cancelOrder, setCancelOrder] = useState(null);
+
 
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const url =
-        activeTab === TABS.RUNNING
-          ? "/api/v1/customer/order/running-orders"
-          : "/api/v1/customer/order/list";
 
-      const { data } = await api.get(url);
-      setOrders(data?.orders || []);
+      const token = localStorage.getItem("token");
+      const guestId = localStorage.getItem("guest_id");
+
+      const isRunning = activeTab === TABS.RUNNING;
+
+      const url = isRunning
+        ? "/api/v1/customer/order/running-orders"
+        : "/api/v1/customer/order/list";
+
+      const res = await api.get(url, {
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        params: {
+          limit: 10,
+          offset: 1,
+          ...(token ? {} : { guest_id: guestId }),
+        },
+      });
+
+      // ✅ ALWAYS pick orders array safely
+      const ordersArray = Array.isArray(res.data?.orders)
+        ? res.data.orders
+        : [];
+
+      setOrders(ordersArray);
     } catch (error) {
+      console.error("❌ Fetch orders failed:", error);
+
       if (error?.response?.status === 401) {
         setShowLogin(true);
       }
@@ -51,6 +75,7 @@ export default function Orders() {
         >
           Running Orders
         </button>
+
         <button
           className={activeTab === TABS.HISTORY ? "active" : ""}
           onClick={() => setActiveTab(TABS.HISTORY)}
@@ -67,12 +92,26 @@ export default function Orders() {
       ) : (
         <div className="orders-list">
           {orders.map((order) => (
-            <OrderCard key={order.id} order={order} />
+            <OrderCard
+              key={order.id}
+              order={order}
+              isRunning={activeTab === TABS.RUNNING}
+              onCancel={(order) => setCancelOrder(order)}
+            />
           ))}
         </div>
       )}
+  {cancelOrder && (
+  <CancelOrderModal
+    order={cancelOrder}
+    onClose={() => setCancelOrder(null)}
+    onSuccess={fetchOrders}
+  />
+)}
 
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+
+
     </div>
   );
 }

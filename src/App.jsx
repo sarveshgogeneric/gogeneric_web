@@ -25,6 +25,10 @@ import DoctorDetails from "./components/pages/DoctorDetails.jsx";
 import DoctorPlans from "./components/pages/PlansPage.jsx";
 import RefundPolicy from "./components/pages/RefundPolicy.jsx";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy.jsx";
+import Checkout from "./components/pages/Checkout.jsx";
+import AddAddress from "./components/pages/AddAddress.jsx";
+import Orders from "./components/pages/Orders.jsx";
+import TrackOrder from "./components/orders/TrackOrder.jsx";
 function AppLayout() {
   const { showLoginModal, setShowLoginModal } = useAuth();
 
@@ -61,8 +65,11 @@ function AppLayout() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/refund" element={<RefundPolicy />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
-
-
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/add-address" element={<AddAddress />} />
+         <Route path="/orders" element={<Orders />} />
+         <Route path="/wallet" element={<Wallet />} />
+         <Route path="/orders/:id/track" element={<TrackOrder />} />
       </Routes>
       {/* ✅ GLOBAL LOGIN MODAL */}
       {showLoginModal && (

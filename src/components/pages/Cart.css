@@ -235,3 +235,31 @@ svg.delete {
   width: 20px !important;
   height: 20px !important;
 }
+.cart-summary-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.add-more-items-btn {
+  width: 50%;
+  margin-left: 80px;
+  padding: 18px;
+  background: linear-gradient(135deg, #020617, #1e293b);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+}
+
+.add-more-items-btn:hover {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.4);
+}

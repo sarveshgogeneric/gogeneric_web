@@ -1,0 +1,99 @@
+/* ================= PAGE ================= */
+.add-address-page {
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fff;
+  min-height: 100vh;
+  padding-bottom: 24px;
+}
+
+/* ================= HEADER ================= */
+.add-address-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+}
+
+.add-address-header button {
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.add-address-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ================= FORM ================= */
+.add-address-form {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* label */
+.add-address-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* inputs & select */
+.add-address-form input,
+.add-address-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.add-address-form input::placeholder {
+  color: #999;
+}
+
+.add-address-form input:focus,
+.add-address-form select:focus {
+  border-color: #ff7a00;
+}
+
+/* ================= SAVE BUTTON ================= */
+.save-address-btn {
+  margin-top: 16px;
+  width: 100%;
+  background: #ff7a00;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.save-address-btn:hover {
+  background: #e56f00;
+}
+
+.save-address-btn:active {
+  transform: scale(0.98);
+}
+
+/* ================= MOBILE SAFE ================= */
+@media (max-width: 480px) {
+  .add-address-page {
+    border-radius: 0;
+  }
+}
