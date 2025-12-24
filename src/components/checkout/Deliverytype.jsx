@@ -1,17 +1,14 @@
-import { useState } from "react";
 import "./Deliverytype.css";
 
-export default function DeliveryType() {
-  const [type, setType] = useState("delivery");
-
+export default function DeliveryType({ value, onChange }) {
   return (
     <div className="delivery-type-card">
       <h4 className="section-title">Delivery Type</h4>
 
       <div className="delivery-options">
         <button
-          className={`delivery-option ${type === "delivery" ? "active" : ""}`}
-          onClick={() => setType("delivery")}
+          className={`delivery-option ${value === "delivery" ? "active" : ""}`}
+          onClick={() => onChange("delivery")}
         >
           <div className="radio" />
           <div>
@@ -21,8 +18,10 @@ export default function DeliveryType() {
         </button>
 
         <button
-          className={`delivery-option ${type === "pickup" ? "active" : ""}`}
-          onClick={() => setType("pickup")}
+          className={`delivery-option ${
+            value === "take_away" ? "active" : ""
+          }`}
+          onClick={() => onChange("take_away")}
         >
           <div className="radio" />
           <div>

@@ -28,7 +28,7 @@ export default function FeaturedStores() {
 
     const { lat, lng } = JSON.parse(stored);
 
-    console.log("FINAL USER COORDS:", lat, lng);
+    // console.log("FINAL USER COORDS:", lat, lng);
 
 
     const res = await api.get("/api/v1/stores/recommended", {
@@ -45,7 +45,7 @@ export default function FeaturedStores() {
         Accept: "application/json",
       },
     });
-console.log("STORES RAW:", res.data?.stores);
+// console.log("STORES RAW:", res.data?.stores);
 
     setStores(res.data?.stores || []);
   } catch (error) {
@@ -134,9 +134,9 @@ console.log("STORES RAW:", res.data?.stores);
 
                 const image = cleanImageUrl(imagePath);
 
-                console.log("FINAL FEATURED IMAGE:", image);
+                // console.log("FINAL FEATURED IMAGE:", image);
 
-                console.log("Store Image URL:", image);
+                // console.log("Store Image URL:", image);
                 const isOpen = store.open === 1 || store.is_open === 1;
                 const distance = store.distance
   ? `${(store.distance / 1000).toFixed(1)} km`

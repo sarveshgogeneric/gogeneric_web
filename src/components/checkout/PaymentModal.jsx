@@ -2,9 +2,21 @@ import { X, CheckCircle } from "lucide-react";
 import "./PaymentModal.css";
 
 const options = [
-  { id: "COD", title: "Cash on Delivery", desc: "Pay when order arrives" },
-  { id: "UPI", title: "UPI", desc: "Google Pay, PhonePe, Paytm" },
-  { id: "CARD", title: "Card", desc: "Credit / Debit Card" },
+  {
+    id: "cod",
+    title: "Cash on Delivery",
+    desc: "Pay when order arrives",
+  },
+  {
+    id: "wallet",
+    title: "Wallet",
+    desc: "Use wallet balance",
+  },
+  {
+    id: "digital",
+    title: "Digital Payment",
+    desc: "UPI, Cards, Net Banking",
+  },
 ];
 
 export default function PaymentModal({ selected, onSelect, onClose }) {

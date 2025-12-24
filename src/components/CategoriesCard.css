@@ -1,22 +1,16 @@
-/* ================= UPDATED PREMIUM CATEGORY CARD ================= */
-
 .category-section {
   position: relative;
   margin-top: 40px;
   padding: 20px 0;
 }
 
-.cate-title {
-  font-size: 30px;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 4px;
-}
-
 .category-wrapper {
-  overflow-x: auto;
+  overflow-x: auto;        
+  overflow-y: hidden;
   padding: 15px 5px;
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .category-wrapper::-webkit-scrollbar {
@@ -24,36 +18,40 @@
 }
 
 .category-scroll {
-  display: inline-flex;
+  display: flex;
   gap: 18px;
   padding: 10px 0;
+  width: max-content;
 }
-
-/* --- OPTIMIZED SHAPE & HEIGHT --- */
+.cate-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
 .category-card {
   width: 160px; 
-  height: 180px; /* Fixed Height for Uniformity */
+  height: 180px;
   padding: 15px;
-  border-radius: 28px; /* Softer Squircle Shape */
+  border-radius: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Space balanced between image and text */
+  justify-content: space-between;
   cursor: pointer;
   background: #ffffff;
   border: 1px solid rgba(226, 232, 240, 0.8);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  overflow: visible; /* To allow image to pop out on hover */
+  overflow: visible; 
 }
 
-/* --- LARGER IMAGE DESIGN --- */
 .category-card img {
-  width: 100px; /* Image size increased */
+  width: 100px; 
   height: 100px;
   object-fit: contain;
   padding: 5px;
-  background: transparent; /* Clean look */
+  background: transparent;
   transition: all 0.4s ease;
   z-index: 2;
 }
@@ -65,14 +63,13 @@
   text-align: center;
   margin-top: 5px;
   width: 100%;
-  white-space: normal; /* Wrap text if long */
+  white-space: normal; 
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* --- ENHANCED HOVER --- */
 .category-card:hover {
   transform: translateY(-8px);
   border-color: #f57c00;
@@ -80,14 +77,13 @@
 }
 
 .category-card:hover img {
-  transform: scale(1.2) translateY(-5px); /* Image pops up and grows */
+  transform: scale(1.2) translateY(-5px); 
 }
 
 .category-card:hover p {
   color: #f57c00;
 }
 
-/* Subtly different backgrounds for each card */
 .category-card:nth-child(8n + 1) { background: #f0f9ff; }
 .category-card:nth-child(8n + 2) { background: #f0fdf4; }
 .category-card:nth-child(8n + 3) { background: #faf5ff; }
@@ -97,7 +93,6 @@
 .category-card:nth-child(8n + 7) { background: #f5f3ff; }
 .category-card:nth-child(8n + 8) { background: #f8fafc; }
 
-/* Navigation Buttons */
 .scroll-btn {
   position: absolute;
   top: 60%;

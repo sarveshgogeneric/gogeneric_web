@@ -3,7 +3,7 @@ import "./HomeBanner.css";
 import api from "../api/axiosInstance";
 import { cleanImageUrl } from "../utils";
 
-const DUMMY_BANNER = "";
+const DUMMY_BANNER = null;
 
 export default function HomeBanner() {
   const [banners, setBanners] = useState([]);

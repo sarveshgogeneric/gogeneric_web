@@ -37,7 +37,7 @@ export default function Highlights() {
       });
 
       const ads = res.data || [];
-      console.log("🔥 FULL ADVERTISEMENT API RESPONSE:", ads);
+      // console.log("🔥 FULL ADVERTISEMENT API RESPONSE:", ads);
 
       const formattedAds = ads.map((ad) => ({
         id: ad.id,

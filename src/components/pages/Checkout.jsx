@@ -138,6 +138,8 @@ if (hasOutOfStockItem) {
     return true;
   };
 
+
+
   /* ---------------- PLACE ORDER ---------------- */
   const handlePlaceOrder = async () => {
     if (placingOrder) return;
@@ -151,7 +153,7 @@ if (hasOutOfStockItem) {
 
     const payload = {
       order_amount: bill.totalAmount,
-      payment_method: "cash_on_delivery",
+      payment_method: paymentMethod,
       order_type: "delivery",
       store_id: storeId,
       distance: Number(selectedAddress.distance) || 1,

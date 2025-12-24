@@ -144,3 +144,39 @@
   margin-top: 50px;
   color: #666;
 }
+.store-section {
+  padding: 14px;
+}
+.store-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.store-logo {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 10px;
+  object-fit: contain;
+  background-color: #f5f5f5;
+  border: 1px solid #eaeaea;
+  padding: 6px;
+}
+.store-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+.store-contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 2px;
+}
+.store-logo:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
