@@ -17,51 +17,54 @@ export const WalletProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchWallet = async () => {
-    try {
-      if (!user) {
-        setBalance(0);
-        setTransactions([]);
-        return;
-      }
-
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
-      setLoading(true);
-
-      const res = await api.get(
-        "/api/v1/customer/wallet/transactions",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            zoneId: JSON.stringify([3]),
-            moduleId: 2,
-          },
-          params: {
-            limit: 100,
-            offset: 0,
-          },
-        }
-      );
-
-      const txs = res.data?.transactions || [];
-
-      const total = txs.reduce(
-        (sum, tx) => sum + Number(tx.amount || 0),
-        0
-      );
-
-      setTransactions(txs);
-      setBalance(total);
-    } catch (err) {
-      console.error("Wallet fetch error", err);
+ const fetchWallet = async () => {
+  try {
+    if (!user) {
       setBalance(0);
       setTransactions([]);
-    } finally {
-      setLoading(false);
+      return;
     }
-  };
+
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    setLoading(true);
+
+    const res = await api.get(
+      "/api/v1/customer/wallet/transactions",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          zoneId: JSON.stringify([3]),
+          moduleId: 2,
+        },
+        params: {
+          limit: 100,
+          offset: 0,
+        },
+      }
+    );
+
+    console.log(" WALLET RAW DATA:", res.data);
+
+    const txs = res.data?.data || [];
+
+    console.log(" WALLET TXs:", txs);
+
+    const latestBalance =
+      txs.length > 0 ? Number(txs[0].balance || 0) : 0;
+
+    setTransactions(txs);
+    setBalance(latestBalance);
+  } catch (err) {
+    console.error("Wallet fetch error", err);
+    setBalance(0);
+    setTransactions([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // 🔁 Auto refresh on login/logout
   useEffect(() => {

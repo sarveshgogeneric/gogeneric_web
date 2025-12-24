@@ -379,3 +379,29 @@
   .sd-prod-img-box img { width: 90px; height: 90px; }
   .sd-prod-add, .sd-wishlist-pos { width: 32px; height: 32px; top: 10px; }
 }
+.sd-floating-prescription {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: #16a34a;
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sd-floating-prescription:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
+}
+
+.sd-floating-prescription span {
+  font-size: 14px;
+}

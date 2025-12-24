@@ -5,7 +5,7 @@ import { cleanImageUrl } from "../../utils";
 import { addToCart } from "../../utils/cartHelper";
 import WishlistButton from "../WishlistButton";
 import toast from "react-hot-toast";
-
+import { FileText } from "lucide-react";
 import {
   MapPin,
   Star,
@@ -23,18 +23,15 @@ export default function StoreDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-
   const [store, setStore] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("products");
-
   const [products, setProducts] = useState([]);
   const [productsLoading, setProductsLoading] = useState(false);
-
   const [reviews, setReviews] = useState([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
-
   const [searchTerm, setSearchTerm] = useState("");
+  
 
   /* ================= Fetch Store ================= */
   useEffect(() => {
@@ -153,7 +150,9 @@ export default function StoreDetails() {
           <h1 className="sd-store-title">{store.name}</h1>
           <div className="sd-tags">
             {store.category_details?.map((c) => (
-              <span key={c.id} className="sd-tag-item">{c.name}</span>
+              <span key={c.id} className="sd-tag-item">
+                {c.name}
+              </span>
             ))}
           </div>
           <p className="sd-location">
@@ -172,13 +171,20 @@ export default function StoreDetails() {
 
       {/* ===== ACTION BUTTONS ===== */}
       <div className="sd-action-btns">
-        <button className="sd-btn"><Navigation size={18} /> Direction</button>
-        <button className="sd-btn" onClick={handleShare}><Share2 size={18} /> Share</button>
+        <button className="sd-btn">
+          <Navigation size={18} /> Direction
+        </button>
+        <button className="sd-btn" onClick={handleShare}>
+          <Share2 size={18} /> Share
+        </button>
         <button
           className="sd-btn"
           onClick={() => {
             const phone = getDialablePhone(store.phone);
-            if (!phone) { toast.error("Phone not available"); return; }
+            if (!phone) {
+              toast.error("Phone not available");
+              return;
+            }
             window.location.href = `tel:${phone}`;
           }}
         >
@@ -188,10 +194,10 @@ export default function StoreDetails() {
 
       {/* ===== HERO IMAGE ===== */}
       <div className="sd-hero-image-container">
-        <img 
-          className="sd-hero-img" 
-          src={cleanImageUrl(store.cover_photo_full_url)} 
-          alt={store.name} 
+        <img
+          className="sd-hero-img"
+          src={cleanImageUrl(store.cover_photo_full_url)}
+          alt={store.name}
         />
       </div>
 
@@ -224,7 +230,7 @@ export default function StoreDetails() {
       </div>
 
       {/* ===== TAB CONTENT ===== */}
-      
+
       {/* PRODUCTS TAB */}
       {activeTab === "products" && (
         <div className="sd-products-grid">
@@ -237,9 +243,11 @@ export default function StoreDetails() {
               <div
                 key={p.id}
                 className="sd-prod-card"
-                onClick={() => navigate(`/medicine/${p.id}`, {
-                  state: { price: p.price, store_id: store.id }
-                })}
+                onClick={() =>
+                  navigate(`/medicine/${p.id}`, {
+                    state: { price: p.price, store_id: store.id },
+                  })
+                }
               >
                 <div className="sd-wishlist-pos">
                   <WishlistButton item={p} />
@@ -275,15 +283,21 @@ export default function StoreDetails() {
         <div className="sd-content-section">
           <div className="sd-ov-section">
             <h3>Contact Information</h3>
-            <p><Phone size={16} /> {store.phone || "N/A"}</p>
-            <p><Mail size={16} /> {store.email || "N/A"}</p>
+            <p>
+              <Phone size={16} /> {store.phone || "N/A"}
+            </p>
+            <p>
+              <Mail size={16} /> {store.email || "N/A"}
+            </p>
           </div>
           <div className="sd-ov-section">
             <h3>Available Categories</h3>
             <div className="sd-tags">
-               {store.category_details?.map((c) => (
-                 <span key={c.id} className="sd-tag-item">{c.name}</span>
-               ))}
+              {store.category_details?.map((c) => (
+                <span key={c.id} className="sd-tag-item">
+                  {c.name}
+                </span>
+              ))}
             </div>
           </div>
         </div>
@@ -311,6 +325,21 @@ export default function StoreDetails() {
           )}
         </div>
       )}
+     <div
+  className="sd-floating-prescription"
+  onClick={() =>
+    navigate("/checkout", {
+      state: {
+        store_id: store.id,
+        isPrescriptionOrder: true,
+      },
+    })
+  }
+>
+  <FileText size={24} />
+  <span>Prescription</span>
+</div>
+ 
     </div>
   );
 }

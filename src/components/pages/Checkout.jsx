@@ -13,7 +13,6 @@ import BillDetails from "../../components/checkout/BillDetails";
 import AddressModal from "../../components/checkout/AddressModal";
 import PaymentModal from "../../components/checkout/PaymentModal";
 import OrderSuccessModal from "../../components/checkout/OrderSuccessModal";
-import Prescription from "../orders/Prescription";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -33,17 +32,9 @@ export default function Checkout() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [orderId, setOrderId] = useState(null);
 
-  const [prescriptionFile, setPrescriptionFile] = useState(null);
-  const [prescriptionError, setPrescriptionError] = useState("");
-
   const [placingOrder, setPlacingOrder] = useState(false);
+  const [deliveryType, setDeliveryType] = useState("delivery");
 
-  /* ---------------- PRESCRIPTION CHECK ---------------- */
-  const prescriptionRequired = cart.some(
-    (item) =>
-      item.prescription_required === true ||
-      item.prescription_required === 1
-  );
 
   /* ---------------- FETCH CART ---------------- */
   const fetchCart = async () => {
@@ -129,16 +120,8 @@ if (hasOutOfStockItem) {
       return false;
     }
 
-    if (prescriptionRequired && !prescriptionFile) {
-      setPrescriptionError("Prescription is required for this order");
-      toast.error("Prescription is required for this order");
-      return false;
-    }
-
     return true;
   };
-
-
 
   /* ---------------- PLACE ORDER ---------------- */
   const handlePlaceOrder = async () => {
@@ -153,7 +136,7 @@ if (hasOutOfStockItem) {
 
     const payload = {
       order_amount: bill.totalAmount,
-      payment_method: paymentMethod,
+      payment_method: "cash_on_delivery",
       order_type: "delivery",
       store_id: storeId,
       distance: Number(selectedAddress.distance) || 1,
@@ -210,7 +193,10 @@ if (hasOutOfStockItem) {
         <h3>Checkout</h3>
       </header>
 
-      <DeliveryType />
+      <DeliveryType
+  value={deliveryType}
+  onChange={setDeliveryType}
+/>
 
       <DeliveryPreference
         value={deliveryTime}
@@ -233,14 +219,6 @@ if (hasOutOfStockItem) {
       <PromoCode />
       <TipsSection />
       <BillDetails bill={bill} />
-
-      <Prescription
-        prescriptionFile={prescriptionFile}
-        setPrescriptionFile={setPrescriptionFile}
-        prescriptionRequired={prescriptionRequired}
-        error={prescriptionError}
-        setError={setPrescriptionError}
-      />
 
       <div className="checkout-footer">
         <button

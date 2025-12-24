@@ -37,10 +37,15 @@ export default function LoginModal({ onClose }) {
       return;
     }
 
-    if (!/^\d{10}$/.test(phone)) {
-      toast.error("Phone must be 10 digits");
-      return;
-    }
+    const formattedPhone = phone.startsWith("+91")
+  ? phone
+  : `+91${phone}`;
+
+if (!/^\+91\d{10}$/.test(formattedPhone)) {
+  toast.error("Phone must be 10 digits");
+  return;
+}
+
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
@@ -61,7 +66,7 @@ export default function LoginModal({ onClose }) {
       const res = await api.post("/api/v1/auth/sign-up", {
         name,
         email,
-        phone,
+        phone:formattedPhone,
         password,
       });
 
@@ -124,44 +129,56 @@ const handleGuestLogin = async () => {
     );
   }
 };
-
-
   /* ================= LOGIN ================= */
-  const handleLogin = async () => {
-    if (!identifier || !password) {
-      toast.error("Email/Phone & Password required");
-      return;
-    }
+const handleLogin = async () => {
+  if (!identifier || !password) {
+    toast.error("Email/Phone & Password required");
+    return;
+  }
 
-    const guestId = localStorage.getItem("guest_id");
+  const guestId = localStorage.getItem("guest_id");
 
-    try {
-      const res = await api.post("/api/v1/auth/login", {
-        login_type: "manual",
-        email_or_phone: identifier,
-        password,
-        field_type: identifier.includes("@") ? "email" : "phone",
-        guest_id: guestId,
-      });
-      // console.log("FULL LOGIN RESPONSEEEE:", res.data);
+  const isEmail = identifier.includes("@");
 
-      const apiUser = res.data?.user || res.data;
+  const formattedIdentifier = isEmail
+    ? identifier
+    : identifier.startsWith("+91")
+    ? identifier
+    : `+91${identifier}`;
 
-      const normalizedUser = {
-        id: apiUser?.id,
-        name: apiUser?.name || apiUser?.email?.split("@")[0],
-        email: apiUser?.email,
-        phone: apiUser?.phone || null, // ✅ FIXED
-      };
+  try {
+    const res = await api.post("/api/v1/auth/login", {
+      login_type: "manual",
+      email_or_phone: formattedIdentifier, // ✅ REQUIRED
+      field_type: isEmail ? "email" : "phone", // ✅ REQUIRED
+      password,
+      guest_id: guestId,
+    });
 
-      login(normalizedUser, res.data?.token);
+    const apiUser = res.data?.user || res.data;
 
-      toast.success(`Welcome ${normalizedUser.name}`);
-      onClose();
-    } catch (err) {
-      toast.error(err?.response?.data?.message || "Login failed");
-    }
-  };
+    const normalizedUser = {
+      id: apiUser?.id,
+      name: apiUser?.name || "",
+      email: apiUser?.email,
+      phone: apiUser?.phone || null,
+    };
+
+    login(normalizedUser, res.data?.token);
+
+    toast.success(`Welcome ${normalizedUser.name}`);
+    onClose();
+  } catch (err) {
+    console.log("LOGIN ERROR FULL:", err.response?.data);
+    toast.error(
+      err?.response?.data?.message ||
+        err?.response?.data?.errors?.[0]?.message ||
+        "Login failed"
+    );
+  }
+};
+
+
 
   /* ================= FORGOT PASSWORD ================= */
   const handleForgotPassword = async () => {
@@ -231,12 +248,17 @@ const handleGuestLogin = async () => {
               onChange={(e) => setEmail(e.target.value)}
             />
 
-            <input
-              className="input"
-              placeholder="Phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+           <input
+  className="input"
+  placeholder="Phone (10 digits)"
+  value={phone}
+  maxLength={10}
+  onChange={(e) => {
+    const val = e.target.value.replace(/\D/g, "");
+    setPhone(val);
+  }}
+/>
+
 
             <div className="password-wrapper">
               <input
