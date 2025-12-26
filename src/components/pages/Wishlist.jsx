@@ -80,7 +80,7 @@ if (wishlist.length === 0) {
 
       <div className="items-grid">
         {wishlist.map((item) => (
-          <div key={item.id} className="item-card">
+          <div key={item.id} className="item-card1">
             {/* REMOVE BUTTON */}
             <button
               className="remove-btn"

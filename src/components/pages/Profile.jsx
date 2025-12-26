@@ -5,11 +5,12 @@ import api from "../../api/axiosInstance";
 import { Pencil } from "lucide-react";
 import { useWallet } from "../../context/WalletContext";
 import { cleanImageUrl } from "../../utils";
-
+import LoginModal from "../auth/LoginModal";
 export default function Profile() {
   const navigate = useNavigate();
   const { balance } = useWallet();
   const [loyaltyPoints, setLoyaltyPoints] = useState(0);
+  const [showLogin, setShowLogin] = useState(false);
 
   const [user, setUser] = useState(null);
   const [editing, setEditing] = useState(false);
@@ -280,7 +281,30 @@ useEffect(() => {
 
 
 
-  if (!user) return null;
+useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    setShowLogin(true);
+  }
+}, []);
+
+
+if (!user) {
+  return (
+    <>
+      <LoginModal
+        open={showLogin}
+        onClose={() => {
+          setShowLogin(false);
+          navigate("/", { replace: true }); // optional
+        }}
+      />
+    </>
+  );
+}
+
+
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -365,9 +389,9 @@ useEffect(() => {
         <SettingItem
           label="Logout"
           onClick={() => {
-            localStorage.clear();
-            navigate("/login");
-          }}
+  localStorage.clear();
+  navigate("/", { replace: true });
+}}
         />
       </div>
       
