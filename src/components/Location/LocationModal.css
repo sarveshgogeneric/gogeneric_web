@@ -109,6 +109,7 @@
   margin-top: 5px;
   font-family: inherit;
   padding: 8px 0;
+  z-index: 999999;
 }
 
 .pac-item {
@@ -120,4 +121,25 @@
 
 .pac-item:hover {
   background-color: #f8fafc;
+}
+
+.loc-footer {
+  padding: 12px;
+  border-top: 1px solid #eee;
+}
+
+.confirm-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0aad8e;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
