@@ -37,14 +37,12 @@ const About = () => {
     connecting consumers directly with trusted local pharmacies that
     provide quality generic medicines at a fraction of the price.
   </p>
-
   <p class="about-text">
     Our Promise: Go Generic is not just about delivering medicines; it's
     about delivering trust, care, and relief. Every medicine listed on our
     platform is verified, every partner pharmacy is licensed, and every
     delivery is handled with utmost care.
   </p>
-
         <div className="stats-container">
           <div className="stat-box">
             <h3><Counter target={100} /></h3>
@@ -59,7 +57,6 @@ const About = () => {
             <p>Total Awards</p>
           </div>
         </div>
-
         <div className="features">
           <div className="feature-item">
             <span>✔</span> Enjoy Many Discounts In Fees
@@ -73,5 +70,4 @@ const About = () => {
     </>
   );
 };
-
 export default About;

@@ -34,6 +34,14 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [loyaltyPoints, setLoyaltyPoints] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+const [oldPassword, setOldPassword] = useState("");
+const [newPassword, setNewPassword] = useState("");
+const [confirmNewPassword, setConfirmNewPassword] = useState("");
+const [showPwd, setShowPwd] = useState(false);
 
   /* ================= FETCH PROFILE ================= */
   useEffect(() => {
@@ -105,8 +113,7 @@ export default function Profile() {
         const pts = pRes.data?.data || [];
         setLoyaltyPoints(
           pts.reduce(
-            (sum, tx) =>
-              sum + Number(tx.credit || 0) - Number(tx.debit || 0),
+            (sum, tx) => sum + Number(tx.credit || 0) - Number(tx.debit || 0),
             0
           )
         );
@@ -128,31 +135,29 @@ export default function Profile() {
       const formData = new FormData();
       formData.append("name", user.name);
       formData.append("email", user.email);
-      formData.append("f_name", user.f_name || user.name.split(" ")[0]);
-      formData.append("l_name", user.l_name || user.name.split(" ")[1] || "");
       formData.append("phone", user.phone || "");
+      formData.append("f_name", user.f_name || user.name.split(" ")[0]);
+      formData.append("l_name", user.l_name || "");
       formData.append("button_type", "profile");
-      if (profileImage) formData.append("image", profileImage);
 
-      const res = await api.post(
-        "/api/v1/customer/update-profile",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            zoneId: JSON.stringify([3]),
-            moduleId: 2,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      if (profileImage) {
+        formData.append("image", profileImage);
+      }
+
+      const res = await api.post("/api/v1/customer/update-profile", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          zoneId: JSON.stringify([3]),
+          moduleId: 2,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       toast.success(res.data?.message || "Profile updated");
       setEditing(false);
     } catch (err) {
-      toast.error(
-        err?.response?.data?.errors?.[0]?.message || "Update failed"
-      );
+      console.log(err.response?.data);
+      toast.error(err?.response?.data?.errors?.[0]?.message || "Update failed");
     } finally {
       setLoading(false);
     }
@@ -221,23 +226,17 @@ export default function Profile() {
             <div className="premium-edit-form">
               <input
                 value={user.name}
-                onChange={(e) =>
-                  setUser({ ...user, name: e.target.value })
-                }
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
                 placeholder="Full Name"
               />
               <input
                 value={user.email}
-                onChange={(e) =>
-                  setUser({ ...user, email: e.target.value })
-                }
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
                 placeholder="Email"
               />
               <input
                 value={user.phone || ""}
-                onChange={(e) =>
-                  setUser({ ...user, phone: e.target.value })
-                }
+                onChange={(e) => setUser({ ...user, phone: e.target.value })}
                 placeholder="Phone"
               />
             </div>
@@ -274,14 +273,24 @@ export default function Profile() {
                 onClick={handleProfileUpdate}
                 disabled={loading}
               >
-                {loading ? "Saving..." : <><Save size={18}/> Save Changes</>}
+                {loading ? (
+                  "Saving..."
+                ) : (
+                  <>
+                    <Save size={18} /> Save Changes
+                  </>
+                )}
               </button>
             )}
           </div>
         </div>
 
         <div className="premium-menu-stack">
-          <div className="premium-menu-link">
+          <div
+            className="premium-menu-link"
+            onClick={() => setShowPasswordModal(true)}
+
+          >
             <div className="premium-menu-left">
               <div className="p-icon-circle">
                 <ShieldCheck size={20} />
@@ -290,7 +299,51 @@ export default function Profile() {
             </div>
             <ChevronRight size={18} className="opacity-40" />
           </div>
-
+          {showPassword && (
+            <div className="password-box">
+              <input
+                type="password"
+                placeholder="New Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                onClick={async () => {
+                  try {
+                    const token = localStorage.getItem("token");
+                    await api.post(
+                      "/api/v1/customer/update-profile",
+                      {
+                        name: user.name,
+                        email: user.email,
+                        phone: user.phone || "",
+                        password,
+                        button_type: "change_password",
+                      },
+                      {
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                          zoneId: JSON.stringify([3]),
+                          moduleId: 2,
+                        },
+                      }
+                    );
+                    toast.success("Password updated successfully");
+                    setPassword("");
+                    setShowPassword(false);
+                  } catch (e) {
+                    console.log(e.response?.data);
+                    toast.error(
+                      e?.response?.data?.errors?.[0]?.message ||
+                        "Password update failed"
+                    );
+                  }
+                }}
+              >
+                Update Password
+              </button>
+            </div>
+          )}
           <div
             className="premium-menu-link danger"
             onClick={() => {

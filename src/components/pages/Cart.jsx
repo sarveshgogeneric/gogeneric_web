@@ -6,6 +6,7 @@ import { cleanImageUrl } from "../../utils";
 import LoginModal from "../auth/LoginModal";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../utils/cartHelper";
+import Loader from "../Loader";
 export default function Cart() {
   const [cart, setCart] = useState([]);
   const [suggested, setSuggested] = useState([]);
@@ -27,7 +28,6 @@ export default function Cart() {
     fetchCart();
   }, []);
 
-  // 🔥 FETCH SUGGESTED ONLY AFTER CART LOADS
   useEffect(() => {
     if (cart.length) fetchSuggestedItems();
   }, [cart]);
@@ -101,86 +101,81 @@ export default function Cart() {
 
   // ---------------- SUGGESTED ITEMS ----------------
   const fetchSuggestedItems = async () => {
-  const firstItem = cart[0];
-  if (!firstItem) return;
+    const firstItem = cart[0];
+    if (!firstItem) return;
 
-  const storeId =
-    firstItem.item?.store_id || firstItem.item?.store?.id;
-  const categoryId =
-    firstItem.item?.category_id || firstItem.item?.category?.id;
+    const storeId = firstItem.item?.store_id || firstItem.item?.store?.id;
+    const categoryId =
+      firstItem.item?.category_id || firstItem.item?.category?.id;
 
-  if (!storeId || !categoryId) return;
+    if (!storeId || !categoryId) return;
 
-  try {
-    const res = await api.get("/api/v1/items/latest", {
-      headers: {
-        zoneId: JSON.stringify([3]),
-        moduleId: "2",
-      },
-      params: {
-        store_id: storeId,
-        category_id: categoryId,
-        offset: 1,
-        limit: 6,
-      },
-    });
+    try {
+      const res = await api.get("/api/v1/items/latest", {
+        headers: {
+          zoneId: JSON.stringify([3]),
+          moduleId: "2",
+        },
+        params: {
+          store_id: storeId,
+          category_id: categoryId,
+          offset: 1,
+          limit: 6,
+        },
+      });
 
-    const products = res.data?.products || [];
+      const products = res.data?.products || [];
 
-    console.log("SUGGESTED PRODUCTS 👉", products);
+      console.log("SUGGESTED PRODUCTS ", products);
 
-    setSuggested(products);
-  } catch (err) {
-    console.error(
-      "Suggested error:",
-      err?.response?.data || err.message
-    );
-  }
-};
+      setSuggested(products);
+    } catch (err) {
+      console.error("Suggested error:", err?.response?.data || err.message);
+    }
+  };
 
   const addSuggestedToCart = async (product) => {
-  try {
-    await addToCart({
-      item: product, // ✅ FULL ITEM OBJECT PASS
-    });
+    try {
+      await addToCart({
+        item: product, 
+      });
+      fetchCart();
+    } catch (err) {
+      console.error("Add suggested error:", err);
+    }
+  };
 
-    fetchCart(); // refresh UI
-  } catch (err) {
-    console.error("Add suggested error:", err);
+  const total = cart.reduce((sum, c) => sum + c.price * c.quantity, 0);
+
+  if (loading) {
+    return (
+      <div className="cart-loader">
+        <Loader text="Loading your cart..." />
+      </div>
+    );
   }
-};
-
-  const total = cart.reduce(
-    (sum, c) => sum + c.price * c.quantity,
-    0
-  );
-
-  if (loading) return <p className="cart-loading">Loading cart...</p>;
 
   return (
     <div className="cart-page">
       <h2 className="cart-title">Your Cart</h2>
 
-     {cart.length === 0 ? (
-  <div className="empty-cart-state medical">
-    <span className="medical-icon">💊</span>
+      {cart.length === 0 ? (
+        <div className="empty-cart-state medical">
+          <span className="medical-icon">💊</span>
 
-    <h3>Your cart is currently empty</h3>
+          <h3>Your cart is currently empty</h3>
 
-    <p>
-      Please add required medicines or healthcare<br />
-      items to continue.
-    </p>
+          <p>
+            Please add required medicines or healthcare
+            <br />
+            items to continue.
+          </p>
 
-    <button
-      className="explore-btn"
-      onClick={() => navigate("/")}
-    >
-      Browse Medicines
-    </button>
-  </div>
-) : (
-
+          <button className="explore-btn" onClick={() => navigate("/")}>
+            Browse Medicines
+          </button>
+        </div>
+      ) : (
         <>
           {/* CART ITEMS */}
           <div className="cart-layout">
@@ -197,9 +192,7 @@ export default function Cart() {
                       src={cleanImageUrl(img)}
                       alt={c.item?.name}
                       className="cart-img"
-                      onError={(e) =>
-                        (e.currentTarget.src = "/no-image.png")
-                      }
+                      onError={(e) => (e.currentTarget.src = "/no-image.png")}
                     />
 
                     <div className="item-info">
@@ -217,14 +210,9 @@ export default function Cart() {
                       </button>
                     </div>
 
-                    <div className="item-total">
-                      ₹{c.price * c.quantity}
-                    </div>
+                    <div className="item-total">₹{c.price * c.quantity}</div>
 
-                    <Trash2
-                      className="delete"
-                      onClick={() => removeItem(c)}
-                    />
+                    <Trash2 className="delete" onClick={() => removeItem(c)} />
                   </div>
                 );
               })}
@@ -253,33 +241,28 @@ export default function Cart() {
           </div>
 
           {/* SUGGESTED */}
-          {suggested.length > 0 && (
-            <div className="suggested-section">
-              <h3>You may also like</h3>
-
-              <div className="suggested-grid">
-                {suggested.map((p) => (
-                  <div key={p.id} className="suggested-card">
-                    <img
-                      src={cleanImageUrl(
-                        p.image_full_url || p.images_full_url?.[0]
-                      )}
-                      alt={p.name}
-                      onError={(e) =>
-                        (e.currentTarget.src = "/no-image.png")
-                      }
-                    />
-                    <h4>{p.name}</h4>
-                    <p>₹{p.price}</p>
-                    <button onClick={() => addSuggestedToCart(p)}>
-                      Add to Cart
-                    </button>
-                  </div>
-                ))}
-              </div>
+          {suggestedLoading ? (
+            <Loader text="Loading suggestions..." />
+          ) : (
+            <div className="suggested-grid">
+              {suggested.map((p) => (
+                <div key={p.id} className="suggested-card">
+                  <img
+                    src={cleanImageUrl(
+                      p.image_full_url || p.images_full_url?.[0]
+                    )}
+                    alt={p.name}
+                    onError={(e) => (e.currentTarget.src = "/no-image.png")}
+                  />
+                  <h4>{p.name}</h4>
+                  <p>₹{p.price}</p>
+                  <button onClick={() => addSuggestedToCart(p)}>
+                    Add to Cart
+                  </button>
+                </div>
+              ))}
             </div>
           )}
-
           {showLogin && (
             <LoginModal
               onClose={() => {

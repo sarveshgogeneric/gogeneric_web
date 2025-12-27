@@ -24,10 +24,8 @@ const Footer = () => {
 >
   Apply as Vendor
 </a>
-
         </button>
       </div>
-
       <div className="ak-footer-card">
         <div className="ak-container">
           <div className="ak-footer-content">
@@ -55,7 +53,6 @@ const Footer = () => {
                 <li><Link to="/doctors">Doctors</Link></li>
               </ul>
             </div>
-
             {/* Support Links */}
             <div className="ak-footer-col">
               <h3 className="ak-footer-widget-heading">Support</h3>
@@ -66,7 +63,6 @@ const Footer = () => {
                 <li><Link to="/terms">Terms & Conditions</Link></li>
               </ul>
             </div>
-
             {/* RIGHT : App Download */}
             <div className="ak-footer-col">
               <h3 className="ak-footer-widget-heading">Get our App</h3>
@@ -78,12 +74,11 @@ const Footer = () => {
               </div>
             </div>
           </div>
-
           <div className="ak-bottom-bar">
             <p>© {new Date().getFullYear()} Go Generic. All Rights Reserved.</p>
             <div className="bottom-links">
-              <span>Privacy & Policy</span>
-              <span>Terms & Condition</span>
+              <span><Link to="/privacy">Privacy & Policy</Link></span>
+              <span><Link to="/terms">Terms & Condition</Link></span>
             </div>
           </div>
         </div>

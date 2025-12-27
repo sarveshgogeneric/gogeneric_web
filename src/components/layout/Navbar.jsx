@@ -88,9 +88,15 @@ export default function Navbar() {
   }, [user]);
 
   /* ---------------- ACTIONS ---------------- */
-  const handleProfileClick = () => {
-    closeMenu();
-    user ? navigate("/profile") : setShowLogin(true);
+const handleProfileClick = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setShowLogin(true); // 🔥 Signup ke baad bhi yahin aayega
+      return;
+    }
+
+    navigate("/profile");
   };
 
   const handleLogout = () => {

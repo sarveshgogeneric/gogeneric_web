@@ -21,6 +21,12 @@ export default function LoginModal({ onClose }) {
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [isReset, setIsReset] = useState(false);
+const [otp, setOtp] = useState("");
+const [newPassword, setNewPassword] = useState("");
+const [confirmNewPassword, setConfirmNewPassword] = useState("");
+
+
   const { login } = useAuth();
 
   const resetFields = () => {
@@ -51,12 +57,22 @@ export default function LoginModal({ onClose }) {
     try {
       const res = await api.post("/api/v1/auth/sign-up", { name, email, phone: formattedPhone, password });
       const apiUser = res.data?.data;
-      const normalizedUser = { id: apiUser?.id, name: apiUser?.name, email: apiUser?.email, phone: apiUser?.phone };
-      login(normalizedUser, res.data?.token || null);
-      toast.success("Signup successful!");
-      onClose();
+      const normalizedUser = { id: apiUser?.id, name: apiUser?.name, email: apiUser?.email, phone: apiUser?.phone };  
+     toast.success("Signup successful! Please login to continue 🔐");
+
+// reset fields
+setIsSignup(false);
+setPassword("");
+setConfirmPassword("");
+
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Signup failed");
+      const errors = err?.response?.data?.errors;
+if (errors?.length) {
+  toast.error(errors[0].message);
+} else {
+  toast.error(err?.response?.data?.message || "Signup failed");
+}
+
     }
   };
 
@@ -99,20 +115,87 @@ export default function LoginModal({ onClose }) {
     }
   };
 
-  const handleForgotPassword = async () => {
-    if (!forgotValue) { toast.error("Email or phone is required"); return; }
-    try {
-      await api.post("/api/v1/auth/forgot-password", {
-        email_or_phone: forgotValue,
-        field_type: forgotValue.includes("@") ? "email" : "phone",
-      });
-      toast.success("Reset link / OTP sent successfully 📩");
-      setForgotValue("");
-      setIsForgot(false);
-    } catch (err) {
-      toast.error(err?.response?.data?.message || "Failed to send reset link");
+const handleForgotPassword = async () => {
+  if (!forgotValue) {
+    toast.error("Phone number is required");
+    return;
+  }
+
+  // ✅ Backend requires +91 format
+  const phone = forgotValue.startsWith("+91")
+    ? forgotValue
+    : `+91${forgotValue}`;
+
+  try {
+    await api.post("/api/v1/auth/forgot-password", {
+      phone, // 🔥 THIS IS THE KEY FIX
+    });
+
+    toast.success("OTP sent successfully 📩");
+    setIsReset(true);
+  } catch (err) {
+    console.log("FORGOT ERROR 👉", err.response?.data);
+    const errors = err?.response?.data?.errors;
+
+    if (errors?.length) {
+      toast.error(errors[0].message);
+    } else {
+      toast.error(err?.response?.data?.message || "Failed to send OTP");
     }
-  };
+  }
+};
+
+const handleResetPassword = async () => {
+  if (!forgotValue || !otp || !newPassword || !confirmNewPassword) {
+    toast.error("All fields are required");
+    return;
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    toast.error("Passwords do not match");
+    return;
+  }
+  if (!/^\d{10}$/.test(forgotValue)) {
+  toast.error("Enter valid 10 digit phone number");
+  return;
+}
+
+
+  const phone = forgotValue.startsWith("+91")
+    ? forgotValue
+    : `+91${forgotValue}`;
+
+  try {
+    await api.put("/api/v1/auth/reset-password", {
+      phone,                       // ✅ REQUIRED
+      reset_token: otp,            // ✅ REQUIRED
+      password: newPassword,       // ✅ FIXED
+      confirm_password: confirmNewPassword, // ✅ FIXED
+    });
+
+    toast.success("Password reset successful 🔐");
+
+    // reset states
+    setIsReset(false);
+    setIsForgot(false);
+    setOtp("");
+    setNewPassword("");
+    setConfirmNewPassword("");
+
+  } catch (err) {
+    console.log("RESET ERROR 👉", err.response?.data);
+
+    const errors = err?.response?.data?.errors;
+    if (errors?.length) {
+      toast.error(errors[0].message);
+    } else {
+      toast.error(err?.response?.data?.message || "Reset failed");
+    }
+  }
+};
+
+
+
 
   return (
     <div className="login-overlay">
@@ -130,29 +213,73 @@ export default function LoginModal({ onClose }) {
 
         {/* 🔹 RIGHT FORM PANEL */}
         <div className="login-right">
-          {isForgot ? (
-            <div className="form-content">
-              <div className="back-nav" onClick={() => setIsForgot(false)}>
-                <ArrowLeft size={16} /> Back to login
-              </div>
-              <h2 className="title">Reset Password</h2>
-              <p className="subtext">Enter your email or phone to receive a link.</p>
-              
-              <div className="input-group">
-                <Mail className="input-icon" size={18} />
-                <input
-                  className="input"
-                  placeholder="Email or Phone"
-                  value={forgotValue}
-                  onChange={(e) => setForgotValue(e.target.value)}
-                />
-              </div>
+         {isForgot && !isReset ? (
+  <div className="form-content">
+    <div className="back-nav" onClick={() => setIsForgot(false)}>
+      <ArrowLeft size={16} /> Back to login
+    </div>
 
-              <button className="submit-btn" onClick={handleForgotPassword}>
-                Send Reset Link
-              </button>
-            </div>
-          ) : isSignup ? (
+    <h2 className="title">Forgot Password</h2>
+    <p className="subtext">Enter registered phone number to receive OTP</p>
+
+
+    <div className="input-group">
+      <Mail className="input-icon" size={18} />
+     <input
+  className="input"
+  placeholder="Phone Number"
+  value={forgotValue}
+  onChange={(e) => setForgotValue(e.target.value.replace(/\D/g, ""))}
+/>
+
+    </div>
+
+    <button className="submit-btn" onClick={handleForgotPassword}>
+      Send OTP
+    </button>
+  </div>
+) : isReset ? (
+  <div className="form-content">
+    <h2 className="title">Reset Password</h2>
+
+    <div className="input-group">
+      <Lock className="input-icon" size={18} />
+      <input
+        className="input"
+        placeholder="OTP"
+        value={otp}
+        onChange={(e) => setOtp(e.target.value)}
+      />
+    </div>
+
+    <div className="input-group">
+      <Lock className="input-icon" size={18} />
+      <input
+        className="input"
+        type="password"
+        placeholder="New Password"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+      />
+    </div>
+
+    <div className="input-group">
+      <Lock className="input-icon" size={18} />
+      <input
+        className="input"
+        type="password"
+        placeholder="Confirm Password"
+        value={confirmNewPassword}
+        onChange={(e) => setConfirmNewPassword(e.target.value)}
+      />
+    </div>
+
+    <button className="submit-btn" onClick={handleResetPassword}>
+      Reset Password
+    </button>
+  </div>
+) :
+ isSignup ? (
             <div className="form-content">
               <h2 className="title">Create Account</h2>
               <p className="subtext">Fill in the details to get started.</p>

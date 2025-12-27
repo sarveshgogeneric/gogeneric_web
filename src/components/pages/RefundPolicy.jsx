@@ -83,14 +83,22 @@ export default function RefundPolicy() {
           </p>
         </section>
 
-        <section>
-          <h2>Shipping Charges</h2>
-          <p>
-            Shipping charges depend on order value and are visible during
-            checkout. For more details, contact{" "}
-            <strong>info@gogenericpharma.com</strong>.
-          </p>
-        </section>
+      <section>
+  <h2>Shipping Charges</h2>
+  <p>
+    Shipping charges depend on order value and are visible during
+    checkout. For more details, contact{" "}
+    <strong>
+      <a
+        href="mailto:info@gogenericpharma.com"
+        className="policy-mail"
+      >
+        info@gogenericpharma.com
+      </a>
+    </strong>.
+  </p>
+</section>
+    
 
         <section>
           <h2>Cancellation Policy</h2>
