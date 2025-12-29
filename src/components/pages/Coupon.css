@@ -1,0 +1,169 @@
+/* ================= COUPON PAGE CONTAINER ================= */
+
+.coupon-page {
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 0 24px;
+  min-height: 80vh;
+  font-family: var(--font-main);
+}
+
+.coupon-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 50px;
+  letter-spacing: -1.5px;
+  text-align: center;
+  position: relative;
+}
+
+.coupon-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  background: linear-gradient(to right, var(--deep-plum), var(--mauve));
+  margin: 15px auto 0;
+  border-radius: 10px;
+}
+
+/* ================= COUPON GRID ================= */
+
+.coupon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* ================= COUPON CARD (VOUCHER LOOK) ================= */
+
+.coupon-card {
+  background: var(--white);
+  border: 2px solid var(--dusty-rose);
+  border-radius: 24px;
+  padding: 25px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 25px rgba(107, 63, 105, 0.05);
+}
+
+/* Luxury Voucher Cut-outs (Sides mein jo gol cut hote hain) */
+.coupon-card::before,
+.coupon-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: #fdfafb; /* Match this with your page background */
+  border: 2px solid var(--dusty-rose);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.coupon-card::before { left: -12px; }
+.coupon-card::after { right: -12px; }
+
+.coupon-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--deep-plum);
+  box-shadow: 0 15px 35px rgba(107, 63, 105, 0.12);
+}
+
+/* ================= CARD SECTIONS ================= */
+
+.coupon-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.coupon-top h3 {
+  color: var(--deep-plum);
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  padding-right: 10px;
+}
+
+.coupon-code {
+  background: var(--mauve);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace; /* To look like a code */
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(163, 118, 162, 0.3);
+}
+
+.coupon-desc {
+  color: var(--text-body);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* ================= FOOTER & EXPIRY ================= */
+
+.coupon-footer {
+  border-top: 1px dashed var(--dusty-rose);
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.coupon-footer strong {
+  color: var(--deep-plum);
+  font-size: 18px;
+  font-weight: 800;
+  display: block;
+}
+
+.coupon-expiry {
+  background: rgba(107, 63, 105, 0.05);
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: var(--muted-purple);
+  font-weight: 600;
+}
+
+/* ================= EMPTY STATE ================= */
+
+.no-coupon {
+  text-align: center;
+  padding: 80px;
+  background: var(--white);
+  border-radius: 30px;
+  border: 2px dashed var(--dusty-rose);
+  color: var(--muted-purple);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .coupon-page {
+    margin: 40px auto;
+  }
+  
+  .coupon-title {
+    font-size: 32px;
+  }
+
+  .coupon-grid {
+    grid-template-columns: 1fr;
+  }
+}

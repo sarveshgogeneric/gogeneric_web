@@ -1,0 +1,156 @@
+.terms-page {
+  max-width: 950px;
+  margin: 60px auto;
+  padding: 0 24px;
+  min-height: 80vh;
+  font-family: var(--font-main);
+}
+
+.terms-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.terms-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  letter-spacing: -1.5px;
+  position: relative;
+}
+
+.terms-subtitle {
+  color: var(--muted-purple);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.terms-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(to right, var(--deep-plum), var(--mauve));
+  margin: 15px auto 0;
+  border-radius: 10px;
+}
+
+
+.terms-card {
+  background: var(--white);
+  border-radius: 32px;
+  border: 1px solid var(--dusty-rose);
+  box-shadow: var(--premium-shadow);
+  overflow: hidden;
+}
+
+.terms-content {
+  padding: 60px;
+  line-height: 1.9; 
+  color: var(--text-body);
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+
+.terms-content hr.divider-line,
+.divider-line {
+  border: 0;
+  height: 2px;
+  background: linear-gradient(
+
+    to right, 
+    transparent, 
+    var(--dusty-rose), 
+    var(--mauve), 
+    var(--dusty-rose), 
+    transparent
+  );
+  margin: 45px 0;
+  opacity: 0.7;
+  clear: both;
+}
+
+.terms-content p {
+  margin-bottom: 25px;
+  font-size: 16px;
+  text-align: justify;
+  color: var(--text-body);
+}
+
+.terms-content h1, 
+.terms-content h2, 
+.terms-content h3 {
+  color: var(--deep-plum);
+  margin-top: 45px;
+  margin-bottom: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.terms-content h2 {
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.terms-content h2::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: var(--mauve);
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.terms-content strong {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.terms-content ul, 
+.terms-content ol {
+  padding-left: 25px;
+  margin-bottom: 30px;
+}
+
+.terms-content li {
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+.empty-terms {
+  text-align: center;
+  padding: 60px;
+  background: var(--white);
+  border-radius: 24px;
+  border: 2px dashed var(--dusty-rose);
+  color: var(--muted-purple);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .terms-page {
+    margin: 30px auto;
+    padding: 0 16px;
+  }
+  
+  .terms-title {
+    font-size: 30px;
+  }
+
+  .terms-content {
+    padding: 35px 20px; 
+  }
+
+  .terms-content p {
+    text-align: left; 
+    font-size: 15px;
+  }
+
+  .terms-content h2 {
+    font-size: 22px;
+  }
+}

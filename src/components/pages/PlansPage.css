@@ -175,40 +175,6 @@
   box-shadow: 0 12px 25px rgba(107, 63, 105, 0.3);
 }
 
-/* ================= MODAL STYLING ================= */
-
-.modal-overlay {
-  background: rgba(51, 29, 50, 0.6); /* Your text-dark color with opacity */
-  backdrop-filter: blur(8px);
-}
-
-.modal-box {
-  background: var(--white);
-  padding: 40px;
-  border-radius: 32px;
-  max-width: 500px;
-  width: 90%;
-  position: relative;
-  box-shadow: var(--premium-shadow);
-  border: 1px solid var(--dusty-rose);
-  animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.modal-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--text-dark);
-  margin-bottom: 25px;
-}
-
-.modal-title span {
-  color: var(--deep-plum);
-}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -219,3 +185,4 @@
     font-size: 32px;
   }
 }
+

@@ -7,13 +7,12 @@ import {
   LogOut,
   ChevronRight,
   Camera,
-  Heart,
-  MessageSquare,
   Mail,
   Phone,
   Save,
   Pencil,
 } from "lucide-react";
+import { FaUserAltSlash } from "react-icons/fa";
 import { useWallet } from "../../context/WalletContext";
 import { cleanImageUrl } from "../../utils";
 import LoginModal from "../auth/LoginModal";
@@ -38,10 +37,10 @@ export default function Profile() {
   const [password, setPassword] = useState("");
 
   const [showPasswordModal, setShowPasswordModal] = useState(false);
-const [oldPassword, setOldPassword] = useState("");
-const [newPassword, setNewPassword] = useState("");
-const [confirmNewPassword, setConfirmNewPassword] = useState("");
-const [showPwd, setShowPwd] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
 
   /* ================= FETCH PROFILE ================= */
   useEffect(() => {
@@ -126,6 +125,34 @@ const [showPwd, setShowPwd] = useState(false);
     fetchStats();
   }, []);
 
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm(
+      "⚠️ Are you sure? This will permanently delete your account."
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      await api.delete("/api/v1/customer/remove-account", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          zoneId: JSON.stringify([3]),
+          moduleId: 2,
+        },
+      });
+
+      toast.success("Account deleted successfully");
+
+      localStorage.clear();
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.response?.data?.message || "Failed to delete account");
+    }
+  };
+
   /* ================= UPDATE PROFILE ================= */
   const handleProfileUpdate = async () => {
     try {
@@ -162,18 +189,12 @@ const [showPwd, setShowPwd] = useState(false);
       setLoading(false);
     }
   };
-
-  /* ================= RENDER GUARDS ================= */
-
-  // ⛔ Prevent flicker
   if (initialLoading) return null;
 
-  // 🔐 Not logged in
   if (!user && showLogin) {
     return <LoginModal open onClose={() => navigate("/")} />;
   }
 
-  /* ================= UI ================= */
   return (
     <div className="premium-profile-page">
       <div className="premium-hero-header" />
@@ -289,7 +310,6 @@ const [showPwd, setShowPwd] = useState(false);
           <div
             className="premium-menu-link"
             onClick={() => setShowPasswordModal(true)}
-
           >
             <div className="premium-menu-left">
               <div className="p-icon-circle">
@@ -344,20 +364,37 @@ const [showPwd, setShowPwd] = useState(false);
               </button>
             </div>
           )}
-          <div
-            className="premium-menu-link danger"
-            onClick={() => {
-              localStorage.clear();
-              navigate("/");
-            }}
-          >
-            <div className="premium-menu-left">
-              <div className="p-icon-circle-red">
-                <LogOut size={20} />
-              </div>
-              <span>Logout Account</span>
-            </div>
-          </div>
+          {/* LOGOUT */}
+<div
+  className="premium-menu-link danger"
+  onClick={() => {
+    localStorage.clear();
+    navigate("/");
+  }}
+>
+  <div className="premium-menu-left">
+    <div className="p-icon-circle-red">
+      <LogOut size={20} />
+    </div>
+    <span>Logout Account</span>
+  </div>
+  <ChevronRight size={18} className="opacity-40" />
+</div>
+
+{/* DELETE ACCOUNT */}
+<div
+  className="premium-menu-link danger"
+  onClick={handleDeleteAccount}
+>
+  <div className="premium-menu-left">
+    <div className="p-icon-circle-red">
+      <FaUserAltSlash size={18} />
+    </div>
+    <span>Delete Account</span>
+  </div>
+  <ChevronRight size={18} className="opacity-40" />
+</div>
+
         </div>
       </div>
     </div>

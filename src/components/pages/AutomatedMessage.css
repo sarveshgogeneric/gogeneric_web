@@ -1,0 +1,103 @@
+/* ================= AUTOMATED MESSAGES PAGE ================= */
+
+.policy-page {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 24px;
+  min-height: 80vh;
+  font-family: var(--font-main);
+}
+
+.policy-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 40px;
+  letter-spacing: -1.5px;
+  text-align: center;
+  position: relative;
+}
+
+/* Luxury accent underline */
+.policy-title::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 5px;
+  background: linear-gradient(to right, var(--deep-plum), var(--mauve));
+  margin: 15px auto 0;
+  border-radius: 10px;
+}
+
+/* ================= MESSAGE LIST CONTAINER ================= */
+
+.policy-content {
+  list-style: none; /* Default bullets hatane ke liye */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ================= MESSAGE ITEM (BUBBLE LOOK) ================= */
+
+.policy-content li {
+  background: var(--white);
+  padding: 20px 25px;
+  border-radius: 20px;
+  border: 1px solid var(--dusty-rose);
+  color: var(--text-body);
+  font-size: 16px;
+  line-height: 1.6;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(107, 63, 105, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Left Accent Border on Hover */
+.policy-content li:hover {
+  transform: translateX(8px);
+  border-color: var(--mauve);
+  box-shadow: 0 6px 20px rgba(107, 63, 105, 0.1);
+  background: #fffafa;
+}
+
+/* Custom Bullet Icon using Mauve Palette */
+.policy-content li::before {
+  content: '✦';
+  color: var(--mauve);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* ================= EMPTY STATE ================= */
+
+.policy-page > p {
+  text-align: center;
+  color: var(--muted-purple);
+  font-weight: 600;
+  padding: 40px;
+  background: rgba(163, 118, 162, 0.05);
+  border-radius: 20px;
+  border: 1.5px dashed var(--dusty-rose);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .policy-page {
+    margin: 40px auto;
+  }
+  
+  .policy-title {
+    font-size: 32px;
+  }
+
+  .policy-content li {
+    padding: 18px;
+    font-size: 15px;
+  }
+}

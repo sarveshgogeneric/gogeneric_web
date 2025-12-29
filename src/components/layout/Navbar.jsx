@@ -17,7 +17,9 @@ import {
   FaUndo,
   FaWallet,
   FaTimesCircle,
+  FaFileContract,
   FaHeart,
+  FaShippingFast,
 } from "react-icons/fa";
 import { MdPrivacyTip } from "react-icons/md";
 
@@ -58,6 +60,10 @@ export default function Navbar() {
       console.error("Notification error", err);
     }
   };
+  const handleNavigate = (path) => {
+    closeMenu();
+    navigate(path);
+  };
 
   /* ---------------- CART COUNT ---------------- */
   const fetchCartCount = async () => {
@@ -83,16 +89,15 @@ export default function Navbar() {
     fetchCartCount();
     fetchNotifications();
     window.addEventListener("cart-updated", fetchCartCount);
-    return () =>
-      window.removeEventListener("cart-updated", fetchCartCount);
+    return () => window.removeEventListener("cart-updated", fetchCartCount);
   }, [user]);
 
   /* ---------------- ACTIONS ---------------- */
-const handleProfileClick = () => {
+  const handleProfileClick = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      setShowLogin(true); // 🔥 Signup ke baad bhi yahin aayega
+      setShowLogin(true);
       return;
     }
 
@@ -117,12 +122,24 @@ const handleProfileClick = () => {
           <div className="flex items-center gap-6">
             {/* DESKTOP LINKS */}
             <ul className="nav-links">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About</Link></li>
-              <li><Link to="/labs">Labs</Link></li>
-              <li><Link to="/doctors">Doctors</Link></li>
-              <li><Link to="/blog">Blog</Link></li>
-              <li><Link to="/contactus">Contact Us</Link></li>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
+                <Link to="/labs">Labs</Link>
+              </li>
+              <li>
+                <Link to="/doctors">Doctors</Link>
+              </li>
+              <li>
+                <Link to="/blog">Blog</Link>
+              </li>
+              <li>
+                <Link to="/contactus">Contact Us</Link>
+              </li>
             </ul>
 
             {/* NOTIFICATION */}
@@ -148,9 +165,7 @@ const handleProfileClick = () => {
               }}
             >
               <FaShoppingCart />
-              {cartCount > 0 && (
-                <span className="cart-badge">{cartCount}</span>
-              )}
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </div>
 
             {/* HAMBURGER */}
@@ -173,17 +188,26 @@ const handleProfileClick = () => {
 
         <ul className="side-links">
           <li>
-            <Link to="#" onClick={(e) => { e.preventDefault(); handleProfileClick(); }}>
-              <FaUser /> Profile
-            </Link>
+            <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigate("/profile");
+                  }}
+                >
+                  <FaUser />Profile
+                </Link>
           </li>
 
           <li>
-            <Link to="#" onClick={(e) => {
-              e.preventDefault();
-              closeMenu();
-              user ? navigate("/wishlist") : setShowLogin(true);
-            }}>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                closeMenu();
+                user ? navigate("/wishlist") : setShowLogin(true);
+              }}
+            >
               <FaHeart /> My Wishlist
               {wishlist.length > 0 && (
                 <span className="wishlist-badge">{wishlist.length}</span>
@@ -193,44 +217,165 @@ const handleProfileClick = () => {
 
           {user && (
             <li>
-              <Link to="/orders" onClick={closeMenu}>
-                <FaShoppingBag /> My Orders
-              </Link>
+              <li>
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigate("/orders");
+                  }}
+                >
+                  <FaShoppingBag /> My Orders
+                </Link>
+              </li>
             </li>
           )}
 
           {user && (
-  <li>
-    <Link
-      to="/wallet"
-      onClick={closeMenu}
-    >
-      <FaWallet /> My Wallet
-    </Link>
-  </li>
-)}
+            <li>
+              <Link
+                to="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigate("/wallet");
+                }}
+              >
+                <FaWallet /> My Wallet
+              </Link>
+            </li>
+          )}
 
-
-          <li><Link to="/address" onClick={closeMenu}><FaMapMarkedAlt /> My Address</Link></li>
-          <li><Link to="/language" onClick={closeMenu}><FaLanguage /> Language</Link></li>
-          <li><Link to="/coupon" onClick={closeMenu}><FaTags /> Coupon</Link></li>
-          <li><Link to="/help" onClick={closeMenu}><FaHeadset /> Help & Support</Link></li>
-          <li><Link to="/livechat" onClick={closeMenu}><FaComments /> Live Chat</Link></li>
-          <li><Link to="/refund" onClick={closeMenu}><FaUndo /> Refund Policy</Link></li>
-          <li><Link to="/privacy" onClick={closeMenu}><MdPrivacyTip /> Privacy Policy</Link></li>
-          <li><Link to="/cancel" onClick={closeMenu}><FaTimesCircle /> Cancellation Policy</Link></li>
+          <li>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/address");
+              }}
+            >
+              <FaMapMarkedAlt /> My Address
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/language");
+              }}
+            >
+              <FaLanguage /> Language
+            </Link>
+          </li>
+          <li>
+          <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/coupon");
+              }}
+            >
+              <FaTags /> Coupon
+            </Link>
+          </li>
+          <li>
+           <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/help");
+              }}
+            >
+              <FaHeadset /> Help and Support
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/livechat");
+              }}
+            >
+              <FaComments /> Live Chat
+            </Link>
+          </li>
+          <li>
+           <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/refund");
+              }}
+            >
+              <FaUndo /> Refund Policy
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/privacy");
+              }}
+            >
+              <MdPrivacyTip /> Privacy Policy
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/cancel");
+              }}
+            >
+              <FaTimesCircle />Cancellation Policy
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/terms");
+              }}
+            >
+              <FaFileContract />Terms and Conditions
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate("/shipping");
+              }}
+            >
+              <FaShippingFast />Shipping Policy
+            </Link>
+          </li>
 
           <li>
             {user ? (
-              <Link to="#" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
+              <Link
+                to="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLogout();
+                }}
+              >
                 <FaSignOutAlt /> Sign Out
               </Link>
             ) : (
-              <Link to="#" onClick={(e) => {
-                e.preventDefault();
-                closeMenu();
-                setShowLogin(true);
-              }}>
+              <Link
+                to="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  closeMenu();
+                  setShowLogin(true);
+                }}
+              >
                 <FaUser /> Sign In
               </Link>
             )}

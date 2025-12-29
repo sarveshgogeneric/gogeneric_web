@@ -1,11 +1,16 @@
-export default function BookAppointment({ phone, whatsapp }) {
+import "./BookAppointment.css";
+
+export default function BookAppointment({ phone, whatsapp, onClose }) {
   return (
     <div className="booking-options">
+
       <a href={`tel:+${phone}`} className="option-row call-row">
         <div className="option-icon">📞</div>
         <div className="option-info">
           <span className="option-title">Phone Call</span>
-          <span className="option-subtitle">Speak with the doctor directly</span>
+          <span className="option-subtitle">
+            Speak with the doctor directly
+          </span>
         </div>
         <div className="arrow-right">→</div>
       </a>
@@ -19,10 +24,18 @@ export default function BookAppointment({ phone, whatsapp }) {
         <div className="option-icon">💬</div>
         <div className="option-info">
           <span className="option-title">WhatsApp Chat</span>
-          <span className="option-subtitle">Message for quick queries</span>
+          <span className="option-subtitle">
+            Message for quick queries
+          </span>
         </div>
         <div className="arrow-right">→</div>
       </a>
+
+      {/* ✅ CLOSE BUTTON */}
+      <button className="modal-close" onClick={onClose}>
+        ✕
+      </button>
+
     </div>
   );
 }

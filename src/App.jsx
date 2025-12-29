@@ -32,6 +32,11 @@ import Orders from "./components/pages/Orders.jsx";
 import TrackOrder from "./components/orders/TrackOrder.jsx";
 import Wallet from "./components/pages/Wallet.jsx";
 import OrderDetails from "./components/orders/OrderDetails.jsx";
+import Terms from "./components/pages/Terms.jsx";
+import Cancellation from "./components/pages/Cancellation.jsx";
+import Coupon from "./components/pages/Coupon.jsx";
+import AutomatedMessage from "./components/pages/AutomatedMessage.jsx";
+import Shipping from "./components/pages/Shipping.jsx";
 function AppLayout() {
   const { showLoginModal, setShowLoginModal } = useAuth();
 
@@ -77,6 +82,11 @@ function AppLayout() {
         <Route path="/wallet" element={<Wallet />} />
         <Route path="/orders/:id/track" element={<TrackOrder />} />
         <Route path="/orders/:orderId" element={<OrderDetails />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/cancel" element={<Cancellation />} />
+        <Route path="/coupon" element={<Coupon />} />
+        <Route path="/help" element={<AutomatedMessage />} />
+        <Route path="/shipping" element={<Shipping />} />
 
       </Routes>
       {/* ✅ GLOBAL LOGIN MODAL */}

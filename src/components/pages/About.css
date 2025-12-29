@@ -1,185 +1,144 @@
-/* ================= ABOUT SECTION ================= */
+/* ================= ABOUT US PAGE CONTAINER ================= */
 
-.about-section {
+.about-page {
   max-width: 1000px;
-  margin: 80px auto;
-  padding: 0 20px;
+  margin: 60px auto;
+  padding: 0 24px;
+  min-height: 80vh;
   font-family: var(--font-main);
-  text-align: center;
 }
 
-/* Titles */
 .about-title {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--mauve);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}
-
-.subtitle {
-  font-size: 36px;
+  font-size: 48px;
   font-weight: 900;
   color: var(--text-dark);
-  margin-bottom: 30px;
-  letter-spacing: -1px;
-  line-height: 1.2;
+  margin-bottom: 40px;
+  letter-spacing: -1.5px;
+  text-align: center;
+  position: relative;
 }
 
-/* Paragraphs */
-.about-text {
-  font-size: 17px;
-  line-height: 1.8;
-  color: var(--text-body);
-  margin-bottom: 25px;
-  text-align: justify; /* Professional look */
+/* Luxury accent underline */
+.about-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--deep-plum), var(--mauve));
+  margin: 15px auto 0;
+  border-radius: 50px;
 }
 
-/* ================= STATS CONTAINER ================= */
+/* ================= CONTENT CARD ================= */
 
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 25px;
-  margin: 60px 0;
-}
-
-.stat-box {
+.about-content {
   background: var(--white);
-  padding: 40px 20px;
-  border-radius: 32px;
+  padding: 60px;
+  border-radius: 40px;
   border: 1px solid var(--dusty-rose);
   box-shadow: var(--premium-shadow);
-  transition: 0.4s ease;
+  line-height: 1.9;
+  color: var(--text-body);
+  word-wrap: break-word;
 }
 
-.stat-box:hover {
-  transform: translateY(-10px);
-  border-color: var(--mauve);
-}
+/* ================= TYPOGRAPHY (HTML FROM API) ================= */
 
-.stat-box h3 {
-  font-size: 42px;
-  font-weight: 900;
+.about-content h1, 
+.about-content h2, 
+.about-content h3 {
   color: var(--deep-plum);
-  margin-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
-.stat-box p {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--muted-purple);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* ================= FEATURES SECTION ================= */
-
-.features {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-top: 50px;
-  padding: 30px;
-  background: rgba(221, 195, 195, 0.1);
-  border-radius: 50px; /* Capsule shape container */
-}
-
-.feature-item {
+.about-content h2 {
+  font-size: 28px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-weight: 700;
-  color: var(--text-dark);
+  gap: 15px;
+}
+
+/* Sidebar accent for section headers */
+.about-content h2::before {
+  content: '';
+  width: 5px;
+  height: 28px;
+  background: var(--mauve);
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.about-content p {
+  margin-bottom: 25px;
+  font-size: 17px;
+  text-align: justify;
+  color: var(--text-body);
+}
+
+/* Divider Line Fix (Dashes from API) */
+.about-content hr {
+  border: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--dusty-rose), var(--mauve), var(--dusty-rose), transparent);
+  margin: 45px 0;
+  opacity: 0.7;
+}
+
+/* Lists styling */
+.about-content ul, 
+.about-content ol {
+  padding-left: 25px;
+  margin-bottom: 30px;
+  list-style-type: none;
+}
+
+/* Custom Bullet Points */
+.about-content ul li::before {
+  content: "✦";
+  color: var(--mauve);
+  font-weight: bold;
+  display: inline-block; 
+  width: 1.5em;
+  margin-left: -1.5em;
+}
+
+.about-content li {
+  margin-bottom: 15px;
   font-size: 16px;
 }
 
-.feature-item span {
-  width: 28px;
-  height: 28px;
-  background: var(--deep-plum);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  box-shadow: 0 4px 10px rgba(107, 63, 105, 0.2);
+/* Bold & Important Text */
+.about-content strong {
+  color: var(--deep-plum);
+  font-weight: 700;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ================= RESPONSIVE DESIGN ================= */
 
 @media (max-width: 768px) {
-  .subtitle {
-    font-size: 28px;
+  .about-page {
+    margin: 40px auto;
+    padding: 0 16px;
   }
   
-  .about-section {
-    margin: 40px auto;
+  .about-title {
+    font-size: 34px;
+  }
+  
+  .about-content {
+    padding: 35px 25px;
+    border-radius: 30px;
   }
 
-  .features {
-    border-radius: 20px;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 40px;
+  .about-content h2 {
+    font-size: 24px;
   }
-}
-.stats-container {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin: 60px 0;
-  flex-wrap: wrap;
-}
 
-.stat-box {
-  background: var(--white);
-  padding: 40px;
-  border-radius: 32px;
-  border: 1px solid var(--dusty-rose);
-  box-shadow: var(--premium-shadow);
-  min-width: 220px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  text-align: center;
-}
-
-.stat-box:hover {
-  transform: translateY(-12px);
-  border-color: var(--deep-plum);
-}
-
-.stat-box h3 {
-  font-size: 48px;
-  font-weight: 900;
-  color: var(--deep-plum);
-  margin-bottom: 5px;
-  /* Halka sa text shadow for premium look */
-  text-shadow: 2px 4px 10px rgba(107, 63, 105, 0.1);
-}
-
-.stat-box p {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--muted-purple);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
-/* Entrance Animation for the whole row */
-.stats-container {
-  animation: slideUpFade 1s ease-out forwards;
-}
-
-@keyframes slideUpFade {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .about-content p {
+    text-align: left;
+    font-size: 16px;
   }
 }

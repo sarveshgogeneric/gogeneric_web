@@ -5,7 +5,7 @@ import "./LocationModal.css";
 
 const libraries = ["places"];
 
-export default function LocationModal({ onClose, onPickLocation }) {
+export default function LocationModal({ onClose, onPickLocation,initialPosition }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_KEY,
     libraries,
@@ -18,6 +18,11 @@ export default function LocationModal({ onClose, onPickLocation }) {
 
 
   useEffect(() => {
+  if (initialPosition) {
+    console.log("Initial Position:", initialPosition);
+    setPosition(initialPosition);
+  } else {
+    
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setPosition({
@@ -26,11 +31,12 @@ export default function LocationModal({ onClose, onPickLocation }) {
         });
       },
       () => {
-        // fallback → Delhi
-        setPosition({ lat: 28.6139, lng: 77.209 });
+        setPosition({ lat: 28.6139, lng: 77.209 }); 
       }
     );
-  }, []);
+  }
+}, [initialPosition]);
+
 
   if (!isLoaded || !position) {
     return <div className="loc-modal">Loading map...</div>;

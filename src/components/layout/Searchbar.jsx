@@ -30,14 +30,12 @@ export default function Searchbar() {
     );
   }, []);
 
-  
   useEffect(() => {
     return () => {
       abortRef.current?.abort();
       clearTimeout(debounceRef.current);
     };
   }, []);
-
 
   const triggerSearch = useCallback(
     (text) => {
@@ -77,19 +75,16 @@ export default function Searchbar() {
 
       setLoading(true);
 
-      const res = await api.get(
-        "/api/v1/items/item-or-store-search",
-        {
-          params: { name: searchText },
-          headers: {
-            zoneId: "[3]",
-            moduleId: 2,
-            latitude: location.latitude,
-            longitude: location.longitude,
-          },
-          signal: abortRef.current.signal,
-        }
-      );
+      const res = await api.get("/api/v1/items/item-or-store-search", {
+        params: { name: searchText },
+        headers: {
+          zoneId: "[3]",
+          moduleId: 2,
+          latitude: location.latitude,
+          longitude: location.longitude,
+        },
+        signal: abortRef.current.signal,
+      });
 
       const data = [
         ...(res.data?.items || []).map((i) => ({
@@ -146,9 +141,7 @@ export default function Searchbar() {
     const id = item.id.split("-")[1];
 
     navigate(
-      item.type === "medicine"
-        ? `/medicine/${id}`
-        : `/view-stores/${id}`
+      item.type === "medicine" ? `/medicine/${id}` : `/view-stores/${id}`
     );
   };
 
@@ -160,8 +153,7 @@ export default function Searchbar() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (

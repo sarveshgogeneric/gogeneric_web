@@ -2,48 +2,48 @@ import { useEffect, useState } from "react";
 import api from "../../api/axiosInstance";
 import Loader from "../../components/Loader";
 import toast from "react-hot-toast";
-import "./PrivacyPolicy.css";
+import "./Cancellation.css";
 
-export default function PrivacyPolicy() {
+export default function Cancellation() {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchPrivacyPolicy();
+    fetchCancellation();
   }, []);
 
-  const fetchPrivacyPolicy = async () => {
+  const fetchCancellation = async () => {
     try {
-      const res = await api.get("/api/v1/privacy-policy", {
+      const res = await api.get("/api/v1/cancelation", {
         headers: {
           zoneId: JSON.stringify([3]),
           moduleId: 2,
         },
       });
 
-      console.log("PRIVACY HTML ", res.data); 
-      setContent(res.data);
+      console.log("CANCELLATION HTML 👉", res.data);
+      setContent(res.data); 
     } catch (err) {
       console.error(err);
-      toast.error("Failed to load Privacy Policy");
+      toast.error("Failed to load Cancellation Policy");
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <Loader text="Loading Privacy Policy..." />;
+  if (loading) return <Loader text="Loading Cancellation Policy..." />;
 
   return (
-    <div className="privacy-page">
-      <h1 className="privacy-title">Privacy Policy</h1>
+    <div className="cancel-page">
+      <h1 className="cancel-title">Cancellation Policy</h1>
 
       {content ? (
         <div
-          className="privacy-content"
+          className="cancel-content"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       ) : (
-        <p>No privacy policy available.</p>
+        <p>No content available.</p>
       )}
     </div>
   );

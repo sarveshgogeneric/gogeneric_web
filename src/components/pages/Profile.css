@@ -273,3 +273,10 @@
   border-radius: 10px;
   font-weight: 600;
 }
+.premium-menu-link.danger {
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.premium-menu-link.danger:hover {
+  background: rgba(255, 0, 0, 0.08);
+}

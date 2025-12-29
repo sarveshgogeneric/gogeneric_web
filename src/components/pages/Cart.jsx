@@ -12,6 +12,8 @@ export default function Cart() {
   const [suggested, setSuggested] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [suggestedLoading, setSuggestedLoading] = useState(false);
+
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -101,35 +103,38 @@ export default function Cart() {
 
   // ---------------- SUGGESTED ITEMS ----------------
   const fetchSuggestedItems = async () => {
-    const firstItem = cart[0];
-    if (!firstItem) return;
+  const firstItem = cart[0];
+  if (!firstItem) return;
 
-    const storeId = firstItem.item?.store_id || firstItem.item?.store?.id;
-    const categoryId =
-      firstItem.item?.category_id || firstItem.item?.category?.id;
+  const storeId = firstItem.item?.store_id || firstItem.item?.store?.id;
+  const categoryId =
+    firstItem.item?.category_id || firstItem.item?.category?.id;
 
-    if (!storeId || !categoryId) return;
+  if (!storeId || !categoryId) return;
 
-    try {
-      const res = await api.get("/api/v1/items/latest", {
-        headers: {
-          zoneId: JSON.stringify([3]),
-          moduleId: "2",
-        },
-        params: {
-          store_id: storeId,
-          category_id: categoryId,
-          offset: 1,
-          limit: 6,
-        },
-      });
-      const products = res.data?.products || [];
-      console.log("SUGGESTED PRODUCTS ", products);
-      setSuggested(products);
-    } catch (err) {
-      console.error("Suggested error:", err?.response?.data || err.message);
-    }
-  };
+  try {
+    setSuggestedLoading(true);
+
+    const res = await api.get("/api/v1/items/latest", {
+      headers: {
+        zoneId: JSON.stringify([3]),
+        moduleId: "2",
+      },
+      params: {
+        store_id: storeId,
+        category_id: categoryId,
+        offset: 1,
+        limit: 6,
+      },
+    });
+
+    setSuggested(res.data?.products || []);
+  } catch (err) {
+    console.error("Suggested error:", err);
+  } finally {
+    setSuggestedLoading(false);
+  }
+};
 
   const addSuggestedToCart = async (product) => {
     try {

@@ -7,6 +7,7 @@ export default function DoctorPlans({ doctor }) {
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const handleBook = (price) => {
+     console.log("BOOK CLICKED", price);
     setSelectedPlan(price);
     setShowModal(true);
   };
@@ -74,6 +75,7 @@ export default function DoctorPlans({ doctor }) {
             <BookAppointment
               phone="919211510600"
               whatsapp="919211510600"
+              onClose={() => setShowModal(false)}
             />
           </div>
         </div>

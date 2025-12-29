@@ -21,6 +21,15 @@ export default function TopHeader() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const langRef = useRef(null);
+  const [savedCoords, setSavedCoords] = useState(null);
+
+useEffect(() => {
+  const stored = localStorage.getItem("user_location");
+  if (stored) {
+    setSavedCoords(JSON.parse(stored));
+  }
+}, []);
+
 
   const languages = [
     { name: "English", code: "en", flag: "https://flagcdn.com/w20/us.png" },
@@ -162,22 +171,22 @@ export default function TopHeader() {
       {/* LOCATION MODAL */}
      {openLocationModal && (
   <LocationModal
+  initialPosition={savedCoords}
     onClose={() => setOpenLocationModal(false)}
     onPickLocation={(loc) => {
+  setLocation(loc.address);
 
-      // ✅ UI ke liye (header me dikhane ke liye)
-      setLocation(loc.address);
-      localStorage.setItem("userLocation", loc.address);
+  const coords = {
+    lat: Number(loc.lat),
+    lng: Number(loc.lng),
+  };
 
-      // ✅ MOST IMPORTANT — distance calculation ke liye
-      localStorage.setItem(
-        "user_location",
-        JSON.stringify({
-          lat: loc.lat,
-          lng: loc.lng,
-        })
-      );
-    }}
+  localStorage.setItem("userLocation", loc.address);
+  localStorage.setItem("user_location", JSON.stringify(coords));
+
+  setSavedCoords(coords); // 🔥 MOST IMPORTANT LINE
+}}
+
 />
 
       )}

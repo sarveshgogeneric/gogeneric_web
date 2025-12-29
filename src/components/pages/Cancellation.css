@@ -1,6 +1,6 @@
-/* ================= REFUND POLICY PAGE ================= */
+/* ================= CANCELLATION POLICY PAGE ================= */
 
-.refund-page {
+.cancel-page {
   max-width: 950px;
   margin: 60px auto;
   padding: 0 24px;
@@ -8,7 +8,7 @@
   font-family: var(--font-main);
 }
 
-.refund-title {
+.cancel-title {
   font-size: 42px;
   font-weight: 800;
   color: var(--text-dark);
@@ -19,7 +19,7 @@
 }
 
 /* Luxury accent underline with Mauve gradient */
-.refund-title::after {
+.cancel-title::after {
   content: '';
   display: block;
   width: 80px;
@@ -29,9 +29,9 @@
   border-radius: 10px;
 }
 
-/* ================= CONTENT CARD ================= */
+/* ================= CONTENT CARD WRAPPER ================= */
 
-.refund-content {
+.cancel-content {
   background: var(--white);
   padding: 60px;
   border-radius: 32px;
@@ -44,9 +44,9 @@
 
 /* ================= TYPOGRAPHY (HTML FROM API) ================= */
 
-.refund-content h1, 
-.refund-content h2, 
-.refund-content h3 {
+.cancel-content h1, 
+.cancel-content h2, 
+.cancel-content h3 {
   color: var(--deep-plum);
   margin-top: 40px;
   margin-bottom: 15px;
@@ -54,8 +54,8 @@
   letter-spacing: -0.5px;
 }
 
-/* Sidebar accent for section headers */
-.refund-content h2 {
+/* Section Sidebar Accent for H2 */
+.cancel-content h2 {
   font-size: 26px;
   border-left: 5px solid var(--mauve);
   padding-left: 20px;
@@ -63,14 +63,14 @@
   align-items: center;
 }
 
-.refund-content p {
+.cancel-content p {
   margin-bottom: 25px;
   font-size: 16px;
   text-align: justify;
 }
 
 /* Divider Line Fix (for dashes coming from API) */
-.refund-content hr {
+.cancel-content hr {
   border: 0;
   height: 2px;
   background: linear-gradient(to right, transparent, var(--dusty-rose), var(--mauve), var(--dusty-rose), transparent);
@@ -79,25 +79,25 @@
 }
 
 /* Lists styling */
-.refund-content ul, 
-.refund-content ol {
+.cancel-content ul, 
+.cancel-content ol {
   padding-left: 25px;
   margin-bottom: 30px;
 }
 
-.refund-content li {
+.cancel-content li {
   margin-bottom: 12px;
   position: relative;
 }
 
 /* Bold & Important Text */
-.refund-content strong {
+.cancel-content strong {
   color: var(--text-dark);
   font-weight: 700;
 }
 
-/* Links (for email or support links) */
-.refund-content a {
+/* Links & Support Emails */
+.cancel-content a {
   color: var(--mauve);
   text-decoration: none;
   font-weight: 600;
@@ -105,34 +105,44 @@
   transition: 0.3s ease;
 }
 
-.refund-content a:hover {
+.cancel-content a:hover {
   color: var(--deep-plum);
   border-bottom-style: solid;
   border-color: var(--deep-plum);
 }
 
+/* ================= EMPTY STATE ================= */
+
+.cancel-page > p {
+  text-align: center;
+  color: var(--muted-purple);
+  font-weight: 600;
+  margin-top: 50px;
+  font-size: 18px;
+}
+
 /* ================= RESPONSIVE DESIGN ================= */
 
 @media (max-width: 768px) {
-  .refund-page {
+  .cancel-page {
     margin: 30px auto;
   }
   
-  .refund-title {
+  .cancel-title {
     font-size: 32px;
   }
   
-  .refund-content {
+  .cancel-content {
     padding: 35px 20px;
     border-radius: 24px;
   }
 
-  .refund-content h2 {
+  .cancel-content h2 {
     font-size: 22px;
     padding-left: 15px;
   }
 
-  .refund-content p {
-    text-align: left; /* Better readability on small screens */
+  .cancel-content p {
+    text-align: left; /* Mobile readability fix */
   }
 }

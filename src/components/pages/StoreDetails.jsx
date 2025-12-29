@@ -28,6 +28,19 @@ export default function StoreDetails() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  useEffect(() => {
+  if (!store?.id) return;
+
+  if (searchTerm.trim() === "") return;
+  const delay = setTimeout(() => {
+    setPage(1);
+    setHasMore(true);
+    fetchProducts(1, searchTerm.trim());
+  }, 400); // debounce
+
+  return () => clearTimeout(delay);
+}, [searchTerm, store?.id]);
+
   /* ================= FETCH STORE ================= */
   useEffect(() => {
     fetchStoreDetails();
@@ -59,59 +72,68 @@ export default function StoreDetails() {
   };
 
   /* ================= FETCH PRODUCTS ================= */
-  const fetchProducts = async (pageNumber = 1) => {
-    try {
-      setProductsLoading(true);
+  const fetchProducts = async (pageNumber = 1, keyword = "") => {
+  try {
+    setProductsLoading(true);
 
-      const res = await api.get("/api/v1/items/latest", {
-        params: {
-          store_id: id,
-          category_id: store?.category_details?.[0]?.id || 1,
-          limit: 20,
-          offset: pageNumber,
-        },
-        headers: {
-          zoneId: JSON.stringify([3]),
-          moduleId: 2,
-        },
-      });
+    const res = await api.get("/api/v1/items/latest", {
+      params: {
+        store_id: id,
+        category_id: store.category_details?.[0]?.id || 1,
+        search: keyword || undefined,   // 🔥 SERVER-SIDE SEARCH
+        limit: 20,
+        offset: pageNumber,
+      },
+      headers: {
+        zoneId: JSON.stringify([3]),
+        moduleId: 2,
+      },
+    });
 
-      const newProducts = res.data.products || res.data.items || [];
+    const newProducts = res.data.products || res.data.items || [];
 
-      setProducts((prev) =>
-        pageNumber === 1 ? newProducts : [...prev, ...newProducts]
-      );
-
-      if (newProducts.length < 20) setHasMore(false);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setProductsLoading(false);
+    if (pageNumber === 1) {
+      setProducts(newProducts);
+    } else {
+      setProducts((prev) => [...prev, ...newProducts]);
     }
-  };
+
+    setHasMore(newProducts.length === 20);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setProductsLoading(false);
+  }
+};
+
 
   /* ================= INFINITE SCROLL ================= */
   useEffect(() => {
-    if (activeTab !== "products" || !hasMore || productsLoading) return;
+  if (
+    activeTab !== "products" ||
+    !hasMore ||
+    productsLoading
+  )
+    return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setPage((prev) => {
-            const next = prev + 1;
-            fetchProducts(next);
-            return next;
-          });
-        }
-      },
-      { threshold: 0.3 }
-    );
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setPage((prev) => {
+          const next = prev + 1;
+          fetchProducts(next, searchTerm.trim()); // 🔥 SEARCH KE SAATH
+          return next;
+        });
+      }
+    },
+    { threshold: 0.3 }
+  );
 
-    const sentinel = document.getElementById("scroll-sentinel");
-    if (sentinel) observer.observe(sentinel);
+  const sentinel = document.getElementById("scroll-sentinel");
+  if (sentinel) observer.observe(sentinel);
 
-    return () => observer.disconnect();
-  }, [activeTab, hasMore, productsLoading]);
+  return () => observer.disconnect();
+}, [hasMore, productsLoading, activeTab, searchTerm]);
 
   /* ================= FETCH REVIEWS ================= */
   const fetchReviews = async () => {
@@ -133,9 +155,7 @@ export default function StoreDetails() {
   };
 
   /* ================= FILTERS ================= */
-  const filteredProducts = products.filter((p) =>
-    p.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  
 
   const filteredReviews = reviews.filter(
     (r) =>
@@ -203,10 +223,10 @@ export default function StoreDetails() {
           <div className="sd-products-grid">
             {productsLoading && page === 1 ? (
               <Loader text="Loading products..." />
-            ) : filteredProducts.length === 0 ? (
+            ) : products.length === 0 ? (
               <p>No products found</p>
             ) : (
-              filteredProducts.map((p) => (
+              products.map((p) => (
                 <div
                   key={p.id}
                   className="sd-prod-card"

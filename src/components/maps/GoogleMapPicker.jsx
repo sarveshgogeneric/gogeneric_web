@@ -2,6 +2,7 @@ import { GoogleMap, Marker } from "@react-google-maps/api";
 export default function GoogleMapPicker({ position, setPosition }) {
   return (
     <GoogleMap
+    key={`${position.lat}-${position.lng}`} 
       center={position}
       zoom={16}
       mapContainerClassName="map"
