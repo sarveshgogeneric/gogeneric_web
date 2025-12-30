@@ -303,3 +303,14 @@
     text-align: center;
   }
 }
+.suggested-section {
+  margin-top: 40px;
+}
+
+.suggested-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+  

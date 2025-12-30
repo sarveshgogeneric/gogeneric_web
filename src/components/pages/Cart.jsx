@@ -242,29 +242,36 @@ export default function Cart() {
             </div>
           </div>
 
-          {/* SUGGESTED */}
-          {suggestedLoading ? (
-            <Loader text="Loading suggestions..." />
-          ) : (
-            <div className="suggested-grid">
-              {suggested.map((p) => (
-                <div key={p.id} className="suggested-card">
-                  <img
-                    src={cleanImageUrl(
-                      p.image_full_url || p.images_full_url?.[0]
-                    )}
-                    alt={p.name}
-                    onError={(e) => (e.currentTarget.src = "/no-image.png")}
-                  />
-                  <h4>{p.name}</h4>
-                  <p>₹{p.price}</p>
-                  <button onClick={() => addSuggestedToCart(p)}>
-                    Add to Cart
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
+        {/* SUGGESTED ITEMS */}
+<div className="suggested-section">
+  <h3 className="suggested-title">
+    You may also need
+  </h3>
+
+  {suggestedLoading ? (
+    <Loader text="Loading suggestions..." />
+  ) : (
+    <div className="suggested-grid">
+      {suggested.map((p) => (
+        <div key={p.id} className="suggested-card">
+          <img
+            src={cleanImageUrl(
+              p.image_full_url || p.images_full_url?.[0]
+            )}
+            alt={p.name}
+            onError={(e) => (e.currentTarget.src = "/no-image.png")}
+          />
+          <h4>{p.name}</h4>
+          <p>₹{p.price}</p>
+          <button onClick={() => addSuggestedToCart(p)}>
+            Add to Cart
+          </button>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+  
           {showLogin && (
             <LoginModal
               onClose={() => {

@@ -3,21 +3,22 @@ import "./PaymentModal.css";
 
 const options = [
   {
-    id: "cod",
+    id: "cash_on_delivery",   
     title: "Cash on Delivery",
     desc: "Pay when order arrives",
   },
   {
-    id: "wallet",
+    id: "wallet",             
     title: "Wallet",
     desc: "Use wallet balance",
   },
   {
-    id: "digital",
+    id: "digital_payment",  
     title: "Digital Payment",
     desc: "UPI, Cards, Net Banking",
   },
 ];
+
 
 export default function PaymentModal({ selected, onSelect, onClose }) {
   return (
