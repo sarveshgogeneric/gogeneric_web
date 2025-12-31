@@ -5,7 +5,7 @@ export const blogs = [
     title: "Why GoGeneric Is the Best Pharmacy Software in India",
     excerpt:
       "Running a pharmacy in India today requires smarter billing, inventory management, GST compliance, and online integration. GoGeneric provides an all-in-one solution...",
-    image: "/public/insight1.png",
+    image: "/public/insight1.jpg",
     content: `
      <p>
     In today’s fast-changing healthcare industry, every pharmacy in India is looking
@@ -1736,7 +1736,7 @@ slug: "buy-medicines-online-from-local-pharmacy-gogeneric",
 title: "Buy Medicines Easily from Your Local Pharmacy Using GoGeneric App",
 excerpt:
   "Order medicines easily from your trusted local pharmacy using the GoGeneric Healthcare App. Enjoy online ordering, nearby pharmacy access, secure payments, and convenient home delivery.",
-image: "/public/insight1.png",
+image: "/public/insight1.jpg",
 content:`
 <p>
   In today’s <strong>fast-paced world</strong>, convenience is key — especially when it

@@ -1,15 +1,12 @@
-/* ================= PREMIUM COMMON CONCERNS (COLOR UPDATED) ================= */
-
 .concern-page {
   padding: 0;
   position: relative;
 }
 
 .concern-heading {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 800;
-  color: var(--text-dark) !important;
-  letter-spacing: -0.6px;
+  color: var(--text-dark);
   margin-bottom: 4px;
 }
 
@@ -20,26 +17,39 @@
   margin-bottom: 25px;
 }
 
-/* 🔹 FILTERS (PILL STYLE) */
+.filter-row {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.filter-row::-webkit-scrollbar {
+  display: none;
+}
+
 .store-filters {
   display: flex;
   gap: 12px;
   overflow-x: auto;
   padding: 10px 0;
   scrollbar-width: none;
+  margin-bottom: 10px;
 }
 
-.store-filters::-webkit-scrollbar { display: none; }
+.store-filters::-webkit-scrollbar {
+  display: none;
+}
 
 .filter-btn {
-  padding: 10px 24px;
-  border-radius: 50px;
-  border: 1.5px solid var(--dusty-rose);
+  padding: 8px 22px;
+  border-radius: 12px;
+  border: 1px solid var(--dusty-rose);
   background: var(--white);
   font-weight: 700;
   font-size: 14px;
   color: var(--text-body);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s;
   cursor: pointer;
   white-space: nowrap;
 }
@@ -48,31 +58,28 @@
   background: var(--deep-plum);
   color: var(--white);
   border-color: var(--deep-plum);
-  box-shadow: 0 8px 20px rgba(107, 63, 105, 0.25);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(107, 63, 105, 0.2);
 }
 
-/* 🔹 GRID & SCROLLING */
 .concern-grid {
   display: flex;
-  gap: 22px;
-  margin-top: 10px;
+  gap: 20px;
   overflow-x: auto;
-  padding: 20px 5px 40px 5px;
+  padding: 15px 5px 30px 5px;
   scrollbar-width: none;
   scroll-behavior: smooth;
-  border-color: var(--deep-plum);
 }
 
-.concern-grid::-webkit-scrollbar { display: none; }
+.concern-grid::-webkit-scrollbar {
+  display: none;
+}
 
-/* 🔹 PREMIUM CARD DESIGN */
 .concern-card {
   position: relative;
-  min-width: 185px;
-  max-width: 185px;
-  height: 230px;
-  padding: 20px;
+  min-width: 170px;
+  max-width: 170px;
+  height: 210px;
+  padding: 15px;
   border-radius: 28px;
   flex-shrink: 0;
   display: flex;
@@ -80,42 +87,51 @@
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
- border: 1px solid var(--mauve); /* Very subtle border */
-  box-shadow: 0 8px 20px rgba(107, 63, 105, 0.03);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1px solid var(--mauve);
+  box-shadow: 0 4px 15px rgba(107, 63, 105, 0.05);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  background: var(--white);
 }
 
-/* 🎨 YOUR SPECIFIC 4-COLOR PALETTE IMPLEMENTED HERE */
-.concern-card:nth-child(4n + 1) { background: #fdf5f5; } /* Tint of Dusty Rose */
-.concern-card:nth-child(4n + 2) { background: #f8f0f7; } /* Tint of Mauve */
-.concern-card:nth-child(4n + 3) { background: #fce7ea; } /* Very Light Sand */
-.concern-card:nth-child(4n + 4) { background: #eeccea; } /* Soft Purple Tint */
+.concern-card:nth-child(4n + 1) {
+  background: #fdf5f5;
+}
 
-/* 🔹 IMAGE PLACEMENT */
+.concern-card:nth-child(4n + 2) {
+  background: #f8f0f7;
+}
+
+.concern-card:nth-child(4n + 3) {
+  background: #fce7ea;
+}
+
+.concern-card:nth-child(4n + 4) {
+  background: #eeccea;
+}
+
 .concern-card img {
-  width: 100px;
-  height: 100px;
+  width: 85px;
+  height: 85px;
   object-fit: contain;
   margin-bottom: auto;
-  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.06));
+  margin-top: 5px;
   transition: all 0.4s ease;
-  z-index: 2;
 }
 
-/* 🔹 TEXT STYLING */
 .concern-card h3 {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--text-dark);
   text-align: center;
   margin: 0;
   line-height: 1.3;
   width: 100%;
-  min-height: 38px;
+  white-space: normal;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 36px;
 }
 
 .concern-card .price {
@@ -125,29 +141,30 @@
   margin-top: 6px;
 }
 
-/* 🔹 HOVER EFFECTS */
 .concern-card:hover {
-  transform: translateY(-12px);
+  transform: translateY(-8px);
   border-color: var(--deep-plum);
-  background: var(--white) !important; /* Glow effect on hover */
-  box-shadow: 0 20px 40px rgba(107, 63, 105, 0.12);
+  background: var(--white);
+  box-shadow: 0 15px 30px rgba(107, 63, 105, 0.15);
 }
 
 .concern-card:hover h3 {
   color: var(--deep-plum);
 }
 
-.concern-card:hover img {
-  transform: scale(1.1) translateY(-5px);
-}
-
-/* 📱 MOBILE OPTIMIZATION */
 @media (max-width: 768px) {
-  .concern-heading { font-size: 26px; }
+  .concern-heading {
+    font-size: 24px;
+  }
+
   .concern-card {
     min-width: 155px;
     max-width: 155px;
-    height: 200px;
+    height: 195px;
   }
-  .concern-card img { width: 80px; height: 80px; }
+
+  .concern-card img {
+    width: 75px;
+    height: 75px;
+  }
 }

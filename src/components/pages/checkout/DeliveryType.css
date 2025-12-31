@@ -1,0 +1,64 @@
+/* Container styling matching other cards */
+.delivery-type-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(158, 118, 143, 0.08);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  color: #63445D;
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Button Group Wrapper */
+.delivery-options {
+  display: flex;
+  gap: 12px;
+  background-color: #F8F4F7; /* Light mauve-tinted grey */
+  padding: 6px;
+  border-radius: 12px;
+}
+
+/* Individual Option Button */
+.delivery-option {
+  flex: 1;
+  padding: 12px 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  color: #7a6e77;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Hover effect for inactive button */
+.delivery-option:hover:not(.active) {
+  color: #63445D;
+  background-color: rgba(158, 118, 143, 0.05);
+}
+
+/* Active State - Selected Option */
+.delivery-option.active {
+  background-color: #ffffff;
+  color: #9E768F;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(158, 118, 143, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 400px) {
+  .delivery-options {
+    flex-direction: column;
+  }
+}

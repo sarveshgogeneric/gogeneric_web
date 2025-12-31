@@ -1,0 +1,56 @@
+/* Container reuse from checkout-card theme */
+.checkout-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(158, 118, 143, 0.08);
+}
+
+.checkout-card h4 {
+  color: #63445D;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Individual Bill Rows */
+.bill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  color: #7a6e77; /* Soft muted text */
+}
+
+.bill-row span:last-child {
+  color: #4A3446; /* Darker color for amounts */
+  font-weight: 500;
+}
+
+/* Divider Line */
+hr {
+  border: 0;
+  border-top: 1px dashed #D8C4D1; /* Dashed line gives a receipt feel */
+  margin: 18px 0;
+}
+
+/* Total Section Styling */
+.bill-row.total {
+  margin-bottom: 0;
+  padding-top: 5px;
+}
+
+.bill-row.total strong {
+  font-size: 1.2rem;
+  color: #63445D; /* Deep Berry/Mauve */
+  font-weight: 700;
+}
+
+/* Special styling for delivery charge when it's free */
+.bill-row span:contains('₹0') {
+  color: #2D6A4F; /* Green if delivery is free */
+  font-weight: 600;
+}

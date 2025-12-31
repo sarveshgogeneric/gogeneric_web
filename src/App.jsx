@@ -35,6 +35,7 @@ import AutomatedMessage from "./components/pages/AutomatedMessage.jsx";
 import Shipping from "./components/pages/Shipping.jsx";
 import BlogDetails from "./components/pages/BlogDetails.jsx";
 import BlogList from "./components/pages/BlogList.jsx";
+import Checkout from "./components/pages/checkout/Checkout.jsx";
 function AppLayout() {
   const { showLoginModal, setShowLoginModal } = useAuth();
 
@@ -84,6 +85,8 @@ function AppLayout() {
         <Route path="/shipping" element={<Shipping />} />
          <Route path="/blog" element={<BlogList />} />
   <Route path="/blog/:slug" element={<BlogDetails />} />
+  <Route path="/checkout" element={<Checkout />} />
+
 
       </Routes>
       {/* ✅ GLOBAL LOGIN MODAL */}

@@ -38,7 +38,6 @@ export default function HomeBanner() {
           <p className="hero-desc">
             High-quality generic medicines and expert advice.
           </p>
-          <button className="hero-button">Explore Now</button>
           
           <div className="hero-pagination">
             {banners.map((_, i) => (

@@ -9,6 +9,9 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
+import api from "../../api/axiosInstance";
+import toast from "react-hot-toast";
+
 
 export default function TopHeader() {
   const { t } = useTranslation();
@@ -173,19 +176,46 @@ useEffect(() => {
   <LocationModal
   initialPosition={savedCoords}
     onClose={() => setOpenLocationModal(false)}
-    onPickLocation={(loc) => {
-  setLocation(loc.address);
+  onPickLocation={async (loc) => {
+  const lat = Number(loc.lat);
+  const lng = Number(loc.lng);
+  const address = loc.address;
 
-  const coords = {
-    lat: Number(loc.lat),
-    lng: Number(loc.lng),
-  };
+  localStorage.setItem("latitude", lat);
+  localStorage.setItem("longitude", lng);
+  localStorage.setItem("formatted_address", address);
 
-  localStorage.setItem("userLocation", loc.address);
-  localStorage.setItem("user_location", JSON.stringify(coords));
+  setLocation(address);
 
-  setSavedCoords(coords); // 🔥 MOST IMPORTANT LINE
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) return;
+
+    const payload = {
+      contact_person_name: user?.name || "Customer",
+      contact_person_number: user?.phone || "",
+      address_type: "Home",
+      address,
+      latitude: lat,
+      longitude: lng,
+    };
+
+    console.log("📍 TopHeader Address Payload", payload);
+
+    await api.post("/api/v1/customer/address/add", payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    toast.success("Delivery location updated");
+  } catch (err) {
+    console.error("❌ Location save failed", err);
+  }
+
+  setOpenLocationModal(false);
 }}
+
+
 
 />
 
