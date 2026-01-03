@@ -26,7 +26,7 @@ import api from "../../api/axiosInstance";
 import { useWishlist } from "../../context/WishlistContext";
 import { useAuth } from "../../context/AuthContext";
 import LoginModal from "../auth/LoginModal";
-
+import LogoImg from "../../assets/gogenlogo.png";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -122,7 +122,7 @@ export default function Navbar() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }}
   >
-    <img src="/gogenlogo.png" alt="GoGeneric Logo" />
+    <img src={LogoImg} alt="GoGeneric Logo" />
   </Link>
 </div>
 
@@ -197,15 +197,15 @@ export default function Navbar() {
 
         <ul className="side-links">
           <li>
-            <Link
-                  to="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavigate("/profile");
-                  }}
-                >
-                  <FaUser />Profile
-                </Link>
+           <Link
+  to="#"
+  onClick={(e) => {
+    e.preventDefault();
+    handleProfileClick();
+  }}
+>
+  <FaUser /> Profile
+</Link>
           </li>
 
           <li>

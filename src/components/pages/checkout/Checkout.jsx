@@ -4,7 +4,6 @@ import api from "../../../api/axiosInstance";
 import toast from "react-hot-toast";
 import "./Checkout.css";
 import { useWallet } from "../../../context/WalletContext";
-
 import DeliveryInstructions from "./DeliveryInstructions";
 import CartItems from "./CartItems";
 import BillSummary from "./BillSummary";
@@ -12,6 +11,7 @@ import DeliveryType from "./DeliveryType";
 import AddressSection from "./AddressSection";
 import PaymentMethod from "./PaymentMethod";
 import PrescriptionUpload from "./PrescriptionUpload";
+import Loader from "../../Loader";
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
@@ -85,42 +85,38 @@ export default function Checkout() {
   const handlePaymentSelect = (method) => {
     setPaymentMethod(method);
 
-    // ✅ Cash on Delivery → directly ready
-    if (method === "cash_on_delivery") {
+    if (method === "cash_on_delivery" || method === "wallet") {
       setPaymentReady(true);
-      return;
+    } else {
+      setPaymentReady(false);
     }
-
-    // ✅ Wallet → directly ready (balance check order place pe hoga)
-    if (method === "wallet") {
-      setPaymentReady(true);
-      return;
-    }
-
-    // ❌ Online payments → Pay Using required
-    setPaymentReady(false);
   };
 
-  const handlePayUsing = () => {
-    if (!paymentMethod) {
-      toast.error("Please select payment method");
-      return;
+  const handleDigitalPayment = async () => {
+    try {
+      const res = await api.post(
+        "/api/v1/payment/request",
+        {
+          amount: orderAmount,
+          payment_method: "razor_pay",
+        },
+        {
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        }
+      );
+
+      const paymentId = res.data.payment_id;
+
+      window.location.href = `${
+        import.meta.env.VITE_API_BASE_URL
+      }/razor-pay?payment_id=${paymentId}`;
+    } catch (err) {
+      toast.error("Unable to initiate payment");
     }
-
-    // ✅ COD & Wallet don't need Pay Using
-    if (paymentMethod === "cash_on_delivery" || paymentMethod === "wallet") {
-      return;
-    }
-
-    toast.loading("Processing payment...", { id: "pay" });
-
-    setTimeout(() => {
-      toast.success("Payment successful", { id: "pay" });
-      setPaymentReady(true);
-    }, 1200);
   };
 
-  // ---------------- PLACE ORDER ----------------
   const handlePlaceOrder = async () => {
     console.log("SELECTED ADDRESS FULL OBJECT", selectedAddress);
 
@@ -141,6 +137,10 @@ export default function Checkout() {
 
     if (isPrescriptionRequired && !prescriptionFile) {
       toast.error("Please upload prescription");
+      return;
+    }
+
+    if (paymentMethod === "digital_payment") {
       return;
     }
 
@@ -212,8 +212,14 @@ export default function Checkout() {
       setPlacingOrder(false);
     }
   };
+if (loading) {
+  return (
+    <div style={{ minHeight: "70vh" }}>
+      <Loader />
+    </div>
+  );
+}
 
-  if (loading) return <p style={{ padding: 20 }}>Loading checkout...</p>;
 
   return (
     <div className="checkout-container">
@@ -252,11 +258,11 @@ export default function Checkout() {
           )}
 
           <PaymentMethod
-  value={paymentMethod}
-  onChange={handlePaymentSelect}
-  walletBalance={walletBalance}
-  orderAmount={orderAmount}
-/>
+            value={paymentMethod}
+            onChange={handlePaymentSelect}
+            walletBalance={walletBalance}
+            orderAmount={orderAmount}
+          />
           {paymentMethod === "wallet" && (
             <p
               style={{
@@ -306,11 +312,25 @@ export default function Checkout() {
 
       <button
         className="place-order-btn"
-        disabled={placingOrder || !policyAccepted || !paymentReady}
-        onClick={handlePlaceOrder}
+        disabled={placingOrder || !policyAccepted}
+        onClick={() => {
+          if (paymentMethod === "digital_payment") {
+            handleDigitalPayment();
+          } else {
+            handlePlaceOrder();
+          }
+        }}
       >
         {placingOrder ? "Placing Order..." : "Place Order"}
       </button>
+      {placingOrder && (
+  <div className="checkout-loader-overlay">
+    <Loader />
+    <p>Placing your order...</p>
+  </div>
+)}
+
     </div>
+    
   );
 }

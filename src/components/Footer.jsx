@@ -1,4 +1,5 @@
 import React from "react";
+import LogoImg from "../assets/gogenlogo.png";
 import "./Footer.css";
 import {
   FaFacebookF,
@@ -31,7 +32,7 @@ const Footer = () => {
           <div className="ak-footer-content">
             {/* LEFT : About */}
             <div className="ak-footer-col main-brand">
-              <img src="/gogenlogo.png" alt="Go Generic" className="ak-footer-logo-img" />
+              <img src={LogoImg} alt="Go Generic" className="ak-footer-logo-img" />
               <p className="ak-footer-text">
                 Go Generic is an informational platform focused on spreading
                 awareness about generic medicines and healthcare. We do not sell medicines.

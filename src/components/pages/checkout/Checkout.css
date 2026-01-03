@@ -122,3 +122,18 @@
     position: static;
   }
 }
+.checkout-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkout-loader-overlay p {
+  margin-top: 12px;
+  font-weight: 500;
+}
