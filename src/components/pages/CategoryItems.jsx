@@ -3,11 +3,10 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import api from "../../api/axiosInstance";
 import { cleanImageUrl } from "../../utils";
 import "./CategoryItems.css";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Loader from "../Loader";
 import WishlistButton from "../WishlistButton";
 import AddToCartButton from "../CartButton";
-
 
 export default function CategoryItems() {
   const { id } = useParams();
@@ -16,8 +15,8 @@ export default function CategoryItems() {
 
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
-  const [hasFetched, setHasFetched] = useState(false);
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const abortRef = useRef(null);
   const debounceRef = useRef(null);
@@ -25,7 +24,7 @@ export default function CategoryItems() {
   const categoryName =
     location.state?.categoryName || "Category Products";
 
-  /* 🧹 Cleanup on unmount */
+  /* 🧹 Cleanup */
   useEffect(() => {
     return () => {
       abortRef.current?.abort();
@@ -33,47 +32,51 @@ export default function CategoryItems() {
     };
   }, []);
 
-  /* 🔁 Reset state when category changes */
+  /* 🔁 Reset on category change */
   useEffect(() => {
     setItems([]);
     setFilteredItems([]);
     setSearch("");
-    setHasFetched(false);
+    setIsLoading(true);
   }, [id]);
 
-  /* 📦 Fetch category items */
-  const fetchCategoryItems = useCallback(async () => {
-    try {
-      abortRef.current?.abort();
-      abortRef.current = new AbortController();
+  /* 📦 Fetch items */
+ const requestIdRef = useRef(0);
 
-      const res = await api.get(`/api/v1/categories/items/${id}`, {
-        params: { limit: 20, offset: 1 },
-        headers: {
-          zoneId: JSON.stringify([3]),
-          moduleId: 2,
-        },
-        signal: abortRef.current.signal,
-      });
+const fetchCategoryItems = useCallback(async () => {
+  const requestId = ++requestIdRef.current;
 
-      const data =
-        res.data?.items ||
-        res.data?.products ||
-        [];
+  try {
+    setIsLoading(true);
 
-      setItems(data);
-      setFilteredItems(data);
-    } catch (err) {
-      if (err.name !== "CanceledError") {
-        console.error(
-          "Category items error:",
-          err?.response?.data || err
-        );
-      }
-    } finally {
-      setHasFetched(true);
+    const res = await api.get(`/api/v1/categories/items/${id}`, {
+      params: { limit: 20, offset: 1 },
+      headers: {
+        zoneId: JSON.stringify([3]),
+        moduleId: 2,
+      },
+    });
+
+    if (requestId !== requestIdRef.current) return;
+
+    const data =
+      res.data?.items ||
+      res.data?.products ||
+      [];
+
+    setItems(data);
+    setFilteredItems(data);
+  } catch (err) {
+    if (requestId === requestIdRef.current) {
+      console.error("Category items error:", err);
     }
-  }, [id]);
+  } finally {
+    if (requestId === requestIdRef.current) {
+      setIsLoading(false);
+    }
+  }
+}, [id]);
+
 
   /* 🔁 Load data */
   useEffect(() => {
@@ -101,8 +104,8 @@ export default function CategoryItems() {
     return () => clearTimeout(debounceRef.current);
   }, [search, items]);
 
-  /* 🔴 EARLY RETURN — LOADER (NO FLASH GUARANTEE) */
-  if (!hasFetched) {
+  /* 🔴 LOADER — INITIAL & CATEGORY CHANGE */
+  if (isLoading) {
     return (
       <div className="category-items-page">
         <div className="category-loader">
@@ -129,7 +132,7 @@ export default function CategoryItems() {
         </div>
       </div>
 
-      {/* ❌ EMPTY STATE */}
+      {/* ❌ EMPTY STATE — AFTER LOADING */}
       {items.length === 0 && (
         <p className="empty-text">No medicines found</p>
       )}
@@ -152,6 +155,7 @@ export default function CategoryItems() {
             >
               <WishlistButton item={item} />
               <AddToCartButton item={item} />
+
               <img
                 src={cleanImageUrl(item.image_full_url)}
                 alt={item.name}
@@ -159,6 +163,7 @@ export default function CategoryItems() {
                   (e.currentTarget.src = "/no-image.png")
                 }
               />
+
               <h4>{item.name}</h4>
               <p>₹{item.price}</p>
             </div>
