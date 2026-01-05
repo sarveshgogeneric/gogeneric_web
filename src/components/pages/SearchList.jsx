@@ -4,6 +4,7 @@ import api from "../../api/axiosInstance";
 import { cleanImageUrl } from "../../utils";
 import "./SearchList.css";
 import WishlistButton from "../WishlistButton";
+import Footer from "../Footer";
 export default function SearchList() {
   const [params] = useSearchParams();
   const query = params.get("query");

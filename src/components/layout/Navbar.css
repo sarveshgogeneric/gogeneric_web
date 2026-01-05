@@ -239,3 +239,8 @@
     display: none !important;
   }
 }
+@media (min-width: 1024px) {
+  .side-links > li:nth-child(-n+8) {
+    display: none;
+  }
+}
