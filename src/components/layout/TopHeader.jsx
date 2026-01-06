@@ -15,7 +15,7 @@ import { useLocation } from "../../context/LocationContext";
 
 export default function TopHeader() {
   const { t } = useTranslation();
-  const { location, setLocation } = useLocation();
+  const { location, setLocation, notifyAddressChange } = useLocation();
 
   const [open, setOpen] = useState(false);
   const [openLocationModal, setOpenLocationModal] = useState(false);
@@ -61,7 +61,6 @@ export default function TopHeader() {
     <>
       <nav className="topheader-wrapper w-full">
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-          {/* 📍 LOCATION */}
           <div
             className="location-trigger group"
             onClick={() => setOpenLocationModal(true)}
@@ -100,9 +99,7 @@ export default function TopHeader() {
                 />
                 <span className="text-sm font-medium">{language.name}</span>
                 <IoMdArrowDropdown
-                  className={`transition-transform ${
-                    open ? "rotate-180" : ""
-                  }`}
+                  className={`transition-transform ${open ? "rotate-180" : ""}`}
                 />
               </div>
 
@@ -156,19 +153,16 @@ export default function TopHeader() {
               address: loc.address,
             };
 
-            // 🔥 EXISTING BEHAVIOR (unchanged)
             setLocation(payload);
             localStorage.setItem("user_location", JSON.stringify(payload));
 
-            // ✅ SAFE BACKEND SAVE (no duplicates)
             try {
               const token = localStorage.getItem("token");
               if (!token) return;
 
-              const res = await api.get(
-                "/api/v1/customer/address/list",
-                { headers: { Authorization: `Bearer ${token}` } }
-              );
+              const res = await api.get("/api/v1/customer/address/list", {
+                headers: { Authorization: `Bearer ${token}` },
+              });
               console.log("ADDress list", res.data);
               const addresses = res.data?.addresses || [];
 
@@ -192,7 +186,7 @@ export default function TopHeader() {
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
               }
-
+              notifyAddressChange();
               toast.success("Delivery location updated");
             } catch (err) {
               console.error(err);

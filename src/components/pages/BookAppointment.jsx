@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./BookAppointment.css";
 
-const DATE_OPTIONS = [
-  { label: "Today", value: "today" },
-  { label: "Tomorrow", value: "tomorrow" }
-];
+const getTodayDate = () => {
+  const today = new Date();
+  return today.toISOString().split("T")[0];
+};
+
 
 const TIME_SLOTS = [
   "10:00 AM - 12:00 PM",
@@ -27,24 +28,27 @@ export default function BookAppointment({ phone, planName, planPrice }) {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
   const [showPayNow, setShowPayNow] = useState(false);
-
   const now = new Date();
   const numericPrice = getNumericPrice(planPrice);
 
   const isSlotDisabled = (slot) => {
-    if (selectedDate !== "today") return false;
+  if (!selectedDate) return true;
 
-    const slotEnd = getSlotEndTime(slot);
-    const currentTime = new Date(
-      `1970-01-01 ${now.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true
-      })}`
-    );
+  const today = getTodayDate();
+  if (selectedDate !== today) return false;
 
-    return currentTime > slotEnd;
-  };
+  const slotEnd = getSlotEndTime(slot);
+  const now = new Date(
+    `1970-01-01 ${new Date().toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    })}`
+  );
+
+  return now > slotEnd;
+};
+
 
   const handleWhatsAppBooking = () => {
     if (!selectedDate || !selectedSlot) {
@@ -52,7 +56,8 @@ export default function BookAppointment({ phone, planName, planPrice }) {
       return;
     }
 
-    const dateText = selectedDate === "today" ? "Today" : "Tomorrow";
+    const dateText = new Date(selectedDate).toDateString();
+
 
     const message = `Hello Doctor
 I want to book an appointment.
@@ -105,22 +110,19 @@ Please confirm the appointment.`;
     <div className="booking-container">
 
       <div className="section">
-        <h4>Select Date</h4>
-        <div className="options-row">
-          {DATE_OPTIONS.map((d) => (
-            <button
-              key={d.value}
-              className={`option-btn ${selectedDate === d.value ? "active" : ""}`}
-              onClick={() => {
-                setSelectedDate(d.value);
-                setSelectedSlot("");
-              }}
-            >
-              {d.label}
-            </button>
-          ))}
-        </div>
-      </div>
+  <h4>Select Date</h4>
+  <input
+    type="date"
+    className="calendar-input"
+    value={selectedDate}
+    min={getTodayDate()}   
+    onChange={(e) => {
+      setSelectedDate(e.target.value);
+      setSelectedSlot("");
+      setShowPayNow(false);
+    }}
+  />
+</div>
 
       <div className="section">
         <h4>Select Time Slot</h4>

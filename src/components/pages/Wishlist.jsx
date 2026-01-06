@@ -68,6 +68,10 @@ if (wishlist.length === 0) {
         Save medicines or healthcare items<br />
         to quickly access them later.
       </p>
+      <br/>
+      <button className="explore-btn" onClick={() => navigate("/")}>
+            Browse Medicines
+          </button>
     </div>
   );
 }
@@ -75,7 +79,7 @@ if (wishlist.length === 0) {
   return (
     <div className="wishlist-page max-w-7xl mx-auto">
       <h2 className="wishlist-heading">
-        <Heart size={20} /> Your Wishlist
+        <Heart size={20} /> My Wishlist
       </h2>
 
       <div className="items-grid">

@@ -44,7 +44,6 @@ export const doctors = [
         title: "Per Appointment",
         subtitle: "Follow-up",
         price: "₹199",
-        featured: true,
         features: {
           "Health & Lifestyle Assessment": true,
           "Goal Setting": "Per Assessment",
@@ -60,6 +59,7 @@ export const doctors = [
         id: "monthly",
         title: "Monthly Plan",
         subtitle: "Regular Improvement",
+        featured: true,
         price: "₹499",
         features: {
           "Health & Lifestyle Assessment": true,

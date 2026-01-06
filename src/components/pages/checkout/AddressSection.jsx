@@ -10,19 +10,20 @@ export default function AddressSection({ deliveryType, onSelect }) {
   const [selectedId, setSelectedId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [editingAddress, setEditingAddress] = useState(null);
-  const { location } = useLocation();
+  const { location, addressVersion } = useLocation();
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    // console.log("Delivery type", deliveryType); 
-    // console.log("Token", token);    
-  if (deliveryType === "delivery") {
-    fetchAddresses();
-  } else {
+ useEffect(() => {
+  if (deliveryType !== "delivery") {
     setAddresses([]);
     setSelectedId(null);
+    return;
   }
-}, [deliveryType]);
+
+  if (!location) return;
+
+  fetchAddresses();
+}, [deliveryType, location, addressVersion]);
 
 
   const fetchAddresses = async () => {

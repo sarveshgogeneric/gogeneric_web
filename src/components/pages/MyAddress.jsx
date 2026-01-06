@@ -4,8 +4,9 @@ import Loader from "../../components/Loader";
 import toast from "react-hot-toast";
 import AddressForm from "./checkout/AddressForm";
 import "./MyAddress.css";
-
+import { useLocation } from "../../context/LocationContext";
 export default function MyAddress() {
+  const { location,addressVersion } = useLocation();
   const [addresses, setAddresses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,8 +26,11 @@ export default function MyAddress() {
   };
 
   useEffect(() => {
-    fetchAddresses();
-  }, []);
+    if (!location) return;
+      fetchAddresses(); 
+    
+  }, [location,addressVersion]);
+
 
   const handleEdit = (address) => {
     setSelectedAddress(address);

@@ -115,6 +115,21 @@
   color: #888;
 }
 
+.calendar-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.calendar-input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
 
 
 @keyframes slideUp {
