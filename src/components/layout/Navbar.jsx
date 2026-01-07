@@ -20,6 +20,14 @@ import {
   FaFileContract,
   FaHeart,
   FaShippingFast,
+  FaHome,
+  FaInfoCircle,
+  FaClinicMedical,
+  FaFlask,
+  FaUserMd,
+  FaNewspaper,
+  FaPhoneAlt,
+  FaUsers
 } from "react-icons/fa";
 import { MdPrivacyTip } from "react-icons/md";
 import api from "../../api/axiosInstance";
@@ -203,49 +211,49 @@ export default function Navbar() {
         <ul className="side-links">
           <li>
             <Link to="/" onClick={() => handleNavigate("/")}>
-              Home
+              <FaHome/> Home
             </Link>
           </li>
 
           <li>
             <Link to="/aboutus" onClick={() => handleNavigate("/aboutus")}>
-              About
+             <FaInfoCircle /> About
             </Link>
           </li>
 
           <li>
             <Link to="/pharmacy" onClick={() => handleNavigate("/pharmacy")}>
-              Pharmacy
+             <FaClinicMedical /> Pharmacy
             </Link>
           </li>
 
           <li>
             <Link to="/labs" onClick={() => handleNavigate("/labs")}>
-              Labs
+             <FaFlask /> Labs
             </Link>
           </li>
 
           <li>
             <Link to="/doctors" onClick={() => handleNavigate("/doctors")}>
-              Doctors
+             <FaUserMd />  Doctors
             </Link>
           </li>
 
           <li>
             <Link to="/blog" onClick={() => handleNavigate("/blog")}>
-              Blog
+             <FaNewspaper /> Blog
             </Link>
           </li>
 
           <li>
             <Link to="/contactus" onClick={() => handleNavigate("/contactus")}>
-              Contact Us
+             <FaPhoneAlt /> Contact Us
             </Link>
           </li>
 
           <li>
             <Link to="/whoweare" onClick={() => handleNavigate("/whoweare")}>
-              Who We Are
+             <FaUsers /> Who We Are
             </Link>
           </li>
           <li>
