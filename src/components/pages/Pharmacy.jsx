@@ -90,7 +90,7 @@ export default function Pharmacy() {
           filteredStores.map((store, index) => {
             const showDistance = hasUserLocation && typeof store.distance === "number";
             const distance = showDistance ? `${(store.distance / 1000).toFixed(1)} km` : null;
-
+const isOpen = store.open === 1;
             return (
               <div
                 className="pharmacy-card"
@@ -116,9 +116,9 @@ export default function Pharmacy() {
                         <MdLocationOn size={14} /> {distance}
                       </span>
                     )}
-                    <span className={store.isOpen ? "status-open" : "status-closed"}>
-                      {store.isOpen ? "Open" : "Closed"}
-                    </span>
+                    <span className={isOpen ? "status-open" : "status-closed"}>
+  {isOpen ? "Open" : "Closed"}
+</span>
                   </div>
 
                   <button
